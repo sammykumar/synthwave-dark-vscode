@@ -7,10 +7,10 @@ const diff = require('semver/functions/diff');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	this.extensionName = 'RobbOwen.synthwave-vscode';
+	this.extensionName = '.synthwave-dark-vscode';
 	this.cntx = context;
 	
-	const config = vscode.workspace.getConfiguration("synthwave84");
+	const config = vscode.workspace.getConfiguration("synthwave.dark84");
 
 	let disableGlow = config && config.disableGlow ? !!config.disableGlow : false;
 	
@@ -21,7 +21,7 @@ function activate(context) {
 	const parsedBrightness = Math.floor(brightness * 255).toString(16).toUpperCase();
 	let neonBrightness = parsedBrightness;
 
-	let disposable = vscode.commands.registerCommand('synthwave84.enableNeon', function () {
+	let disposable = vscode.commands.registerCommand('synthwave.dark84.enableNeon', function () {
 
 		const isWin = /^win/.test(process.platform);
 		const appDir = path.dirname(require.main.filename);
@@ -91,7 +91,7 @@ function activate(context) {
 		}
 	});
 
-	let disable = vscode.commands.registerCommand('synthwave84.disableNeon', uninstall);
+	let disable = vscode.commands.registerCommand('synthwave.dark84.disableNeon', uninstall);
 	
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disable);
