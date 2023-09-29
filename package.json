@@ -1,14 +1,14 @@
 {
-    "name": "synthwave-vscode",
-    "displayName": "SynthWave '84",
+    "name": "synthwave-dark-vscode",
+    "displayName": "SynthWave Dark '84",
     "description": "A Synthwave-inspired colour theme to satisfy your neon dreams",
     "version": "0.1.15",
-    "author": "Robb Owen",
-    "publisher": "RobbOwen",
+    "author": "Sammy Kumar",
+    "publisher": "SammyKumar",
     "icon": "icon.png",
     "repository": {
         "type": "git",
-        "url": "https://github.com/robb0wen/synthwave-vscode"
+        "url": "https://github.com/sammykumar/synthwave-dark-vscode"
     },
     "engines": {
         "vscode": "^1.33.0"
@@ -28,7 +28,7 @@
     "contributes": {
         "themes": [
             {
-                "label": "SynthWave '84",
+                "label": "SynthWave Dark '84",
                 "uiTheme": "vs-dark",
                 "path": "./themes/synthwave-color-theme.json"
             }
