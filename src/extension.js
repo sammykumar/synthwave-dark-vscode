@@ -7,7 +7,7 @@ const diff = require('semver/functions/diff');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	this.extensionName = '.synthwave-dark-vscode';
+	this.extensionName = 'SammyKumar.synthwave-dark-vscode';
 	this.cntx = context;
 	
 	const config = vscode.workspace.getConfiguration("synthwave.dark84");
