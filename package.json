@@ -21,8 +21,8 @@
         "Themes"
     ],
     "activationEvents": [
-        "onCommand:synthwavedark84.enableNeon",
-        "onCommand:synthwavedark84.disableNeon"
+        "onCommand:synthwave.dark84.enableNeon",
+        "onCommand:synthwave.dark84.disableNeon"
     ],
     "main": "./src/extension.js",
     "contributes": {
