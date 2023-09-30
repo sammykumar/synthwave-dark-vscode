@@ -1,10 +1,10 @@
 {
-    "name": "synthwave-vscode",
-    "displayName": "SynthWave '84",
+    "name": "synthwave-dark-vscode",
+    "displayName": "SynthWave Dark",
     "description": "A Synthwave-inspired colour theme to satisfy your neon dreams",
-    "version": "0.1.15",
-    "author": "Robb Owen",
-    "publisher": "RobbOwen",
+    "version": "0.1",
+    "author": "Sammy Kumar",
+    "publisher": "SammyKumar",
     "icon": "icon.png",
     "repository": {
         "type": "git",
@@ -20,38 +20,34 @@
     "categories": [
         "Themes"
     ],
-    "activationEvents": [
-        "onCommand:synthwave84.enableNeon",
-        "onCommand:synthwave84.disableNeon"
-    ],
     "main": "./src/extension.js",
     "contributes": {
         "themes": [
             {
-                "label": "SynthWave '84",
+                "label": "SynthWave Dark",
                 "uiTheme": "vs-dark",
                 "path": "./themes/synthwave-color-theme.json"
             }
         ],
         "commands": [
             {
-                "command": "synthwave84.enableNeon",
-                "title": "Synthwave '84: Enable Neon Dreams"
+                "command": "synthwaveDark.enableNeon",
+                "title": "Synthwave Dark: Enable Neon Dreams"
             },
             {
-                "command": "synthwave84.disableNeon",
-                "title": "Synthwave '84: Disable Neon Dreams"
+                "command": "synthwaveDark.disableNeon",
+                "title": "Synthwave Dark: Disable Neon Dreams"
             }
         ],
         "configuration": {
-            "title": "Synthwave '84",
+            "title": "Synthwave Dark",
             "properties": {
-                "synthwave84.brightness": {
+                "synthwaveDark.brightness": {
                     "type": "number",
-                    "default": 0.45,
+                    "default": 1,
                     "description": "Set the brightness value for the glow effect. 0.0 is fully transparent and 1.0 is fully bright"
                 },
-                "synthwave84.disableGlow": {
+                "synthwaveDark.disableGlow": {
                     "type": "boolean",
                     "default": false,
                     "description": "Disable the glow effect, but show Synthwave '84 editor chrome updates"
