@@ -2,7 +2,7 @@
     "name": "synthwave-dark-vscode",
     "displayName": "SynthWave Dark",
     "description": "A Synthwave-inspired colour theme to satisfy your neon dreams",
-    "version": "0.1",
+    "version": "1.0.0",
     "author": "Sammy Kumar",
     "publisher": "SammyKumar",
     "icon": "icon.png",
@@ -19,6 +19,10 @@
     ],
     "categories": [
         "Themes"
+    ],
+    "activationEvents": [
+        "onCommand:synthwave84.enableNeon",
+        "onCommand:synthwave84.disableNeon"
     ],
     "main": "./src/extension.js",
     "contributes": {
