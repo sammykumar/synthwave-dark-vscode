@@ -49,7 +49,7 @@
    */
   const usingSynthwave = () => {
     const appliedTheme = document.querySelector('[class*="theme-json"]');
-    const synthWaveTheme = document.querySelector('[class*="RobbOwen-synthwave-vscode-themes"]');
+    const synthWaveTheme = document.querySelector('[class*="SammyKumar-synthwave-dark-vscode-themes"]');
     return appliedTheme && synthWaveTheme;
   }
 
