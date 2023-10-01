@@ -214,7 +214,7 @@
       "name": "Language constant (boolean, null)",
       "scope": "constant.language",
       "settings": {
-        "foreground": "#1afc65"
+        "foreground": "#72f1b8"
         // "foreground": "#f97e72"
       }
     },
