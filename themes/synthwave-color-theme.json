@@ -137,7 +137,7 @@
         "string.quoted.docstring.multi.python punctuation.definition.string.end.python"
       ],
       "settings": {
-        "foreground": "#848bbd",
+        "foreground": "#ae81ff",
         "fontStyle": "italic"
       }
     },
@@ -149,7 +149,7 @@
         "punctuation.definition.string"
       ],
       "settings": {
-        "foreground": "#ff8b39"
+        "foreground": "#a9dc76"
       }
     },
     {
@@ -163,14 +163,14 @@
       "name": "Variable",
       "scope": ["variable", "entity.name.variable"],
       "settings": {
-        "foreground": "#f73232"
+        "foreground": "#f94688"
       }
     },
     {
       "name": "Language variable",
       "scope": "variable.language",
       "settings": {
-        "foreground": "#fe4450",
+        "foreground": "#1afc65",
         "fontStyle": "bold"
       }
     },
@@ -179,7 +179,7 @@
       "scope": "variable.parameter",
       "settings": {
         "fontStyle": "italic",
-        "foreground": "#28b881"
+        "foreground": "#FFFFFF"
       }
     },
     {
@@ -214,7 +214,7 @@
       "name": "Language constant (boolean, null)",
       "scope": "constant.language",
       "settings": {
-        "foreground": "#1afc65"
+        "foreground": "#72f1b8"
         // "foreground": "#f97e72"
       }
     },
@@ -229,7 +229,7 @@
       "name": "Entity",
       "scope": "entity.name",
       "settings": {
-        "foreground": "#fe4450"
+        "foreground": "#f94688"
       }
     },
     {
@@ -265,7 +265,7 @@
       "name": "Class",
       "scope": ["entity.name.type", "meta.attribute.class.html"],
       "settings": {
-        "foreground": "#fe4450"
+        "foreground": "#f94688"
       }
     },
     {
@@ -293,7 +293,7 @@
       "name": "JS Numerics",
       "scope": ["constant.numeric.decimal.js"],
       "settings": {
-        "foreground": "#2EE2FA"
+        "foreground": "##78dce8"
       }
     },
     {
@@ -339,7 +339,7 @@
       "name": "Support",
       "scope": "support",
       "settings": {
-        "foreground": "#fe4450"
+        "foreground": "#f94688"
       }
     },
     {
@@ -415,7 +415,7 @@
       "name": "JS object path",
       "scope": "variable.other.constant.property.js, variable.other.property.js",
       "settings": {
-        "foreground": "#2ee2fa"
+        "foreground": "##78dce8"
       },
     },
     {
@@ -453,7 +453,7 @@
       "name": "CSS support functions (rgb)",
       "scope": "support.function.misc.css",
       "settings": {
-        "foreground": "#fe4450"
+        "foreground": "#f94688"
       }
     },
     {
@@ -517,7 +517,7 @@
       "name": "C# storage type",
       "scope": "storage.type.cs",
       "settings": {
-        "foreground": "#fe4450"
+        "foreground": "#f94688"
       }
     },
     {
@@ -559,7 +559,7 @@
       "name": "C storage modifier",
       "scope": "storage.modifier.c",
       "settings": {
-        "foreground": "#fe4450"
+        "foreground": "#f94688"
       }
     },
     {
@@ -591,7 +591,7 @@
       "name": "C++ constant modifier",
       "scope": "storage.modifier.specifier.const.cpp",
       "settings": {
-        "foreground": "#fe4450"
+        "foreground": "#f94688"
       }
     },
     {
@@ -673,7 +673,7 @@
         "meta.metadata.map.clojure"
       ],
       "settings": {
-        "foreground": "#fe4450",
+        "foreground": "#f94688",
         "fontStyle": "italic"
       }
     },
@@ -745,7 +745,7 @@
         "source.go variable"
       ],
       "settings": {
-        "foreground": "#2EE2FA"
+        "foreground": "##78dce8"
       }
     },
     {
@@ -785,7 +785,7 @@
         "markup.italic.markdown",
       ],
       "settings": {
-        "foreground": "#2EE2FA",
+        "foreground": "##78dce8",
         "fontStyle": "italic"
       }
     },
@@ -795,7 +795,7 @@
         "markup.bold.markdown",
       ],
       "settings": {
-        "foreground": "#2EE2FA",
+        "foreground": "##78dce8",
         "fontStyle": "bold"
       }
     },
@@ -840,7 +840,7 @@
         "constant.numeric.dart",
       ],
       "settings": {
-        "foreground": "#2EE2FA",
+        "foreground": "##78dce8",
       }
     },
     {
@@ -849,7 +849,7 @@
         "variable.parameter.scala",
       ],
       "settings": {
-        "foreground": "#2EE2FA",
+        "foreground": "##78dce8",
       }
     },
     {
