@@ -2,7 +2,7 @@
   "name": "synthwave-dark-vscode",
   "displayName": "SynthWave Dark",
   "description": "A Dark Synthwave/Monokai inspired colour theme to satisfy your neon dreams",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "author": "Sammy Kumar",
   "publisher": "SammyKumar",
   "icon": "icon.png",
@@ -66,5 +66,11 @@
   },
   "dependencies": {
     "semver": "^7.1.1"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.1.1"
+  },
+  "scripts": {
+    "package": "vsce package"
   }
 }
