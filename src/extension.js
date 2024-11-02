@@ -51,7 +51,7 @@ function activate(context) {
 
       const htmlFile = path.join(
         appDir,
-        "vs/code/electron-sandbox/workbench/workbench.esm.html"
+        "vs/code/electron-sandbox/workbench/workbench.html"
       );
 
       console.log("htmlFile Path", htmlFile);
@@ -129,6 +129,7 @@ function activate(context) {
         }
       } catch (e) {
         if (/ENOENT|EACCES|EPERM/.test(e.code)) {
+          console.log(e);
           vscode.window.showInformationMessage(
             "Neon Dreams was unable to modify the core VS code files needed to launch the extension. You may need to run VS code with admin privileges in order to enable Neon Dreams."
           );
