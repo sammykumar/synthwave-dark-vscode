@@ -51,7 +51,7 @@ function activate(context) {
 
       const htmlFile = path.join(
         appDir,
-        "vs/code/electron-sandbox/workbench/workbench.esm.html"
+        "vs/code/electron-sandbox/workbench/workbench.html"
       );
 
       console.log("htmlFile Path", htmlFile);
@@ -66,14 +66,23 @@ function activate(context) {
         // const version = context.globalState.get(`${context.extensionName}.version`);
 
         // generate production theme JS
+
+        console.log("Reading Styles from css/editor_chrome.css");
+
+        // Read styles from css/editor_chrome.css
         const chromeStyles = fs.readFileSync(
           __dirname + "/css/editor_chrome.css",
           "utf-8"
         );
+        // Read template from js/theme_template.js
         const jsTemplate = fs.readFileSync(
           __dirname + "/js/theme_template.js",
           "utf-8"
         );
+
+        console.log("Starting JS template file replacements");
+
+        // Starting with the js template, process the file replacements and then send output to next stpe for replacements
         const themeWithGlow = jsTemplate.replace(
           /\[DISABLE_GLOW\]/g,
           disableGlow
@@ -86,6 +95,10 @@ function activate(context) {
           /\[NEON_BRIGHTNESS\]/g,
           neonBrightness
         );
+
+        console.log("Creating final theme");
+
+        // Create the final theme
         fs.writeFileSync(templateFile, finalTheme, "utf-8");
 
         // modify workbench html
@@ -129,6 +142,7 @@ function activate(context) {
         }
       } catch (e) {
         if (/ENOENT|EACCES|EPERM/.test(e.code)) {
+          console.log(e);
           vscode.window.showInformationMessage(
             "Neon Dreams was unable to modify the core VS code files needed to launch the extension. You may need to run VS code with admin privileges in order to enable Neon Dreams."
           );
