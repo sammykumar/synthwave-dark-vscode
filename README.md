@@ -1,11 +1,10 @@
-# SynthWave '84 - VS Code theme
-![Synthwave '84 logo over a cityscape](./banner.png)
+# SynthWave Dark - VS Code theme
+![Synthwave Dark logo](./banner.png)
 
 Do you remember that endless summer back in '84? Cruising down the ocean-highway with the top down, the wind in our hair and heads buzzing with neon dreams? 
 
 No, I don't remember it either, but with this experimental theme we can go there. 
 
-__As of v0.1.0, no external extensions are needed to activate the glow effect!__ 
 
 ![Neon glowing text](./theme.jpg)
 
