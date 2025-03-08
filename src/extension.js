@@ -2,8 +2,8 @@
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-  console.log("Activate synthwave-dark-vscode");
-  this.extensionName = "SammyKumar.synthwave-dark-vscode";
+  console.log("[Synthwave Dark] Extension activated");
+  vscode.window.showInformationMessage("Synthwave Dark activated!");
   this.cntx = context;
 
   const config = vscode.workspace.getConfiguration("synthwaveDark");
@@ -22,7 +22,7 @@ function activate(context) {
 
   // Apply neon effect by default
   applyNeonEffect(disableGlow, neonBrightness);
-  
+
   // Only keep the disable command
   let disable = vscode.commands.registerCommand(
     "synthwaveDark.disableNeon",
@@ -34,6 +34,7 @@ function activate(context) {
 
 // New function to apply neon effect (extracted from the original enable command)
 function applyNeonEffect(disableGlow, neonBrightness) {
+  console.log("Applying Neon Effect");
   const isWin = /^win/.test(process.platform);
 
   var appDir;
@@ -80,10 +81,7 @@ function applyNeonEffect(disableGlow, neonBrightness) {
     console.log("Starting JS template file replacements");
 
     // Starting with the js template, process the file replacements and then send output to next stpe for replacements
-    const themeWithGlow = jsTemplate.replace(
-      /\[DISABLE_GLOW\]/g,
-      disableGlow
-    );
+    const themeWithGlow = jsTemplate.replace(/\[DISABLE_GLOW\]/g, disableGlow);
     const themeWithChrome = themeWithGlow.replace(
       /\[CHROME_STYLES\]/g,
       chromeStyles

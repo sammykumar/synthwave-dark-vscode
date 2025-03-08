@@ -2,7 +2,7 @@
   "name": "synthwave-dark-vscode",
   "displayName": "SynthWave Dark",
   "description": "A Dark Synthwave/Monokai inspired colour theme to satisfy your neon dreams",
-  "version": "0.3.3",
+  "version": "0.4.1",
   "author": "Sammy Kumar",
   "publisher": "SammyKumar",
   "icon": "icon.png",
@@ -26,8 +26,7 @@
     "Themes"
   ],
   "activationEvents": [
-    "onCommand:synthwave84.enableNeon",
-    "onCommand:synthwave84.disableNeon"
+    "onStartupFinished"
   ],
   "main": "./src/extension.js",
   "contributes": {
@@ -39,10 +38,6 @@
       }
     ],
     "commands": [
-      {
-        "command": "synthwaveDark.enableNeon",
-        "title": "Synthwave Dark: Enable Neon Dreams"
-      },
       {
         "command": "synthwaveDark.disableNeon",
         "title": "Synthwave Dark: Disable Neon Dreams"
@@ -71,9 +66,12 @@
     "@vscode/vsce": "^3.2.2"
   },
   "scripts": {
+    "version:major": "npm version major",
+    "version:minor": "npm version minor",
+    "version:patch": "npm version patch",
     "package": "vsce package",
     "install-extension": "code-insiders --install-extension synthwave-dark-vscode-*.vsix",
-    "package-and-install": "npm run package && npm run install-extension"
+    "package-and-install": "npm run version:minor && npm run package && npm run install-extension"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
