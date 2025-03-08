@@ -72,5 +72,11 @@
   },
   "scripts": {
     "package": "vsce package"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@vscode/vsce-sign",
+      "keytar"
+    ]
   }
 }
