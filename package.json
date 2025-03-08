@@ -71,7 +71,7 @@
     "version:patch": "npm version patch",
     "package": "vsce package",
     "install-extension": "code-insiders --install-extension synthwave-dark-vscode-*.vsix",
-    "package-and-install": "npm run version:minor && npm run package && npm run install-extension"
+    "package-and-install": "npm run version:patch && npm run package && npm run install-extension"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
