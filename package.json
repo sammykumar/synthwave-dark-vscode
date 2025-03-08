@@ -65,13 +65,15 @@
     }
   },
   "dependencies": {
-    "semver": "^7.1.1"
+    "semver": "^7.7.1"
   },
   "devDependencies": {
-    "@vscode/vsce": "^3.1.1"
+    "@vscode/vsce": "^3.2.2"
   },
   "scripts": {
-    "package": "vsce package"
+    "package": "vsce package",
+    "install-extension": "code-insiders --install-extension synthwave-dark-vscode-*.vsix",
+    "package-and-install": "npm run package && npm run install-extension"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
