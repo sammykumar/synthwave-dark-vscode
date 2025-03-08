@@ -1,12 +1,8 @@
-const path = require("path");
-const fs = require("fs");
-const vscode = require("vscode");
-const diff = require("semver/functions/diff");
-
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+  console.log("Activate synthwave-dark-vscode");
   this.extensionName = "SammyKumar.synthwave-dark-vscode";
   this.cntx = context;
 
@@ -24,212 +20,126 @@ function activate(context) {
     .toUpperCase();
   let neonBrightness = parsedBrightness;
 
-  let disposable = vscode.commands.registerCommand(
-    "synthwaveDark.enableNeon",
-    function () {
-      const isWin = /^win/.test(process.platform);
-
-      var appDir;
-      try {
-        appDir = path.dirname(require.main.filename);
-      } catch {
-        appDir = _VSCODE_FILE_ROOT;
-      }
-
-      console.log("appDir:", appDir);
-
-      const base = appDir + (isWin ? "\\vs\\code" : "/vs/code");
-      const electronBase = isVSCodeBelowVersion("1.70.0")
-        ? "electron-browser"
-        : "electron-sandbox";
-
-      //   const htmlFile =
-      //     base +
-      //     (isWin
-      //       ? "\\" + electronBase + "\\workbench\\workbench.html"
-      //       : "/" + electronBase + "/workbench/workbench.html");
-
-      const htmlFile = path.join(
-        appDir,
-        "vs/code/electron-sandbox/workbench/workbench.html"
-      );
-
-      console.log("htmlFile Path", htmlFile);
-
-      const templateFile =
-        base +
-        (isWin
-          ? "\\" + electronBase + "\\workbench\\neondreams.js"
-          : "/" + electronBase + "/workbench/neondreams.js");
-
-      try {
-        // const version = context.globalState.get(`${context.extensionName}.version`);
-
-        // generate production theme JS
-
-        console.log("Reading Styles from css/editor_chrome.css");
-
-        // Read styles from css/editor_chrome.css
-        const chromeStyles = fs.readFileSync(
-          __dirname + "/css/editor_chrome.css",
-          "utf-8"
-        );
-        // Read template from js/theme_template.js
-        const jsTemplate = fs.readFileSync(
-          __dirname + "/js/theme_template.js",
-          "utf-8"
-        );
-
-        console.log("Starting JS template file replacements");
-
-        // Starting with the js template, process the file replacements and then send output to next stpe for replacements
-        const themeWithGlow = jsTemplate.replace(
-          /\[DISABLE_GLOW\]/g,
-          disableGlow
-        );
-        const themeWithChrome = themeWithGlow.replace(
-          /\[CHROME_STYLES\]/g,
-          chromeStyles
-        );
-        const finalTheme = themeWithChrome.replace(
-          /\[NEON_BRIGHTNESS\]/g,
-          neonBrightness
-        );
-
-        console.log("Creating final theme");
-
-        // Create the final theme
-        fs.writeFileSync(templateFile, finalTheme, "utf-8");
-
-        // modify workbench html
-        const html = fs.readFileSync(htmlFile, "utf-8");
-
-        // check if the tag is already there
-        const isEnabled = html.includes("neondreams.js");
-
-        if (!isEnabled) {
-          // delete synthwave script tag if there
-          let output = html.replace(
-            /^.*(<!-- SYNTHWAVE 84 --><script src="neondreams.js"><\/script><!-- NEON DREAMS -->).*\n?/gm,
-            ""
-          );
-          // add script tag
-          output = html.replace(
-            /\<\/html\>/g,
-            `	<!-- SYNTHWAVE 84 --><script src="neondreams.js"></script><!-- NEON DREAMS -->\n`
-          );
-          output += "</html>";
-
-          fs.writeFileSync(htmlFile, output, "utf-8");
-
-          vscode.window
-            .showInformationMessage(
-              "Neon Dreams enabled. VS code must reload for this change to take effect. Code may display a warning that it is corrupted, this is normal. You can dismiss this message by choosing 'Don't show this again' on the notification.",
-              { title: "Restart editor to complete" }
-            )
-            .then(function (msg) {
-              vscode.commands.executeCommand("workbench.action.reloadWindow");
-            });
-        } else {
-          vscode.window
-            .showInformationMessage(
-              "Neon dreams is already enabled. Reload to refresh JS settings.",
-              { title: "Restart editor to refresh settings" }
-            )
-            .then(function (msg) {
-              vscode.commands.executeCommand("workbench.action.reloadWindow");
-            });
-        }
-      } catch (e) {
-        if (/ENOENT|EACCES|EPERM/.test(e.code)) {
-          console.log(e);
-          vscode.window.showInformationMessage(
-            "Neon Dreams was unable to modify the core VS code files needed to launch the extension. You may need to run VS code with admin privileges in order to enable Neon Dreams."
-          );
-          return;
-        } else {
-          vscode.window.showErrorMessage(
-            "Something went wrong when starting neon dreams"
-          );
-          return;
-        }
-      }
-    }
-  );
-
+  // Apply neon effect by default
+  applyNeonEffect(disableGlow, neonBrightness);
+  
+  // Only keep the disable command
   let disable = vscode.commands.registerCommand(
     "synthwaveDark.disableNeon",
     uninstall
   );
 
-  context.subscriptions.push(disposable);
   context.subscriptions.push(disable);
 }
-exports.activate = activate;
 
-// this method is called when your extension is deactivated
-function deactivate() {
-  // ...
-}
+// New function to apply neon effect (extracted from the original enable command)
+function applyNeonEffect(disableGlow, neonBrightness) {
+  const isWin = /^win/.test(process.platform);
 
-function uninstall() {
-  var isWin = /^win/.test(process.platform);
-  var appDir = path.dirname(require.main.filename);
-  var base = appDir + (isWin ? "\\vs\\code" : "/vs/code");
-  var electronBase = isVSCodeBelowVersion("1.70.0")
+  var appDir;
+  try {
+    appDir = path.dirname(require.main.filename);
+  } catch {
+    appDir = _VSCODE_FILE_ROOT;
+  }
+
+  console.log("appDir:", appDir);
+
+  const base = appDir + (isWin ? "\\vs\\code" : "/vs/code");
+  const electronBase = isVSCodeBelowVersion("1.70.0")
     ? "electron-browser"
     : "electron-sandbox";
 
-  var htmlFile =
+  const htmlFile = path.join(
+    appDir,
+    "vs/code/electron-sandbox/workbench/workbench.html"
+  );
+
+  console.log("htmlFile Path", htmlFile);
+
+  const templateFile =
     base +
     (isWin
-      ? "\\" + electronBase + "\\workbench\\workbench.html"
-      : "/" + electronBase + "/workbench/workbench.html");
+      ? "\\" + electronBase + "\\workbench\\neondreams.js"
+      : "/" + electronBase + "/workbench/neondreams.js");
 
-  // modify workbench html
-  const html = fs.readFileSync(htmlFile, "utf-8");
+  try {
+    console.log("Reading Styles from css/editor_chrome.css");
 
-  // check if the tag is already there
-  const isEnabled = html.includes("neondreams.js");
-
-  if (isEnabled) {
-    // delete synthwave script tag if there
-    let output = html.replace(
-      /^.*(<!-- SYNTHWAVE 84 --><script src="neondreams.js"><\/script><!-- NEON DREAMS -->).*\n?/gm,
-      ""
+    // Read styles from css/editor_chrome.css
+    const chromeStyles = fs.readFileSync(
+      __dirname + "/css/editor_chrome.css",
+      "utf-8"
     );
-    fs.writeFileSync(htmlFile, output, "utf-8");
+    // Read template from js/theme_template.js
+    const jsTemplate = fs.readFileSync(
+      __dirname + "/js/theme_template.js",
+      "utf-8"
+    );
 
-    vscode.window
-      .showInformationMessage(
-        "Neon Dreams disabled. VS code must reload for this change to take effect",
-        { title: "Restart editor to complete" }
-      )
-      .then(function (msg) {
-        vscode.commands.executeCommand("workbench.action.reloadWindow");
-      });
-  } else {
-    vscode.window.showInformationMessage("Neon dreams isn't running.");
-  }
-}
+    console.log("Starting JS template file replacements");
 
-// Returns true if the VS Code version running this extension is below the
-// version specified in the "version" parameter. Otherwise returns false.
-function isVSCodeBelowVersion(version) {
-  const vscodeVersion = vscode.version;
-  const vscodeVersionArray = vscodeVersion.split(".");
-  const versionArray = version.split(".");
+    // Starting with the js template, process the file replacements and then send output to next stpe for replacements
+    const themeWithGlow = jsTemplate.replace(
+      /\[DISABLE_GLOW\]/g,
+      disableGlow
+    );
+    const themeWithChrome = themeWithGlow.replace(
+      /\[CHROME_STYLES\]/g,
+      chromeStyles
+    );
+    const finalTheme = themeWithChrome.replace(
+      /\[NEON_BRIGHTNESS\]/g,
+      neonBrightness
+    );
 
-  for (let i = 0; i < versionArray.length; i++) {
-    if (vscodeVersionArray[i] < versionArray[i]) {
-      return true;
+    console.log("Creating final theme");
+
+    // Create the final theme
+    fs.writeFileSync(templateFile, finalTheme, "utf-8");
+
+    // modify workbench html
+    const html = fs.readFileSync(htmlFile, "utf-8");
+
+    // check if the tag is already there
+    const isEnabled = html.includes("neondreams.js");
+
+    if (!isEnabled) {
+      // delete synthwave script tag if there
+      let output = html.replace(
+        /^.*(<!-- SYNTHWAVE 84 --><script src="neondreams.js"><\/script><!-- NEON DREAMS -->).*\n?/gm,
+        ""
+      );
+      // add script tag
+      output = html.replace(
+        /\<\/html\>/g,
+        `	<!-- SYNTHWAVE 84 --><script src="neondreams.js"></script><!-- NEON DREAMS -->\n`
+      );
+      output += "</html>";
+
+      fs.writeFileSync(htmlFile, output, "utf-8");
+
+      vscode.window
+        .showInformationMessage(
+          "Neon Dreams enabled by default. VS code must reload for this change to take effect. Code may display a warning that it is corrupted, this is normal. You can dismiss this message by choosing 'Don't show this again' on the notification.",
+          { title: "Restart editor to complete" }
+        )
+        .then(function (msg) {
+          vscode.commands.executeCommand("workbench.action.reloadWindow");
+        });
+    }
+  } catch (e) {
+    if (/ENOENT|EACCES|EPERM/.test(e.code)) {
+      console.log(e);
+      vscode.window.showInformationMessage(
+        "Neon Dreams was unable to modify the core VS code files needed to launch the extension. You may need to run VS code with admin privileges in order to enable Neon Dreams."
+      );
+      return;
+    } else {
+      vscode.window.showErrorMessage(
+        "Something went wrong when starting neon dreams"
+      );
+      return;
     }
   }
-
-  return false;
 }
-
-module.exports = {
-  activate,
-  deactivate,
-};
