@@ -8,7 +8,7 @@
 
 .mtk6 {
   color: #ff6188;
-  text-shadow: 0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3;
+  text-shadow: rgba(255,97,137,0.9) 0px 0px 10px;
 }
 
 .mtk7 {
@@ -17,13 +17,13 @@
 }
 
 .mtk8 {
-  color: #f4eee4;
-  text-shadow: 0 0 2px #393a33, 0 0 8px #f39f0575, 0 0 2px #f39f0575;
+  color: #fede5d;
+  text-shadow: rgba(254,222,93,0.9) 0px 0px 39px;
 }
 
 .mtk9 {
-  color: #fede5d;
-  text-shadow: rgba(254,222,93,0.9) 0px 0px 39px;
+  color: #f4eee4;
+  text-shadow: 0 0 2px #393a33, 0 0 8px #f39f0575, 0 0 2px #f39f0575;
 }
 
 .mtk10 {
