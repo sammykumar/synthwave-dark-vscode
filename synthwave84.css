@@ -1,8 +1,3 @@
-.mtk6 {
-  color: #ff6188;
-  text-shadow: 0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3;
-}
-
 .mtk3 {
   color: #6d77b3;
 }
@@ -11,14 +6,29 @@
   color: #f97e72;
 }
 
+.mtk6 {
+  color: #ff6188;
+  text-shadow: 0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3;
+}
+
+.mtk7 {
+  color: #ff6188;
+  text-shadow: 0 0 2px #000, 0 0 10px #fc1f2c75, 0 0 5px #fc1f2c75, 0 0 25px #fc1f2c75;
+}
+
+.mtk8 {
+  color: #f4eee4;
+  text-shadow: 0 0 2px #393a33, 0 0 8px #f39f0575, 0 0 2px #f39f0575;
+}
+
+.mtk9 {
+  color: #fede5d;
+  text-shadow: rgba(254,222,93,0.9) 0px 0px 39px;
+}
+
 .mtk10 {
   color: #fdfdfd;
   text-shadow: 0 0 2px #001716, 0 0 3px #03edf975, 0 0 5px #03edf975, 0 0 8px #03edf975;
-}
-
-.mtk7,.mtk9 {
-  color: #ff6188;
-  text-shadow: 0 0 2px #000, 0 0 10px #fc1f2c75, 0 0 5px #fc1f2c75, 0 0 25px #fc1f2c75;
 }
 
 .mtk11 {
@@ -26,7 +36,7 @@
   text-shadow: 0 0 2px #100c0f, 0 0 10px #257c5575, 0 0 35px #21272475;
 }
 
-.mtk8,.mtk14 {
+.mtk14 {
   color: #f4eee4;
   text-shadow: 0 0 2px #393a33, 0 0 8px #f39f0575, 0 0 2px #f39f0575;
 }
