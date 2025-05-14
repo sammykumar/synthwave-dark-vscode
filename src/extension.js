@@ -27,40 +27,15 @@ function activate(context) {
   let disposable = vscode.commands.registerCommand(
     "synthwaveDark.enableNeon",
     function () {
-      const isWin = /^win/.test(process.platform);
-
-      var appDir;
-      try {
-        appDir = path.dirname(require.main.filename);
-      } catch {
-        appDir = _VSCODE_FILE_ROOT;
-      }
-
-      console.log("appDir:", appDir);
-
-      const base = appDir + (isWin ? "\\vs\\code" : "/vs/code");
+      const appDir = path.dirname(vscode.env.appRoot);
+      const base = path.join(appDir,'app','out','vs','code');
       const electronBase = isVSCodeBelowVersion("1.70.0")
         ? "electron-browser"
         : "electron-sandbox";
+      const workBenchFilename = vscode.version == "1.94.0" ? "workbench.esm.html" : "workbench.html";
 
-      //   const htmlFile =
-      //     base +
-      //     (isWin
-      //       ? "\\" + electronBase + "\\workbench\\workbench.html"
-      //       : "/" + electronBase + "/workbench/workbench.html");
-
-      const htmlFile = path.join(
-        appDir,
-        "vs/code/electron-sandbox/workbench/workbench.html"
-      );
-
-      console.log("htmlFile Path", htmlFile);
-
-      const templateFile =
-        base +
-        (isWin
-          ? "\\" + electronBase + "\\workbench\\neondreams.js"
-          : "/" + electronBase + "/workbench/neondreams.js");
+      const htmlFile = path.join(base, electronBase, "workbench", workBenchFilename);
+		  const templateFile = path.join(base, electronBase, "workbench", "neondreams.js");
 
       try {
         // const version = context.globalState.get(`${context.extensionName}.version`);
@@ -173,18 +148,14 @@ function deactivate() {
 }
 
 function uninstall() {
-  var isWin = /^win/.test(process.platform);
-  var appDir = path.dirname(require.main.filename);
-  var base = appDir + (isWin ? "\\vs\\code" : "/vs/code");
-  var electronBase = isVSCodeBelowVersion("1.70.0")
+	var appDir = path.dirname(vscode.env.appRoot);
+	var base = path.join(appDir, 'app', 'out', 'vs', 'code');
+	var electronBase = isVSCodeBelowVersion("1.70.0")
     ? "electron-browser"
     : "electron-sandbox";
+	var workBenchFilename = vscode.version == "1.94.0" ? "workbench.esm.html" : "workbench.html";
 
-  var htmlFile =
-    base +
-    (isWin
-      ? "\\" + electronBase + "\\workbench\\workbench.html"
-      : "/" + electronBase + "/workbench/workbench.html");
+	var htmlFile = path.join(base, electronBase, "workbench", workBenchFilename);
 
   // modify workbench html
   const html = fs.readFileSync(htmlFile, "utf-8");
@@ -216,15 +187,23 @@ function uninstall() {
 // Returns true if the VS Code version running this extension is below the
 // version specified in the "version" parameter. Otherwise returns false.
 function isVSCodeBelowVersion(version) {
-  const vscodeVersion = vscode.version;
-  const vscodeVersionArray = vscodeVersion.split(".");
-  const versionArray = version.split(".");
+	const vscodeVersion = vscode.version;
+	const vscodeVersionArray = vscodeVersion.split('.').map(Number);
+	const versionArray = version.split('.').map(Number);
 
-  for (let i = 0; i < versionArray.length; i++) {
-    if (vscodeVersionArray[i] < versionArray[i]) {
-      return true;
-    }
-  }
+	const len = Math.max(vscodeVersionArray.length, versionArray.length);
+	
+	for (let i = 0; i < len; i++) {
+		const vscodePart = vscodeVersionArray[i] ?? 0;
+		const versionPart = versionArray[i] ?? 0;
+
+		if (vscodePart < versionPart) {
+			return true;
+		}
+		if (vscodePart > versionPart) {
+			return false;
+		}
+	}
 
   return false;
 }
