@@ -11,6 +11,17 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"]
+    },
+    {
+      "name": "Extension Tests",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/src/test/suite/index",
+        "--disable-extensions"
+      ],
+      "outFiles": ["${workspaceFolder}/src/**/*.js"]
     }
   ]
 }
