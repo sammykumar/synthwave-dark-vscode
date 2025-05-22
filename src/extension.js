@@ -24,14 +24,25 @@ function activate(context) {
     "synthwaveDark.enableNeon",
     function () {
       const appDir = path.dirname(vscode.env.appRoot);
-      const base = path.join(appDir,'app','out','vs','code');
+      const base = path.join(appDir, "app", "out", "vs", "code");
       const electronBase = isVSCodeBelowVersion("1.70.0")
         ? "electron-browser"
         : "electron-sandbox";
-      const workBenchFilename = vscode.version == "1.94.0" ? "workbench.esm.html" : "workbench.html";
+      const workBenchFilename =
+        vscode.version == "1.94.0" ? "workbench.esm.html" : "workbench.html";
 
-      const htmlFile = path.join(base, electronBase, "workbench", workBenchFilename);
-		  const templateFile = path.join(base, electronBase, "workbench", "neondreams.js");
+      const htmlFile = path.join(
+        base,
+        electronBase,
+        "workbench",
+        workBenchFilename
+      );
+      const templateFile = path.join(
+        base,
+        electronBase,
+        "workbench",
+        "neondreams.js"
+      );
 
       try {
         // const version = context.globalState.get(`${context.extensionName}.version`);
@@ -150,71 +161,72 @@ function applyNeonEffect(disableGlow, neonBrightness) {
   }
 
   console.log("appDir:", appDir);
+}
 
 function uninstall() {
-	var appDir = path.dirname(vscode.env.appRoot);
-	var base = path.join(appDir, 'app', 'out', 'vs', 'code');
-	var electronBase = isVSCodeBelowVersion("1.70.0")
-
+  var appDir = path.dirname(vscode.env.appRoot);
+  var base = path.join(appDir, "app", "out", "vs", "code");
+  var electronBase = isVSCodeBelowVersion("1.70.0")
     ? "electron-browser"
     : "electron-sandbox";
-	var workBenchFilename = vscode.version == "1.94.0" ? "workbench.esm.html" : "workbench.html";
+  var workBenchFilename =
+    vscode.version == "1.94.0" ? "workbench.esm.html" : "workbench.html";
 
-	var htmlFile = path.join(base, electronBase, "workbench", workBenchFilename);
+  var htmlFile = path.join(base, electronBase, "workbench", workBenchFilename);
 
-    // Read styles from css/editor_chrome.css
-    const chromeStyles = fs.readFileSync(
-      __dirname + "/css/editor_chrome.css",
-      "utf-8"
-    );
-    // Read template from js/theme_template.js
-    const jsTemplate = fs.readFileSync(
-      __dirname + "/js/theme_template.js",
-      "utf-8"
-    );
+  // Read styles from css/editor_chrome.css
+  const chromeStyles = fs.readFileSync(
+    __dirname + "/css/editor_chrome.css",
+    "utf-8"
+  );
+  // Read template from js/theme_template.js
+  const jsTemplate = fs.readFileSync(
+    __dirname + "/js/theme_template.js",
+    "utf-8"
+  );
 
-    console.log("Starting JS template file replacements");
+  console.log("Starting JS template file replacements");
 
-    // Starting with the js template, process the file replacements and then send output to next stpe for replacements
-    const themeWithGlow = jsTemplate.replace(/\[DISABLE_GLOW\]/g, disableGlow);
-    const themeWithChrome = themeWithGlow.replace(
-      /\[CHROME_STYLES\]/g,
-      chromeStyles
-    );
-    const finalTheme = themeWithChrome.replace(
-      /\[NEON_BRIGHTNESS\]/g,
-      neonBrightness
-    );
+  // Starting with the js template, process the file replacements and then send output to next stpe for replacements
+  const themeWithGlow = jsTemplate.replace(/\[DISABLE_GLOW\]/g, disableGlow);
+  const themeWithChrome = themeWithGlow.replace(
+    /\[CHROME_STYLES\]/g,
+    chromeStyles
+  );
+  const finalTheme = themeWithChrome.replace(
+    /\[NEON_BRIGHTNESS\]/g,
+    neonBrightness
+  );
 
-    console.log("Creating final theme");
+  console.log("Creating final theme");
 
-    // Create the final theme
-    fs.writeFileSync(templateFile, finalTheme, "utf-8");
+  // Create the final theme
+  fs.writeFileSync(templateFile, finalTheme, "utf-8");
 
-    // modify workbench html
-    const html = fs.readFileSync(htmlFile, "utf-8");
+  // modify workbench html
+  const html = fs.readFileSync(htmlFile, "utf-8");
+}
 
 // Returns true if the VS Code version running this extension is below the
 // version specified in the "version" parameter. Otherwise returns false.
 function isVSCodeBelowVersion(version) {
-	const vscodeVersion = vscode.version;
-	const vscodeVersionArray = vscodeVersion.split('.').map(Number);
-	const versionArray = version.split('.').map(Number);
+  const vscodeVersion = vscode.version;
+  const vscodeVersionArray = vscodeVersion.split(".").map(Number);
+  const versionArray = version.split(".").map(Number);
 
-	const len = Math.max(vscodeVersionArray.length, versionArray.length);
-	
-	for (let i = 0; i < len; i++) {
-		const vscodePart = vscodeVersionArray[i] ?? 0;
-		const versionPart = versionArray[i] ?? 0;
+  const len = Math.max(vscodeVersionArray.length, versionArray.length);
 
-		if (vscodePart < versionPart) {
-			return true;
-		}
-		if (vscodePart > versionPart) {
-			return false;
-		}
-	}
+  for (let i = 0; i < len; i++) {
+    const vscodePart = vscodeVersionArray[i] ?? 0;
+    const versionPart = versionArray[i] ?? 0;
+
+    if (vscodePart < versionPart) {
+      return true;
+    }
+    if (vscodePart > versionPart) {
+      return false;
+    }
+  }
 
   return false;
-
 }
