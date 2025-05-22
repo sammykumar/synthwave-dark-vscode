@@ -2,7 +2,7 @@
   "name": "synthwave-dark-vscode",
   "displayName": "SynthWave Dark",
   "description": "A Dark Synthwave/Monokai inspired colour theme to satisfy your neon dreams",
-  "version": "0.3.3",
+  "version": "0.5.1",
   "author": "Sammy Kumar",
   "publisher": "SammyKumar",
   "icon": "icon.png",
@@ -26,8 +26,7 @@
     "Themes"
   ],
   "activationEvents": [
-    "onCommand:synthwave84.enableNeon",
-    "onCommand:synthwave84.disableNeon"
+    "onStartupFinished"
   ],
   "main": "./src/extension.js",
   "contributes": {
@@ -39,10 +38,6 @@
       }
     ],
     "commands": [
-      {
-        "command": "synthwaveDark.enableNeon",
-        "title": "Synthwave Dark: Enable Neon Dreams"
-      },
       {
         "command": "synthwaveDark.disableNeon",
         "title": "Synthwave Dark: Disable Neon Dreams"
@@ -65,12 +60,33 @@
     }
   },
   "dependencies": {
-    "semver": "^7.1.1"
+    "semver": "^7.7.1"
   },
   "devDependencies": {
-    "@vscode/vsce": "^3.1.1"
+    "@vscode/vsce": "^3.2.2",
+    "@vscode/test-electron": "^2.4.1",
+    "@types/mocha": "^10.0.8",
+    "@types/node": "^22.10.2",
+    "@types/vscode": "^1.33.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.8.2",
+    "sinon": "^19.0.2",
+    "typescript": "^5.7.2"
   },
   "scripts": {
-    "package": "vsce package"
+    "version:major": "npm version major",
+    "version:minor": "npm version minor",
+    "version:patch": "npm version patch",
+    "package": "vsce package",
+    "install-extension": "code-insiders --install-extension synthwave-dark-vscode-*.vsix",
+    "package-and-install": "npm run version:patch && npm run package && npm run install-extension",
+    "test": "node ./src/test/runTest.js",
+    "test:watch": "npm run test -- --watch"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@vscode/vsce-sign",
+      "keytar"
+    ]
   }
 }
