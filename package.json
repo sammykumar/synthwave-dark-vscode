@@ -63,7 +63,15 @@
     "semver": "^7.7.1"
   },
   "devDependencies": {
-    "@vscode/vsce": "^3.2.2"
+    "@vscode/vsce": "^3.2.2",
+    "@vscode/test-electron": "^2.4.1",
+    "@types/mocha": "^10.0.8",
+    "@types/node": "^22.10.2",
+    "@types/vscode": "^1.33.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.8.2",
+    "sinon": "^19.0.2",
+    "typescript": "^5.7.2"
   },
   "scripts": {
     "version:major": "npm version major",
@@ -71,7 +79,9 @@
     "version:patch": "npm version patch",
     "package": "vsce package",
     "install-extension": "code-insiders --install-extension synthwave-dark-vscode-*.vsix",
-    "package-and-install": "npm run version:patch && npm run package && npm run install-extension"
+    "package-and-install": "npm run version:patch && npm run package && npm run install-extension",
+    "test": "node ./src/test/runTest.js",
+    "test:watch": "npm run test -- --watch"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
