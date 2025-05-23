@@ -1,3 +1,7 @@
+const vscode = require("vscode");
+const path = require("path");
+const fs = require("fs");
+
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -20,7 +24,8 @@ function activate(context) {
     .toUpperCase();
   let neonBrightness = parsedBrightness;
 
-  let disposable = vscode.commands.registerCommand(
+  // Register the enable command
+  let enable = vscode.commands.registerCommand(
     "synthwaveDark.enableNeon",
     function () {
       const appDir = path.dirname(vscode.env.appRoot);
@@ -145,6 +150,7 @@ function activate(context) {
     uninstall
   );
 
+  context.subscriptions.push(enable);
   context.subscriptions.push(disable);
 }
 
