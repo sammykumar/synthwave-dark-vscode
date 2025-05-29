@@ -75,29 +75,21 @@
     "sinon": "^19.0.2",
     "typescript": "^5.7.2"
   },
+
   "scripts": {
     "version:major": "npm version major",
-    "version:minor": "npm version minor",
+    "version:minor": "npm version minor", 
     "version:patch": "npm version patch",
-    "clean": "rm -f *.vsix",
-    "package": "vsce package",
-    "package-dev": "npm run clean && vsce package --out synthwave-dark-dev.vsix",
-    "install-extension": "code-insiders --install-extension synthwave-dark-vscode-*.vsix",
-    "install-dev": "code-insiders --uninstall-extension SammyKumar.synthwave-dark-vscode --force || true && code-insiders --install-extension synthwave-dark-dev.vsix --force",
-    "dev-install": "node scripts/dev-install.js",
-    "dev-quick": "npm run package-dev && npm run install-dev && echo '✅ Extension installed! Restart VS Code Insiders to see changes.'",
-    "dev-reload": "node scripts/dev-reload.js",
-    "dev-link": "node scripts/dev-link.js",
-    "dev-unlink": "node scripts/dev-unlink.js",
-    "dev-live": "npm run dev-link && echo '🔗 Live development mode enabled! Changes will be reflected on window reload.'",
-    "package-and-install": "npm run version:patch && npm run package && npm run install-extension",
+    "clean": "rm -f *.vsix && rm -rf .vscode-test-*",
+    
+    "package": "npx vsce package",
+    "build": "npm run version:patch && npm run package",
+    
     "test": "node ./src/test/runTest.js",
-    "test:watch": "npm run test -- --watch"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@vscode/vsce-sign",
-      "keytar"
-    ]
+    "test:watch": "npm run test -- --watch",
+    
+    "dev:start": "node scripts/dev-start.js",
+    "dev:test": "node scripts/dev-test.js",
+    "dev:clean": "node scripts/dev-clean.js"
   }
 }
