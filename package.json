@@ -42,6 +42,10 @@
     ],
     "commands": [
       {
+        "command": "synthwaveDark.enableNeon",
+        "title": "Synthwave Dark: Enable Neon Dreams"
+      },
+      {
         "command": "synthwaveDark.disableNeon",
         "title": "Synthwave Dark: Disable Neon Dreams"
       }
