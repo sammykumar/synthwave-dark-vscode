@@ -3,18 +3,11 @@
   // Theme replacement CSS (Glow styles)
   //====================================
   const tokenReplacements = {
-    /* Red */
-    f97e72:
-      "color: #fff5f6; text-shadow: 0 0 2px #000, 0 0 10px #fc1f2c[NEON_BRIGHTNESS], 0 0 5px #fc1f2c[NEON_BRIGHTNESS], 0 0 25px #fc1f2c[NEON_BRIGHTNESS]; backface-visibility: hidden;",
-    /* Neon pink */
-    f94688: `color: #f94688; text-shadow: 0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3; backface-visibility: hidden;`,
-    /* Yellow */
-    fede5d: "text-shadow: rgba(254,222,93,1) 0px 0px 38px;",
-    /* Green */
-    "1afc65":
-      "color: #72f1b8; text-shadow: 0 0 2px #100c0f, 0 0 10px #257c55[NEON_BRIGHTNESS], 0 0 35px #212724[NEON_BRIGHTNESS]; backface-visibility: hidden;",
-    /* Blue */
-    "36f9f6": "color:red; text-shadow: rgba(255,255,255,1) 0px 0px 38px;",
+    f97e72: "color: #f97e72;",
+    f94688: "color: #f94688;",
+    fede5d: "color: #fede5d;",
+    "1afc65": "color: #1afc65;",
+    "36f9f6": "color: #36f9f6;",
   };
 
   //=============================

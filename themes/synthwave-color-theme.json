@@ -54,7 +54,7 @@
     "editorGroup.emptyBackground": "#0c0c0c",
     "editorGroup.border": "#181A1F",
     "editorGroupHeader.tabsBackground": "#000",
-    "editorIndentGuide.background": "#ffffff22",
+    "editorIndentGuide.background1": "#ffffff22",
     "editorLineNumber.foreground": "#ffffff33",
     "editorWhitespace.foreground": "#ffffff66",
     "editorHoverWidget.background": "#1E1E1E",
