@@ -43,6 +43,10 @@ function activate(context) {
 // New function to apply neon effect (extracted from the original enable command)
 function applyNeonEffect(neonBrightness) {
   console.log("Applying Neon Effect");
+  // Add this to applyNeonEffect function after file path calculation
+  console.log("HTML File:", htmlFile);
+  console.log("Template File:", templateFile);
+  console.log("HTML File Exists:", fs.existsSync(htmlFile));
 
   try {
     const appDir = path.dirname(vscode.env.appRoot);
