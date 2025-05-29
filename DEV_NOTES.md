@@ -35,16 +35,17 @@ The extension supports these settings:
 
 ```json
 {
-  "synthwaveDark.brightness": 1.0,     // Glow brightness (0.0-1.0)
-  "synthwaveDark.disableGlow": false   // Disable glow but keep chrome styles
+  "synthwaveDark.brightness": 1.0, // Glow brightness (0.0-1.0)
+  "synthwaveDark.disableGlow": false // Disable glow but keep chrome styles
 }
 ```
 
 ### VS Code Version Compatibility
 
 The extension handles different VS Code versions:
+
 - Pre-1.70.0: Uses `electron-browser` folder
-- 1.70.0+: Uses `electron-sandbox` folder  
+- 1.70.0+: Uses `electron-sandbox` folder
 - 1.94.0: Uses `workbench.esm.html` instead of `workbench.html`
 
 ## Development Setup
@@ -94,11 +95,13 @@ npm run package-and-install
 ```
 
 This will:
+
 1. Increment patch version
 2. Package the extension
 3. Install it in VS Code Insiders
 
 Individual commands:
+
 ```bash
 npm run version:patch    # Increment version
 npm run package         # Create .vsix package
@@ -147,6 +150,7 @@ VS Code doesn't provide APIs to modify the editor's visual appearance at the DOM
 ### File Locations
 
 VS Code files are typically located at:
+
 - **macOS**: `/Applications/Visual Studio Code.app/Contents/Resources/app/out/vs/code/`
 - **Windows**: `C:\Users\{username}\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\code\`
 - **Linux**: `/usr/share/code/resources/app/out/vs/code/`
