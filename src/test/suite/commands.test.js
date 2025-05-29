@@ -13,7 +13,7 @@ suite("Commands Test Suite", () => {
     sandbox.restore();
   });
 
-  test("Disable neon command should be available", async () => {
+  test("Both neon commands should be available", async () => {
     const extension = vscode.extensions.getExtension(
       "SammyKumar.synthwave-dark-vscode"
     );
@@ -23,6 +23,10 @@ suite("Commands Test Suite", () => {
     assert.ok(
       commands.includes("synthwaveDark.disableNeon"),
       "Disable neon command should be registered"
+    );
+    assert.ok(
+      commands.includes("synthwaveDark.enableNeon"),
+      "Enable neon command should be registered"
     );
   });
 
@@ -67,11 +71,20 @@ suite("Commands Test Suite", () => {
     const disableCommand = packageContent.contributes.commands.find(
       (cmd) => cmd.command === "synthwaveDark.disableNeon"
     );
+    const enableCommand = packageContent.contributes.commands.find(
+      (cmd) => cmd.command === "synthwaveDark.enableNeon"
+    );
 
     assert.ok(disableCommand, "Should have disable neon command");
     assert.strictEqual(
       disableCommand.title,
       "Synthwave Dark: Disable Neon Dreams"
+    );
+
+    assert.ok(enableCommand, "Should have enable neon command");
+    assert.strictEqual(
+      enableCommand.title,
+      "Synthwave Dark: Enable Neon Dreams"
     );
   });
 });

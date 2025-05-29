@@ -1,6 +1,6 @@
 const path = require("path");
 const Mocha = require("mocha");
-const glob = require("glob");
+const { glob } = require("glob");
 
 function run() {
   // Create the mocha test
@@ -12,30 +12,28 @@ function run() {
 
   const testsRoot = path.resolve(__dirname, "..");
 
-  return new Promise((c, e) => {
-    // Find all test files
-    glob("**/**.test.js", { cwd: testsRoot }, (err, files) => {
-      if (err) {
-        return e(err);
-      }
+  return new Promise(async (c, e) => {
+    try {
+      // Find all test files
+      const files = await glob("**/suite/*.test.js", { cwd: testsRoot });
 
       // Add files to the test suite
       files.forEach((f) => mocha.addFile(path.resolve(testsRoot, f)));
 
-      try {
-        // Run the mocha test
-        mocha.run((failures) => {
-          if (failures > 0) {
-            e(new Error(`${failures} tests failed.`));
-          } else {
-            c();
-          }
-        });
-      } catch (err) {
-        console.error(err);
-        e(err);
-      }
-    });
+      console.log(`Found ${files.length} test files: ${files.join(", ")}`);
+
+      // Run the mocha test
+      mocha.run((failures) => {
+        if (failures > 0) {
+          e(new Error(`${failures} tests failed.`));
+        } else {
+          c();
+        }
+      });
+    } catch (err) {
+      console.error(err);
+      e(err);
+    }
   });
 }
 

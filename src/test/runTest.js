@@ -19,6 +19,7 @@ async function main() {
       launchArgs: [
         "--disable-extensions", // Disable other extensions during testing
         "--new-window",
+        "--user-data-dir=/tmp/vscode-test-user-data",
       ],
     });
   } catch (err) {

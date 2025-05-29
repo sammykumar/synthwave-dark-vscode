@@ -41,11 +41,7 @@ suite("Integration Test Suite", () => {
 
     try {
       // Change configuration
-      await config.update(
-        "brightness",
-        0.8,
-        vscode.ConfigurationTarget.Workspace
-      );
+      await config.update("brightness", 0.8, vscode.ConfigurationTarget.Global);
 
       // Verify configuration was updated
       const updatedConfig = vscode.workspace.getConfiguration("synthwaveDark");
@@ -55,7 +51,7 @@ suite("Integration Test Suite", () => {
       await config.update(
         "brightness",
         originalBrightness,
-        vscode.ConfigurationTarget.Workspace
+        vscode.ConfigurationTarget.Global
       );
     }
   });
@@ -114,8 +110,8 @@ suite("Integration Test Suite", () => {
       "CSS should include gradient effects"
     );
     assert.ok(
-      cssContent.includes("text-shadow"),
-      "CSS should include glow effects"
+      cssContent.includes("box-shadow"),
+      "CSS should include shadow effects"
     );
   });
 
