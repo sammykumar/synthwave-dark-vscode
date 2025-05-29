@@ -41,10 +41,7 @@ suite("Theme Test Suite", () => {
     assert.ok(fs.existsSync(jsPath), "JS template should exist");
 
     const jsContent = fs.readFileSync(jsPath, "utf8");
-    assert.ok(
-      jsContent.includes("[DISABLE_GLOW]"),
-      "Template should contain DISABLE_GLOW placeholder"
-    );
+    // DISABLE_GLOW placeholder was removed - glow is now always enabled
     assert.ok(
       jsContent.includes("[CHROME_STYLES]"),
       "Template should contain CHROME_STYLES placeholder"

@@ -12,8 +12,6 @@ function activate(context) {
 
   const config = vscode.workspace.getConfiguration("synthwaveDark");
 
-  let disableGlow = config && config.disableGlow ? !!config.disableGlow : false;
-
   let brightness =
     parseFloat(config.brightness) > 1 ? 1 : parseFloat(config.brightness);
   brightness = brightness < 0 ? 0 : brightness;
@@ -28,7 +26,7 @@ function activate(context) {
   let enable = vscode.commands.registerCommand(
     "synthwaveDark.enableNeon",
     function () {
-      applyNeonEffect(disableGlow, neonBrightness);
+      applyNeonEffect(neonBrightness);
     }
   );
 
@@ -43,7 +41,7 @@ function activate(context) {
 }
 
 // New function to apply neon effect (extracted from the original enable command)
-function applyNeonEffect(disableGlow, neonBrightness) {
+function applyNeonEffect(neonBrightness) {
   console.log("Applying Neon Effect");
 
   try {
@@ -81,9 +79,8 @@ function applyNeonEffect(disableGlow, neonBrightness) {
 
     console.log("Starting JS template file replacements");
 
-    // Process template replacements
-    const themeWithGlow = jsTemplate.replace(/\[DISABLE_GLOW\]/g, disableGlow);
-    const themeWithChrome = themeWithGlow.replace(
+    // Process template replacements - glow is always enabled now
+    const themeWithChrome = jsTemplate.replace(
       /\[CHROME_STYLES\]/g,
       chromeStyles
     );

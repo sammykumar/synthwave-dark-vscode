@@ -57,11 +57,6 @@
           "type": "number",
           "default": 1,
           "description": "Set the brightness value for the glow effect. 0.0 is fully transparent and 1.0 is fully bright"
-        },
-        "synthwaveDark.disableGlow": {
-          "type": "boolean",
-          "default": false,
-          "description": "Disable the glow effect, but show Synthwave '84 editor chrome updates"
         }
       }
     }
@@ -90,6 +85,7 @@
     "install-extension": "code-insiders --install-extension synthwave-dark-vscode-*.vsix",
     "install-dev": "code-insiders --install-extension synthwave-dark-dev.vsix --force",
     "dev-install": "node scripts/dev-install.js",
+    "dev-quick": "npm run package-dev && npm run install-dev",
     "dev-link": "node scripts/dev-link.js",
     "dev-unlink": "node scripts/dev-unlink.js",
     "package-and-install": "npm run version:patch && npm run package && npm run install-extension",

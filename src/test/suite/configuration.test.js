@@ -30,36 +30,16 @@ suite("Configuration Test Suite", () => {
   });
 
   test("Should handle boolean disableGlow configuration", async () => {
+    // This test is now obsolete since disableGlow has been removed
+    // The configuration may still exist in test environment due to caching
+    // but is no longer used by the extension
     const config = vscode.workspace.getConfiguration("synthwaveDark");
 
-    // Store original value
-    const originalDisableGlow = config.get("disableGlow");
-
-    try {
-      // Test that we can set boolean values without errors
-      await config.update(
-        "disableGlow",
-        true,
-        vscode.ConfigurationTarget.Global
-      );
-
-      await config.update(
-        "disableGlow",
-        false,
-        vscode.ConfigurationTarget.Global
-      );
-
-      // Verify the configuration accepts boolean values
-      const finalConfig = vscode.workspace.getConfiguration("synthwaveDark");
-      assert.ok(typeof finalConfig.get("disableGlow") === "boolean");
-    } finally {
-      // Reset to original value
-      await config.update(
-        "disableGlow",
-        originalDisableGlow,
-        vscode.ConfigurationTarget.Global
-      );
-    }
+    // Test that the extension works without relying on disableGlow
+    assert.ok(
+      config.has("brightness"),
+      "brightness configuration should exist"
+    );
   });
 
   test("Configuration should have proper schema in package.json", () => {
@@ -86,11 +66,12 @@ suite("Configuration Test Suite", () => {
     assert.strictEqual(brightnessConfig.type, "number");
     assert.strictEqual(brightnessConfig.default, 1);
 
-    // Check disableGlow property
+    // Verify disableGlow property no longer exists
     const disableGlowConfig = config.properties["synthwaveDark.disableGlow"];
-    assert.ok(disableGlowConfig, "Should have disableGlow configuration");
-    assert.strictEqual(disableGlowConfig.type, "boolean");
-    assert.strictEqual(disableGlowConfig.default, false);
+    assert.ok(
+      !disableGlowConfig,
+      "Should no longer have disableGlow configuration"
+    );
   });
 
   test("Should handle configuration updates gracefully", async () => {
@@ -98,33 +79,28 @@ suite("Configuration Test Suite", () => {
 
     // Store original values
     const originalBrightness = config.get("brightness");
-    const originalDisableGlow = config.get("disableGlow");
 
     try {
-      // Test that we can update multiple settings without errors
-      await Promise.all([
-        config.update("brightness", 0.75, vscode.ConfigurationTarget.Global),
-        config.update("disableGlow", true, vscode.ConfigurationTarget.Global),
-      ]);
+      // Test that we can update brightness setting without errors
+      await config.update(
+        "brightness",
+        0.75,
+        vscode.ConfigurationTarget.Global
+      );
 
       // Verify updates can be called and return appropriate types
       const updatedConfig = vscode.workspace.getConfiguration("synthwaveDark");
       assert.ok(typeof updatedConfig.get("brightness") === "number");
-      assert.ok(typeof updatedConfig.get("disableGlow") === "boolean");
+
+      // Note: disableGlow may still exist in test environment due to caching
+      // but is no longer used by the extension
     } finally {
       // Restore original values
-      await Promise.all([
-        config.update(
-          "brightness",
-          originalBrightness,
-          vscode.ConfigurationTarget.Global
-        ),
-        config.update(
-          "disableGlow",
-          originalDisableGlow,
-          vscode.ConfigurationTarget.Global
-        ),
-      ]);
+      await config.update(
+        "brightness",
+        originalBrightness,
+        vscode.ConfigurationTarget.Global
+      );
     }
   });
 });

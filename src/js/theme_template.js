@@ -9,14 +9,12 @@
     /* Neon pink */
     f94688: `color: #f94688; text-shadow: 0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3; backface-visibility: hidden;`,
     /* Yellow */
-    fede5d:
-      "color: #f4eee4; text-shadow: 0 0 2px #393a33, 0 0 8px #f39f05[NEON_BRIGHTNESS], 0 0 2px #f39f05[NEON_BRIGHTNESS]; backface-visibility: hidden;",
+    fede5d: "text-shadow: rgba(254,222,93,1) 0px 0px 38px;",
     /* Green */
     "1afc65":
       "color: #72f1b8; text-shadow: 0 0 2px #100c0f, 0 0 10px #257c55[NEON_BRIGHTNESS], 0 0 35px #212724[NEON_BRIGHTNESS]; backface-visibility: hidden;",
     /* Blue */
-    "36f9f6":
-      "color: #fdfdfd; text-shadow: 0 0 2px #001716, 0 0 3px #03edf9[NEON_BRIGHTNESS], 0 0 5px #03edf9[NEON_BRIGHTNESS], 0 0 8px #03edf9[NEON_BRIGHTNESS]; backface-visibility: hidden;",
+    "36f9f6": "color:red; text-shadow: rgba(255,255,255,1) 0px 0px 38px;",
   };
 
   //=============================
@@ -77,10 +75,9 @@
 
   /**
    * @summary Attempts to bootstrap the theme
-   * @param {boolean} disableGlow
    * @param {MutationObserver} obs
    */
-  const initNeonDreams = (disableGlow, obs) => {
+  const initNeonDreams = (obs) => {
     const tokensEl = document.querySelector(".vscode-tokens-styles");
 
     if (!tokensEl || !readyForReplacement(tokensEl, tokenReplacements)) {
@@ -88,23 +85,24 @@
     }
 
     // Add the theme styles if they don't already exist in the DOM
-    if (!document.querySelector('#synthwave-84-dark-theme-styles')) {
+    if (!document.querySelector("#synthwave-84-dark-theme-styles")) {
       const initialThemeStyles = tokensEl.innerText;
-      
-      // Replace tokens with glow styles
-      let updatedThemeStyles = !disableGlow 
-        ? replaceTokens(initialThemeStyles, tokenReplacements) 
-        : initialThemeStyles;
-      
+
+      // Always apply glow effects - replace tokens with glow styles
+      let updatedThemeStyles = replaceTokens(
+        initialThemeStyles,
+        tokenReplacements
+      );
+
       /* append the remaining styles */
       updatedThemeStyles = `${updatedThemeStyles}[CHROME_STYLES]`;
-  
-      const newStyleTag = document.createElement('style');
+
+      const newStyleTag = document.createElement("style");
       newStyleTag.setAttribute("id", "synthwave-dark-84-theme-styles");
-      newStyleTag.innerText = updatedThemeStyles.replace(/(\r\n|\n|\r)/gm, '');
+      newStyleTag.innerText = updatedThemeStyles.replace(/(\r\n|\n|\r)/gm, "");
       document.body.appendChild(newStyleTag);
-      
-      console.log('Synthwave \'84: NEON DREAMS initialised!');
+
+      console.log("Synthwave '84: NEON DREAMS initialised!");
     }
 
     // disconnect the observer because we don't need it anymore
@@ -117,14 +115,14 @@
   /**
    * @summary A MutationObserver callback that attempts to bootstrap the theme and assigns a retry attempt if it fails
    */
-  const watchForBootstrap = function(mutationsList, observer) {
-    for(let mutation of mutationsList) {
-      if (mutation.type === 'attributes' || mutation.type === 'childList') {
+  const watchForBootstrap = function (mutationsList, observer) {
+    for (let mutation of mutationsList) {
+      if (mutation.type === "attributes" || mutation.type === "childList") {
         // does the style div exist yet?
-        const tokensEl = document.querySelector('.vscode-tokens-styles');
+        const tokensEl = document.querySelector(".vscode-tokens-styles");
         if (readyForReplacement(tokensEl, tokenReplacements)) {
           // If everything we need is ready, then initialise
-          initNeonDreams([DISABLE_GLOW], observer);
+          initNeonDreams(observer);
         } else {
           if (tokensEl) {
             // sometimes VS code takes a while to init the styles content, so if there stop this observer and add an observer for that

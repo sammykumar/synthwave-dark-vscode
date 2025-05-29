@@ -35,8 +35,7 @@ The extension supports these settings:
 
 ```json
 {
-  "synthwaveDark.brightness": 1.0, // Glow brightness (0.0-1.0)
-  "synthwaveDark.disableGlow": false // Disable glow but keep chrome styles
+  "synthwaveDark.brightness": 1.0 // Glow brightness (0.0-1.0)
 }
 ```
 

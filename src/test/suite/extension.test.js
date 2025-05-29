@@ -39,30 +39,22 @@ suite("Extension Test Suite", () => {
       undefined,
       vscode.ConfigurationTarget.Global
     );
-    await config.update(
-      "disableGlow",
-      undefined,
-      vscode.ConfigurationTarget.Global
-    );
 
     // Test that configuration properties exist
     assert.ok(config.has("brightness"));
-    assert.ok(config.has("disableGlow"));
+
+    // Note: disableGlow may still exist in test environment due to caching
+    // but should not be used in the actual extension code
 
     // Get fresh config after reset
     const resetConfig = vscode.workspace.getConfiguration("synthwaveDark");
 
     // Test default values (allowing for test environment variability)
     const brightness = resetConfig.get("brightness");
-    const disableGlow = resetConfig.get("disableGlow");
 
     assert.ok(
       typeof brightness === "number",
       `brightness should be number, got ${typeof brightness}: ${brightness}`
-    );
-    assert.ok(
-      typeof disableGlow === "boolean",
-      `disableGlow should be boolean, got ${typeof disableGlow}: ${disableGlow}`
     );
 
     // In test environment, defaults might not always match package.json
@@ -77,32 +69,23 @@ suite("Extension Test Suite", () => {
 
     // Store original values
     const originalBrightness = config.get("brightness");
-    const originalDisableGlow = config.get("disableGlow");
 
     try {
       // Test that we can call update without errors
       await config.update("brightness", 0.5, vscode.ConfigurationTarget.Global);
-      await config.update(
-        "disableGlow",
-        true,
-        vscode.ConfigurationTarget.Global
-      );
 
       // In test environment, config updates might not persist immediately
       // So we test the ability to call update without errors and check types
       const updatedConfig = vscode.workspace.getConfiguration("synthwaveDark");
       assert.ok(typeof updatedConfig.get("brightness") === "number");
-      assert.ok(typeof updatedConfig.get("disableGlow") === "boolean");
+
+      // Note: disableGlow may still exist in test environment due to caching
+      // but is no longer used in the extension
     } finally {
       // Reset to original values
       await config.update(
         "brightness",
         originalBrightness,
-        vscode.ConfigurationTarget.Global
-      );
-      await config.update(
-        "disableGlow",
-        originalDisableGlow,
         vscode.ConfigurationTarget.Global
       );
     }
