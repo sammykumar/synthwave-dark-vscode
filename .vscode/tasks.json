@@ -1,137 +1,64 @@
+// See https://go.microsoft.com/fwlink/?LinkId=733558
+// for the documentation about the tasks.json format
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "watch",
-      "dependsOn": ["npm: watch:tsc", "npm: watch:esbuild"],
-      "presentation": {
-        "reveal": "never"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "type": "npm",
-      "script": "watch:esbuild",
-      "group": "build",
-      "problemMatcher": "$esbuild-watch",
-      "isBackground": true,
-      "label": "npm: watch:esbuild",
-      "presentation": {
-        "group": "watch",
-        "reveal": "never"
-      }
-    },
-    {
-      "type": "npm",
-      "script": "watch:tsc",
-      "group": "build",
-      "problemMatcher": "$tsc-watch",
-      "isBackground": true,
-      "label": "npm: watch:tsc",
-      "presentation": {
-        "group": "watch",
-        "reveal": "never"
-      }
-    },
-    {
-      "type": "npm",
-      "script": "watch-tests",
-      "problemMatcher": "$tsc-watch",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "never",
-        "group": "watchers"
-      },
-      "group": "build"
-    },
-    {
-      "label": "tasks: watch-tests",
-      "dependsOn": ["npm: watch", "npm: watch-tests"],
-      "problemMatcher": []
-    }
-    // {
-    //   "label": "Watch Theme Changes",
-    //   "type": "shell",
-    //   "command": "${workspaceFolder}/scripts/dev-mode.sh",
-    //   "group": "build",
-    //   "presentation": {
-    //     "echo": true,
-    //     "reveal": "always",
-    //     "focus": false,
-    //     "panel": "new",
-    //     "showReuseMessage": true,
-    //     "clear": false
-    //   },
-    //   "isBackground": true,
-    //   "problemMatcher": [],
-    //   "runOptions": {
-    //     "runOn": "folderOpen"
-    //   }
-    // },
-    // {
-    //   "label": "Dev Mode - Start Hot Reload",
-    //   "type": "shell",
-    //   "command": "echo",
-    //   "args": [
-    //     "🔥 Hot Reload Development Mode Started! Make changes to your theme files and they will auto-reload."
-    //   ],
-    //   "group": {
-    //     "kind": "build",
-    //     "isDefault": true
-    //   },
-    //   "presentation": {
-    //     "echo": true,
-    //     "reveal": "always",
-    //     "focus": false,
-    //     "panel": "shared",
-    //     "showReuseMessage": false,
-    //     "clear": true
-    //   },
-    //   "dependsOrder": "sequence",
-    //   "dependsOn": ["Launch Dev VS Code with Extension", "Watch Theme Changes"]
-    // },
-    // {
-    //   "label": "Launch Dev VS Code with Extension",
-    //   "type": "shell",
-    //   "command": "/Users/samkumar/Development/DevTools/DEV-VisualStudioCode.app/Contents/Resources/app/bin/code",
-    //   "args": [
-    //     "--user-data-dir='/Users/samkumar/Development/DevTools/.dev-vscode-data'",
-    //     "--extensions-dir='/Users/samkumar/Development/DevTools/.dev-vscode-extensions'",
-    //     "--extensionDevelopmentPath='/Users/samkumar/Development/SK-Productions-LLC/vscode-extensions/sample-color-theme'"
-    //   ],
-    //   "group": {
-    //     "kind": "build",
-    //     "isDefault": false
-    //   },
-    //   "presentation": {
-    //     "echo": true,
-    //     "reveal": "always",
-    //     "focus": false,
-    //     "panel": "shared"
-    //   },
-    //   "problemMatcher": []
-    // },
-    // {
-    //   "label": "Reload Extension Window",
-    //   "type": "shell",
-    //   "command": "osascript",
-    //   "args": [
-    //     "-e",
-    //     "tell application \"DEV-VisualStudioCode\" to activate",
-    //     "-e",
-    //     "tell application \"System Events\" to keystroke \"r\" using {command down}"
-    //   ],
-    //   "group": "build",
-    //   "presentation": {
-    //     "echo": false,
-    //     "reveal": "never",
-    //     "focus": false,
-    //     "panel": "shared"
-    //   },
-    //   "problemMatcher": []
-    // }
-  ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+            "label": "watch",
+            "dependsOn": [
+                "npm: watch:tsc",
+                "npm: watch:esbuild"
+            ],
+            "presentation": {
+                "reveal": "never"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "npm",
+            "script": "watch:esbuild",
+            "group": "build",
+            "problemMatcher": "$esbuild-watch",
+            "isBackground": true,
+            "label": "npm: watch:esbuild",
+            "presentation": {
+                "group": "watch",
+                "reveal": "never"
+            }
+        },
+		{
+            "type": "npm",
+            "script": "watch:tsc",
+            "group": "build",
+            "problemMatcher": "$tsc-watch",
+            "isBackground": true,
+            "label": "npm: watch:tsc",
+            "presentation": {
+                "group": "watch",
+                "reveal": "never"
+            }
+        },
+		{
+			"type": "npm",
+			"script": "watch-tests",
+			"problemMatcher": "$tsc-watch",
+			"isBackground": true,
+			"presentation": {
+				"reveal": "never",
+				"group": "watchers"
+			},
+			"group": "build"
+		},
+		{
+			"label": "tasks: watch-tests",
+			"dependsOn": [
+				"npm: watch",
+				"npm: watch-tests"
+			],
+			"problemMatcher": []
+		}
+	]
 }
