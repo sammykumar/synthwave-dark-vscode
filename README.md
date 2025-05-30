@@ -1,89 +1,71 @@
-# SynthWave Dark - VS Code theme
+# hello-world README
 
-![Synthwave Dark logo](./banner.png)
+This is the README for your extension "hello-world". After writing up a brief description, we recommend including the following sections.
 
-Do you remember that endless summer back in '84? Cruising down the ocean-highway with the top down, the wind in our hair and heads buzzing with neon dreams?
+## Features
 
-No, I don't remember it either, but with this experimental theme we can go there.
+Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
-![Neon glowing text](./theme.jpg)
+For example if there is an image subfolder under your extension project workspace:
 
-This colour scheme is influenced by the music and the cover artwork of modern Synthwave bands like FM-84, Timecop 1983 and The Midnight. By association, that means I've also taken heavy influence from the excellent [retro-tinged artwork of James White](https://signalnoise.com/) (check out his work, it's awesome).
+\!\[feature X\]\(images/feature-x.png\)
 
-## But...why?
+> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
-I was a kid in the 80s but for most of my teenage life I strongly disliked nearly everything about the 80s aesthetic of my childhood. It was like, _so lame_. With the hindsight of recent years though, I've realised that it was actually pretty sweet and I wanted to celebrate it a little.
+## Requirements
 
-Much the same way, in the modern web-development world of shaders, React and WebGL, I feel like it's easy to forget that the basics are actually pretty damn good. To that end, this theme goes back to basics - No Shader magic. No cloud-streamed WebGL render-farms. Just plain CSS :)
+If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
-## Installation
+## Extension Settings
 
-To begin with, [install the base theme from the VS Marketplace](https://marketplace.visualstudio.com/items?itemName=RobbOwen.synthwave-vscode). This is the way Synthwave '84 is intended to be used day-to-day. If you want to enable the gratuitous 80s glow, it needs a little extra work to get it going.
+Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
-### Disclaimer
+For example:
 
-VS code doesn't natively support text effects and as a result, the glow is experimental. It's likely to be buggy and, whilst it looks rad, it isn't intended for extended use. To enable the glow, the extension has to modify the internal files of VS Code, so use with caution. Should something go wrong, you can disable the glow by following the instructions below. If for any reason you can't open VS Code, you can fix the issue with a fresh install of VS Code.
+This extension contributes the following settings:
 
-If you do decide use the glow effect, you do so at your own risk. Bring your Sunglasses. Here be (laser)dragons.
+* `myExtension.enable`: Enable/disable this extension.
+* `myExtension.thing`: Set to `blah` to do something.
 
-### To enable the glow
+## Known Issues
 
-As of v0.1.0, external extensions are no longer needed to active the glow.
+Calling out known issues can help limit users opening duplicate issues against your extension.
 
-Firstly, if you are a Windows user, you may need to run VS Code with administrator privileges. For Linux and Mac users, Code must not be installed in a read-only location and you must have write permissions.
+## Release Notes
 
-If you have been using Synthwave prior to v0.1.0, you will likely have used the Custom CSS and JS extension to enable the glow. Before enabling Neon Dreams, you will need to disable the prior method. You can do this by pressing `Ctrl + Shift + P` or `Shift + ⌘ + P` and choose "**Disable Custom CSS and JS**"
+Users appreciate release notes as you update your extension.
 
-To activate the glow, Set your active colour theme to Synthwave '84 - as of v0.1.0 the glow is only active when the base theme is selected. Open your command palette with `Ctrl + Shift + P` or `Shift + ⌘ + P` and choose "**Enable Neon Dreams**". It will prompt you to restart, and when you do the lights should be on :)
+### 1.0.0
 
-Note: In the name of simplifying the install process and mitigating update-related issues, the new version of Synthwave '84 doesn't use a custom CSS file anymore. _If you have been using a custom-modified version of the theme, then you can still continue to use that with the previous Custom CSS and JS method_.
+Initial release of ...
 
-#### To customise the glow brightness
+### 1.0.1
 
-In your `settings.json` add the key:
+Fixed issue #.
 
-```
-"synthwave84.brightness": 0.45
-```
+### 1.1.0
 
-The value should be a _float value_ from 0 to 1, where 0.0 is fully transparent. The default brightness is 0.45. To avoid eye strain, avoid using higher brightness values for extended periods of time.
+Added features X, Y, and Z.
 
-To see the changes, you need to rerun the activation function. Open your command palette with `Ctrl + Shift + P` or `Shift + ⌘ + P` and choose "**Enable Neon Dreams**".
+---
 
-Note: Changing the brightness currently only affects the opacity of the glow, the text will remain white (that may change in future updates).
+## Following extension guidelines
 
-### To remove corruption warning and [unsupported] from title-bar
+Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
 
-Because enabling the glow modifies core files, VS code will interpret this as the core being 'corrupted' and you may see an error message on restarting your editor. You can safely dismiss this message, or remove it entirely with the [Fix VSCode Checksums](https://marketplace.visualstudio.com/items?itemName=lehni.vscode-fix-checksums "Fix VSCode Checksums") extension.
+* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
 
-Upon installation of 'Fix VSCode Checksums', open the command palette and execute `Fix Checksums: Apply`. You will need to completely restart VSCode after execution, reopening without fully exiting might not be enough.
+## Working with Markdown
 
-## Updates
+You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
 
-Every time you update VS code, you will need to repeat this step to re-enable the glow.
+* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
+* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
+* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
 
-## Uninstallation
+## For more information
 
-If you want to turn off the glow effects, you can disable them at any time by opening your command palette with `Ctrl + Shift + P` or `Shift + ⌘ + P` and choose "**Disable Neon Dreams**".
+* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
+* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
-### Font
-
-I haven't included a font in this release as I know that it's a very personal preference. The font I use (that is seen in the image above) is [Fira Code](https://github.com/tonsky/FiraCode), which I recommend if you're a fan of ligatures.
-
-## Compatibility
-
-This theme is still **very much a work in progress**. I primarily develop in HTML & CSS, JS, React and Elixir so, whilst those language sets should look pretty good, there will likely be issues for other languages. I'll work on adding more support as I go. If you find anything glaringly wrong, raise an issue and I'll try to fix it as soon as I can.
-
-## Contributing
-
-I'm really happy to consider any contributions to this theme. Before you make any changes, [please read the contribution guide](https://github.com/robb0wen/synthwave-vscode/blob/master/CONTRIBUTING.md).
-
-## Thanks
-
-Lastly, I couldn't have made this if it weren't for the fantastic work of [Sarah Drasner](https://twitter.com/sarah_edo). Her [tutorial on theming for CSS tricks](https://css-tricks.com/creating-a-vs-code-theme/) was a huge help in developing this 🙏
-
-Similarly, I'd like to thanks [Wes Bos](https://twitter.com/wesbos) for his [cool Cobalt2 theme](https://github.com/wesbos/cobalt2-vscode). His readme helped me figure out how to package this hot mess for public use 👍
-
-If this theme is too much, then I recommend [Horizon](https://github.com/jolaleye/horizon-theme-vscode), or [City Lights](http://citylights.xyz/) for a similar, yet more understated, retro vibe. They're both beautiful.
-
-Banner cityscape image from [Unsplash](https://unsplash.com/photos/DxHR8K5Egjk)
+**Enjoy!**
