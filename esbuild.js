@@ -44,9 +44,36 @@ async function main() {
 	});
 	if (watch) {
 		await ctx.watch();
+
+		// Watch src/css for changes and trigger rebuild
+		const fs = require('fs');
+		const path = require('path');
+		const chokidar = require('chokidar');
+
+		const cssWatcher = chokidar.watch(path.join(__dirname, 'src', 'css'), {
+			ignoreInitial: true,
+		});
+
+		cssWatcher.on('all', async () => {
+			console.log('[watch] src/css changed, rebuilding...');
+			await ctx.rebuild();
+
+			// Re-copy CSS
+			const srcCss = path.join(__dirname, 'src', 'css');
+			const distCss = path.join(__dirname, 'dist', 'css');
+			fs.mkdirSync(distCss, { recursive: true });
+			fs.cpSync(srcCss, distCss, { recursive: true });
+		});
 	} else {
 		await ctx.rebuild();
 		await ctx.dispose();
+		// Copy static assets (e.g., CSS)
+		const fs = require('fs');
+		const path = require('path');
+		const srcCss = path.join(__dirname, 'src', 'css');
+		const distCss = path.join(__dirname, 'dist', 'css');
+		fs.mkdirSync(distCss, { recursive: true });
+		fs.cpSync(srcCss, distCss, { recursive: true });
 	}
 }
 
