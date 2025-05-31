@@ -823,6 +823,27 @@
       "settings": {
         "foreground": "#72f1b8"
       }
+    },
+    {
+      "name": "Neon Glow - Variables",
+      "scope": ["variable", "entity.name.variable"],
+      "settings": {
+        "textShadow": "#F92672 0 0 8px"
+      }
+    },
+    {
+      "name": "Neon Glow - Functions",
+      "scope": ["entity.name.function", "variable.function"],
+      "settings": {
+        "textShadow": "#F92672 0 0 8px"
+      }
+    },
+    {
+      "name": "Neon Glow - Support Functions",
+      "scope": "support.function",
+      "settings": {
+        "textShadow": "#36f9f6 0 0 6px"
+      }
     }
   ]
 }
