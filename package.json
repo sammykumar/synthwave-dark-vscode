@@ -88,8 +88,8 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test",
-    "pubish:major": "vsce publish major",
-    "pubish:minor": "vsce publish minor",
-    "pubish:patch": "vsce publish patch"
+    "publish:major": "vsce publish major",
+    "publish:minor": "vsce publish minor",
+    "publish:patch": "vsce publish patch"
   }
 }
