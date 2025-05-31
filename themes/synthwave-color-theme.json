@@ -176,7 +176,10 @@
     },
     {
       "name": "Parameter",
-      "scope": "variable.parameter",
+      "scope": [
+        "variable.parameter",
+        "storage.type",
+      ],
       "settings": {
         "fontStyle": "italic",
         "foreground": "#A6E22E"
@@ -185,11 +188,10 @@
     {
       "name": "Storage (declaration or modifier keyword)",
       "scope": [
-        "storage.type",
         "storage.modifier"
       ],
       "settings": {
-        "foreground": "#FFFFFF"
+        "foreground": "#66D9EF"
       }
     },
     {
@@ -298,8 +300,9 @@
     {
       "name": "JS Export",
       "scope": [
-        "keyword.control.export.js",
-        "keyword.control.import.js"
+        "keyword.control.export",
+        "keyword.control.import",
+        "keyword.control.from"
       ],
       "settings": {
         "foreground": "#66D9EF"
