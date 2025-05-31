@@ -32,8 +32,9 @@ export function activate(context: vscode.ExtensionContext) {
 	const testDisposable = vscode.commands.registerCommand('synthwave-dark.test', () => {
 		// Retrieve and log file paths
 		const workbenchHtmlPath = getWorkbenchFilepath();
+
+		injectCSS(workbenchHtmlPath);
 		// Show confirmation message to user
-		vscode.window.showInformationMessage('File paths retrieved! Check console output.');
 	});
 
 	context.subscriptions.push(disposable);
@@ -65,6 +66,9 @@ function getWorkbenchFilepath() {
 	console.log("electronBase", electronBase);
 	console.log("workBenchFilename", workBenchFilename);
 	console.log("fullWorkbenchFilepath", fullWorkbenchFilepath);
+
+	vscode.window.showInformationMessage('File paths retrieved! Check console output.');
+
 	console.groupEnd();
 
 	return fullWorkbenchFilepath;
@@ -114,5 +118,39 @@ function isVSCodeBelowVersion(version: String) {
 }
 
 function injectCSS(htmlFilepath: string) {
-	const html = fs.readFileSync(htmlFilepath);
+	// Read HTML file content
+	let html = fs.readFileSync(htmlFilepath, 'utf-8');
+
+	// Get version from package.json
+	const packageJsonPath = path.join(__dirname, '..', 'package.json');
+	const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+	const version = packageJson.version;
+
+	// Read global CSS content
+	const globalCssPath = path.join(__dirname, 'css/global.css');
+	const cssContent = fs.readFileSync(globalCssPath, 'utf-8');
+
+	console.log("globalCssPath", globalCssPath);
+
+	// Create injection block with comments and CSS
+	const injectionBlock = `
+<!-- START: Synthwave Dark ${version} -->
+<style>
+${cssContent}
+</style>
+<!-- FINISH: Synthwave Dark ${version} -->
+`;
+
+	// Inject CSS before closing </head> tag
+	if (html.includes('</head>')) {
+		html = html.replace('</head>', `${injectionBlock}</head>`);
+	} else {
+		// Fallback: append to end of file
+		html += injectionBlock;
+	}
+
+	// Write modified HTML back to file
+	fs.writeFileSync(htmlFilepath, html, 'utf-8');
+	vscode.window.showInformationMessage(`Injected Global CSS into ${htmlFilepath}`);
+
 }
