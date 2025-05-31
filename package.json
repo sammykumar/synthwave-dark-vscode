@@ -5,6 +5,7 @@
   "version": "1.0.1",
   "author": "Sammy Kumar",
   "publisher": "SammyKumar",
+  "icon": "assets/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/sammykumar/synthwave-dark-vscode"
