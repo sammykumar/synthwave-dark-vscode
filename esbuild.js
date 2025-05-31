@@ -26,7 +26,8 @@ const esbuildProblemMatcherPlugin = {
 async function main() {
 	const ctx = await esbuild.context({
 		entryPoints: [
-			'src/extension.ts'
+			'src/extension.ts',
+			'src/js/glow.ts'
 		],
 		bundle: true,
 		format: 'cjs',
@@ -34,7 +35,8 @@ async function main() {
 		sourcemap: !production,
 		sourcesContent: false,
 		platform: 'node',
-		outfile: 'dist/extension.js',
+		outdir: 'dist',
+		entryNames: '[dir]/[name]',
 		external: ['vscode'],
 		logLevel: 'silent',
 		plugins: [
@@ -64,6 +66,20 @@ async function main() {
 			fs.mkdirSync(distCss, { recursive: true });
 			fs.cpSync(srcCss, distCss, { recursive: true });
 		});
+
+		// Also watch src/js for changes and copy to dist/js
+		const jsWatcher = chokidar.watch(path.join(__dirname, 'src', 'js'), {
+			ignoreInitial: true,
+		});
+
+		jsWatcher.on('all', async () => {
+			console.log('[watch] src/js changed, rebuilding...');
+			await ctx.rebuild();
+
+			const srcJs = path.join(__dirname, 'src', 'js');
+			const distJs = path.join(__dirname, 'dist', 'js');
+			fs.mkdirSync(distJs, { recursive: true });
+		});
 	} else {
 		await ctx.rebuild();
 		await ctx.dispose();
@@ -74,6 +90,10 @@ async function main() {
 		const distCss = path.join(__dirname, 'dist', 'css');
 		fs.mkdirSync(distCss, { recursive: true });
 		fs.cpSync(srcCss, distCss, { recursive: true });
+		// Also copy JS output
+		const srcJs = path.join(__dirname, 'src', 'js');
+		const distJs = path.join(__dirname, 'dist', 'js');
+		fs.mkdirSync(distJs, { recursive: true });
 	}
 }
 

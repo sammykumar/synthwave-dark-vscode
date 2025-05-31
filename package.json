@@ -32,12 +32,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "synthwave-dark.helloWorld",
-        "title": "Synthwave Dark: Hello World"
+        "command": "synthwave-dark.enableGlow",
+        "title": "Synthwave Dark: Enable Glow"
       },
       {
-        "command": "synthwave-dark.test",
-        "title": "Synthwave Dark: Test"
+        "command": "synthwave-dark.cleanup",
+        "title": "Synthwave Dark: Clean Up Workbench HTML"
       }
     ],
     "configuration": {
