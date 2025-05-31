@@ -26,9 +26,15 @@ export function activate(context: vscode.ExtensionContext) {
 		const workbenchHtmlPath = getWorkbenchFilepath();
 
 		injectCSSAndJS(workbenchHtmlPath);
-		vscode.window.setStatusBarMessage('Reloading in 1 seconds…', 1000);
+		vscode.window.showInformationMessage(
+			'A setting changed – reload to apply?',
+			'Reload now', 'Later'
+		).then(choice => {
+			if (choice === 'Reload now') {
+				vscode.commands.executeCommand('workbench.action.reloadWindow');
+			}
+		});
 
-		vscode.commands.executeCommand('workbench.action.reloadWindow');
 
 
 	});
@@ -70,7 +76,7 @@ function getWorkbenchFilepath() {
 	console.log("workBenchFilename", workBenchFilename);
 	console.log("fullWorkbenchFilepath", fullWorkbenchFilepath);
 
-	vscode.window.showInformationMessage('File paths retrieved! Check console output.');
+	// vscode.window.showInformationMessage('File paths retrieved! Check console output.');
 
 	console.groupEnd();
 
@@ -169,7 +175,7 @@ ${cssContent}
 
 	// Write modified HTML back to file
 	fs.writeFileSync(htmlFilepath, html, 'utf-8');
-	vscode.window.showInformationMessage(`Injected Global CSS into ${htmlFilepath}.`);
+	// vscode.window.showInformationMessage(`Injected Global CSS into ${htmlFilepath}.`);
 
 	console.groupEnd();
 
@@ -186,7 +192,7 @@ function cleanUpWorkbench(workbenchHtmlFilepath: string) {
 
 	// Write cleaned HTML back to file
 	fs.writeFileSync(workbenchHtmlFilepath, cleanedHtml, 'utf-8');
-	vscode.window.showInformationMessage(`Removed injected CSS from ${workbenchHtmlFilepath}`);
+	// vscode.window.showInformationMessage(`Removed injected CSS from ${workbenchHtmlFilepath}`);
 
 	console.groupEnd();
 }
