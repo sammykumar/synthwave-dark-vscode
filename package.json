@@ -34,6 +34,10 @@
       {
         "command": "synthwave-dark.helloWorld",
         "title": "Synthwave Dark: Hello World"
+      },
+      {
+        "command": "synthwave-dark.test",
+        "title": "Synthwave Dark: Test"
       }
     ],
     "configuration": {
@@ -46,7 +50,7 @@
         }
       }
     },
-     "themes": [
+    "themes": [
       {
         "label": "SynthWave 84",
         "uiTheme": "vs-dark",
