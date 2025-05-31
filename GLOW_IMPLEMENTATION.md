@@ -31,15 +31,6 @@ graph TD
 ### Specific Changes
 ```diff
 // Variables
-<<<<<<< SEARCH
-    {
-      "name": "Variable",
-      "scope": ["variable", "entity.name.variable"],
-      "settings": {
-        "foreground": "#F92672"
-      }
-    },
-=======
     {
       "name": "Variable",
       "scope": ["variable", "entity.name.variable"],
@@ -48,18 +39,8 @@ graph TD
         "textShadow": "#F92672 0 0 8px"
       }
     },
->>>>>>> REPLACE
 
 // Functions
-<<<<<<< SEARCH
-    {
-      "name": "Function",
-      "scope": ["entity.name.function", "variable.function"],
-      "settings": {
-        "foreground": "#F92672"
-      }
-    },
-=======
     {
       "name": "Function",
       "scope": ["entity.name.function", "variable.function"],
@@ -68,18 +49,8 @@ graph TD
         "textShadow": "#F92672 0 0 8px"
       }
     },
->>>>>>> REPLACE
 
 // Support Functions
-<<<<<<< SEARCH
-    {
-      "name": "Support function",
-      "scope": "support.function",
-      "settings": {
-        "foreground": "#36f9f6"
-      }
-    },
-=======
     {
       "name": "Support function",
       "scope": "support.function",
@@ -88,7 +59,6 @@ graph TD
         "textShadow": "#36f9f6 0 0 6px"
       }
     },
->>>>>>> REPLACE
 ```
 
 ## 4. Extension Code Changes (`src/extension.ts`)
@@ -105,17 +75,6 @@ context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 ## 5. Package.json Updates
 Add configuration option:
 ```diff
-<<<<<<< SEARCH
-  "main": "./dist/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "hello-world.helloWorld",
-        "title": "Hello World"
-      }
-    ]
-  },
-=======
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
@@ -135,7 +94,6 @@ Add configuration option:
       }
     }
   },
->>>>>>> REPLACE
 ```
 
 ## Compatibility Considerations
