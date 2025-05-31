@@ -8,7 +8,7 @@
     "activityBar.activeBorder": "#F92672",
     "activityBar.activeFocusBorder": "#F92672",
     "activityBarBadge.background": "#F92672",
-    "activityBarBadge.foreground": "#141414",
+    "activityBarBadge.foreground": "#F8F8F2",
     "badge.background": "#66D9EF",
     "badge.foreground": "#fff",
     "button.background": "#00FF7F",
@@ -129,7 +129,9 @@
   "tokenColors": [
     {
       "name": "Comment",
-      "scope": ["comment"],
+      "scope": [
+        "comment"
+      ],
       "settings": {
         "foreground": "#75715E",
         "fontStyle": "italic"
@@ -155,7 +157,10 @@
     },
     {
       "name": "Variable",
-      "scope": ["variable", "entity.name.variable"],
+      "scope": [
+        "variable",
+        "entity.name.variable"
+      ],
       "settings": {
         "foreground": "#F92672"
       }
@@ -178,7 +183,10 @@
     },
     {
       "name": "Storage (declaration or modifier keyword)",
-      "scope": ["storage.type", "storage.modifier"],
+      "scope": [
+        "storage.type",
+        "storage.modifier"
+      ],
       "settings": {
         "foreground": "#FFFFFF"
       }
@@ -234,7 +242,9 @@
     },
     {
       "name": "HTML or XML tag brackets",
-      "scope": ["punctuation.definition.tag"],
+      "scope": [
+        "punctuation.definition.tag"
+      ],
       "settings": {
         "foreground": "#36f9f6"
       }
@@ -256,7 +266,10 @@
     },
     {
       "name": "Class",
-      "scope": ["entity.name.type", "meta.attribute.class.html"],
+      "scope": [
+        "entity.name.type",
+        "meta.attribute.class.html"
+      ],
       "settings": {
         "foreground": "#AE81FF"
       }
@@ -270,21 +283,29 @@
     },
     {
       "name": "Function",
-      "scope": ["entity.name.function", "variable.function"],
+      "scope": [
+        "entity.name.function",
+        "variable.function"
+      ],
       "settings": {
         "foreground": "#F92672"
       }
     },
     {
       "name": "JS Export",
-      "scope": ["keyword.control.export.js", "keyword.control.import.js"],
+      "scope": [
+        "keyword.control.export.js",
+        "keyword.control.import.js"
+      ],
       "settings": {
         "foreground": "#66D9EF"
       }
     },
     {
       "name": "JS Numerics",
-      "scope": ["constant.numeric.decimal.js"],
+      "scope": [
+        "constant.numeric.decimal.js"
+      ],
       "settings": {
         "foreground": "#66D9EF"
       }
@@ -344,7 +365,10 @@
     },
     {
       "name": "Support variable",
-      "scope": ["support.variable", "variable.other.object.property.js"],
+      "scope": [
+        "support.variable",
+        "variable.other.object.property.js"
+      ],
       "settings": {
         "foreground": "#F92672"
       }
@@ -358,7 +382,10 @@
     },
     {
       "name": "Object literal key / property",
-      "scope": ["meta.object-literal.key", "support.type.property-name"],
+      "scope": [
+        "meta.object-literal.key",
+        "support.type.property-name"
+      ],
       "settings": {
         "foreground": "#ff7edb"
       }
@@ -451,14 +478,20 @@
     },
     {
       "name": "Markup heading",
-      "scope": ["markup.heading", "entity.name.section"],
+      "scope": [
+        "markup.heading",
+        "entity.name.section"
+      ],
       "settings": {
         "foreground": "#ff7edb"
       }
     },
     {
       "name": "Markup text",
-      "scope": ["text.html", "keyword.operator.assignment"],
+      "scope": [
+        "text.html",
+        "keyword.operator.assignment"
+      ],
       "settings": {
         "foreground": "#ffffffee"
       }
@@ -641,7 +674,9 @@
     },
     {
       "name": "Clojure Globals",
-      "scope": ["entity.global.clojure"],
+      "scope": [
+        "entity.global.clojure"
+      ],
       "settings": {
         "foreground": "#36f9f6",
         "fontStyle": "bold"
@@ -649,7 +684,9 @@
     },
     {
       "name": "Clojure Storage",
-      "scope": ["storage.control.clojure"],
+      "scope": [
+        "storage.control.clojure"
+      ],
       "settings": {
         "foreground": "#36f9f6",
         "fontStyle": "italic"
@@ -657,7 +694,10 @@
     },
     {
       "name": "Clojure Metadata",
-      "scope": ["meta.metadata.simple.clojure", "meta.metadata.map.clojure"],
+      "scope": [
+        "meta.metadata.simple.clojure",
+        "meta.metadata.map.clojure"
+      ],
       "settings": {
         "foreground": "#F92672",
         "fontStyle": "italic"
@@ -665,14 +705,18 @@
     },
     {
       "name": "Clojure Macros, Quoted",
-      "scope": ["meta.quoted-expression.clojure"],
+      "scope": [
+        "meta.quoted-expression.clojure"
+      ],
       "settings": {
         "fontStyle": "italic"
       }
     },
     {
       "name": "Clojure Symbols",
-      "scope": ["meta.symbol.clojure"],
+      "scope": [
+        "meta.symbol.clojure"
+      ],
       "settings": {
         "foreground": "#ff7edbff"
       }
@@ -743,14 +787,19 @@
     },
     {
       "name": "Markdown links and image paths",
-      "scope": ["string.other.link.title.markdown"],
+      "scope": [
+        "string.other.link.title.markdown"
+      ],
       "settings": {
         "foreground": "#E6DB74"
       }
     },
     {
       "name": "Markdown headings",
-      "scope": ["markup.heading.markdown", "entity.name.section.markdown"],
+      "scope": [
+        "markup.heading.markdown",
+        "entity.name.section.markdown"
+      ],
       "settings": {
         "foreground": "#ff7edb",
         "fontStyle": "bold"
@@ -758,7 +807,9 @@
     },
     {
       "name": "Markdown italic",
-      "scope": ["markup.italic.markdown"],
+      "scope": [
+        "markup.italic.markdown"
+      ],
       "settings": {
         "foreground": "#66D9EF",
         "fontStyle": "italic"
@@ -766,7 +817,9 @@
     },
     {
       "name": "Markdown bold",
-      "scope": ["markup.bold.markdown"],
+      "scope": [
+        "markup.bold.markdown"
+      ],
       "settings": {
         "foreground": "#66D9EF",
         "fontStyle": "bold"
@@ -784,56 +837,76 @@
     },
     {
       "name": "Basic source colours",
-      "scope": ["source.dart", "source.python", "source.scala"],
+      "scope": [
+        "source.dart",
+        "source.python",
+        "source.scala"
+      ],
       "settings": {
         "foreground": "#ff7edbff"
       }
     },
     {
       "name": "Dart strings",
-      "scope": ["string.interpolated.single.dart"],
+      "scope": [
+        "string.interpolated.single.dart"
+      ],
       "settings": {
         "foreground": "#f97e72"
       }
     },
     {
       "name": "Dart variable params",
-      "scope": ["variable.parameter.dart"],
+      "scope": [
+        "variable.parameter.dart"
+      ],
       "settings": {
         "foreground": "#72f1b8"
       }
     },
     {
       "name": "Dart numerics",
-      "scope": ["constant.numeric.dart"],
+      "scope": [
+        "constant.numeric.dart"
+      ],
       "settings": {
         "foreground": "#66D9EF"
       }
     },
     {
       "name": "Scala variable params",
-      "scope": ["variable.parameter.scala"],
+      "scope": [
+        "variable.parameter.scala"
+      ],
       "settings": {
         "foreground": "#66D9EF"
       }
     },
     {
       "name": "Scala",
-      "scope": ["meta.template.expression.scala"],
+      "scope": [
+        "meta.template.expression.scala"
+      ],
       "settings": {
         "foreground": "#72f1b8"
       }
     },
     {
       "name": "Neon Glow - Variables",
-      "scope": ["variable", "entity.name.variable"],
+      "scope": [
+        "variable",
+        "entity.name.variable"
+      ],
       "settings": {
         "textShadow": "#ff7edb 0 0 10px"
       }
     },
     {
       "name": "Neon Glow - Functions",
-      "scope": ["entity.name.function", "variable.function"],
+      "scope": [
+        "entity.name.function",
+        "variable.function"
+      ],
       "settings": {
         "textShadow": "#36f9f6 0 0 10px"
       }
@@ -847,14 +920,22 @@
     },
     {
       "name": "Neon Glow - Constants",
-      "scope": ["constant", "constant.numeric", "constant.language"],
+      "scope": [
+        "constant",
+        "constant.numeric",
+        "constant.language"
+      ],
       "settings": {
         "textShadow": "#f97e72 0 0 8px"
       }
     },
     {
       "name": "Neon Glow - Strings",
-      "scope": ["string", "string.quoted", "string.template"],
+      "scope": [
+        "string",
+        "string.quoted",
+        "string.template"
+      ],
       "settings": {
         "textShadow": "#ff8b39 0 0 8px"
       }
