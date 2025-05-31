@@ -11,7 +11,7 @@
     "activityBarBadge.foreground": "#F8F8F2",
     "badge.background": "#66D9EF",
     "badge.foreground": "#fff",
-    "button.background": "#00FF7F",
+    "button.background": "#4ade80",
     "button.foreground": "#1B1E23",
     "button.hoverBackground": "#66D9EF",
     "dropdown.background": "#0A0A0A",
@@ -34,7 +34,7 @@
     "editorOverviewRuler.warningForeground": "#FFAB40",
     "editorOverviewRuler.infoForeground": "#FFFF0000",
     "editorOverviewRuler.bracketMatchForeground": "#40C4FF00",
-    "editorGutter.addedBackground": "#47ffa0",
+    "editorGutter.addedBackground": "#4ade80",
     "editorGutter.modifiedBackground": "#40C4FF",
     "editorGutter.deletedBackground": "#FF5555",
     "editor.lineHighlightBackground": "#ffffff10",
@@ -45,7 +45,7 @@
     "editor.wordHighlightBackground": "#ff000000",
     "editor.wordHighlightStrongBorder": "#ffffff80",
     "editor.inactiveSelectionBackground": "#ffffff20",
-    "editorCursor.foreground": "#00FF7F",
+    "editorCursor.foreground": "#4ade80",
     "editor.findMatchBackground": "#40c3ff66",
     "editor.findMatchHighlightBackground": "#ffffff22",
     "editor.hoverHighlightBackground": "#ffffff22",
@@ -106,7 +106,7 @@
     "titleBar.activeForeground": "#ffffff99",
     "titleBar.inactiveBackground": "#1E1E1E",
     "titleBar.inactiveForeground": "#ffffff99",
-    "progressBar.background": "#47ffa0",
+    "progressBar.background": "#4ade80",
     "input.background": "#0A0A0A",
     "input.foreground": "#f8f8f0",
     "input.border": "#F92672",
@@ -121,7 +121,7 @@
     "inputValidation.errorBorder": "#FF5555",
     "pickerGroup.foreground": "#40C4FF",
     "pickerGroup.border": "#40c3ff00",
-    "extensionButton.prominentBackground": "#47ffa0",
+    "extensionButton.prominentBackground": "#4ade80",
     "extensionButton.prominentHoverBackground": "#66D9EF",
     "extensionButton.prominentForeground": "#0A0A0A",
     "editorLink.activeForeground": "#66D9EF"
@@ -250,14 +250,14 @@
         "punctuation.definition.tag"
       ],
       "settings": {
-        "foreground": "#AE81FF"
+        "foreground": "#F8F8F2"
       }
     },
     {
       "name": "Tag attribute",
       "scope": "entity.other.attribute-name",
       "settings": {
-        "foreground": "#FFFFFF"
+        "foreground": "#F8F8F2"
       }
     },
     {
