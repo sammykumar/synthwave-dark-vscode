@@ -2,16 +2,15 @@
   "name": "synthwave-dark-vscode",
   "displayName": "SynthWave Dark",
   "description": "A Dark Synthwave/Monokai inspired colour theme to satisfy your neon dreams",
-  "version": "0.5.3",
+  "version": "0.6.1",
   "author": "Sammy Kumar",
   "publisher": "SammyKumar",
-  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/sammykumar/synthwave-dark-vscode"
   },
   "engines": {
-    "vscode": "^1.33.0"
+    "vscode": "^1.100.0"
   },
   "extensionKind": [
     "ui"
@@ -28,68 +27,66 @@
   "categories": [
     "Themes"
   ],
-  "activationEvents": [
-    "onStartupFinished"
-  ],
-  "main": "./src/extension.js",
+  "activationEvents": [],
+  "main": "./dist/extension.js",
   "contributes": {
-    "themes": [
-      {
-        "label": "SynthWave Dark",
-        "uiTheme": "vs-dark",
-        "path": "./themes/synthwave-color-theme.json"
-      }
-    ],
     "commands": [
       {
-        "command": "synthwaveDark.disableNeon",
-        "title": "Synthwave Dark: Disable Neon Dreams"
+        "command": "synthwave-dark.enableGlow",
+        "title": "Synthwave Dark: Enable Glow"
+      },
+      {
+        "command": "synthwave-dark.cleanup",
+        "title": "Synthwave Dark: Clean Up Workbench HTML"
       }
     ],
     "configuration": {
-      "title": "Synthwave Dark",
+      "title": "SynthWave Dark",
       "properties": {
-        "synthwaveDark.brightness": {
-          "type": "number",
-          "default": 1,
-          "description": "Set the brightness value for the glow effect. 0.0 is fully transparent and 1.0 is fully bright"
-        },
-        "synthwaveDark.disableGlow": {
+        "synthwaveDark.enableGlow": {
           "type": "boolean",
           "default": false,
-          "description": "Disable the glow effect, but show Synthwave '84 editor chrome updates"
+          "description": "Enable neon glow effects in the theme"
         }
       }
-    }
+    },
+    "themes": [
+      {
+        "label": "SynthWave 84",
+        "uiTheme": "vs-dark",
+        "path": "./themes/synthwave-color-theme.json"
+      }
+    ]
   },
   "dependencies": {
     "semver": "^7.7.1"
   },
   "devDependencies": {
-    "@vscode/vsce": "^3.2.2",
-    "@vscode/test-electron": "^2.4.1",
-    "@types/mocha": "^10.0.8",
-    "@types/node": "^22.10.2",
-    "@types/vscode": "^1.33.0",
-    "glob": "^10.3.10",
-    "mocha": "^10.8.2",
-    "sinon": "^19.0.2",
-    "typescript": "^5.7.2"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/semver": "^7.7.0",
+    "@types/vscode": "^1.100.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.25.3",
+    "eslint": "^9.25.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.3"
   },
   "scripts": {
-    "version:major": "npm version major",
-    "version:minor": "npm version minor",
-    "version:patch": "npm version patch",
-    "package": "vsce package",
-    "install-extension": "code-insiders --install-extension synthwave-dark-vscode-*.vsix",
-    "package-and-install": "npm run version:patch && npm run package && npm run install-extension",
-    "test": "node ./src/test/runTest.js",
-    "test:watch": "npm run test -- --watch"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@vscode/vsce-sign",
-      "keytar"
-    ]
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
   }
 }
