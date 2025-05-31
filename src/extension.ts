@@ -14,6 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 
+	// Show confirmation message to user
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
@@ -29,16 +30,29 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	// Register the test command defined in package.json
-	const testDisposable = vscode.commands.registerCommand('synthwave-dark.test', () => {
+	const enableGlowDisposable = vscode.commands.registerCommand('synthwave-dark.enableGlow', async () => {
 		// Retrieve and log file paths
 		const workbenchHtmlPath = getWorkbenchFilepath();
 
 		injectCSS(workbenchHtmlPath);
-		// Show confirmation message to user
+		vscode.window.setStatusBarMessage('Reloading in 1 seconds…', 100);
+
+		setTimeout(() => {
+			vscode.commands.executeCommand('workbench.action.reloadWindow');
+		}, 5000);
+
+	});
+
+	const cleanUpWorkbenchDisposable = vscode.commands.registerCommand('synthwave-dark.cleanup', () => {
+		// Retrieve and log file paths
+		const workbenchHtmlPath = getWorkbenchFilepath();
+
+		cleanUpWorkbench(workbenchHtmlPath);
 	});
 
 	context.subscriptions.push(disposable);
-	context.subscriptions.push(testDisposable);
+	context.subscriptions.push(enableGlowDisposable);
+	context.subscriptions.push(cleanUpWorkbenchDisposable);
 
 	// Update theme when configuration changes
 	context.subscriptions.push(
@@ -118,6 +132,12 @@ function isVSCodeBelowVersion(version: String) {
 }
 
 function injectCSS(htmlFilepath: string) {
+
+	// Clean up previous injections
+	cleanUpWorkbench(htmlFilepath);
+
+	console.group("injectCSS()");
+
 	// Read HTML file content
 	let html = fs.readFileSync(htmlFilepath, 'utf-8');
 
@@ -138,6 +158,7 @@ function injectCSS(htmlFilepath: string) {
 <style>
 ${cssContent}
 </style>
+<script src="glow.js"></script>
 <!-- FINISH: Synthwave Dark ${version} -->
 `;
 
@@ -151,6 +172,24 @@ ${cssContent}
 
 	// Write modified HTML back to file
 	fs.writeFileSync(htmlFilepath, html, 'utf-8');
-	vscode.window.showInformationMessage(`Injected Global CSS into ${htmlFilepath}`);
+	vscode.window.showInformationMessage(`Injected Global CSS into ${htmlFilepath}.`);
 
+	console.groupEnd();
+
+}
+
+function cleanUpWorkbench(workbenchHtmlFilepath: string) {
+	console.group("cleanUpWorkbench()");
+
+	// Read HTML file content
+	let html = fs.readFileSync(workbenchHtmlFilepath, 'utf-8');
+
+	// Remove injected CSS block
+	const cleanedHtml = html.replace(/<!-- START: Synthwave Dark[\s\S]*?<!-- FINISH: Synthwave Dark.*?-->\s*/g, '');
+
+	// Write cleaned HTML back to file
+	fs.writeFileSync(workbenchHtmlFilepath, cleanedHtml, 'utf-8');
+	vscode.window.showInformationMessage(`Removed injected CSS from ${workbenchHtmlFilepath}`);
+
+	console.groupEnd();
 }
