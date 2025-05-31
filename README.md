@@ -7,8 +7,8 @@ A Dark Synthwave/Monokai inspired colour theme to satisfy your neon dreams.
 
 ## Features
 
-- Retro 80s-inspired color scheme
-- Neon highlights for syntax elements (now with optional glow effects)
+- Dark Synthwave/Apple Intelligence
+- Neow Glow effect
 - Optimized for JavaScript/TypeScript development
 - Carefully crafted Monokai-inspired palette
 - Dark background with vibrant accent colors
