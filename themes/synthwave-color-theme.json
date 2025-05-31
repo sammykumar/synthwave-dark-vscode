@@ -145,7 +145,7 @@
         "punctuation.definition.string"
       ],
       "settings": {
-        "foreground": "#E6DB74"
+        "foreground": "#FD971F"
       }
     },
     {
@@ -159,7 +159,8 @@
       "name": "Variable",
       "scope": [
         "variable",
-        "entity.name.variable"
+        "entity.name.variable",
+        "source.js"
       ],
       "settings": {
         "foreground": "#F92672"
@@ -178,7 +179,7 @@
       "scope": "variable.parameter",
       "settings": {
         "fontStyle": "italic",
-        "foreground": "#E6DB74"
+        "foreground": "#A6E22E"
       }
     },
     {
@@ -228,7 +229,10 @@
     },
     {
       "name": "Entity",
-      "scope": "entity.name",
+      "scope": [
+        "entity.name",
+        "entity.name.tag.js.jsx"
+      ],
       "settings": {
         "foreground": "#F92672"
       }
@@ -246,7 +250,7 @@
         "punctuation.definition.tag"
       ],
       "settings": {
-        "foreground": "#36f9f6"
+        "foreground": "#AE81FF"
       }
     },
     {
@@ -321,7 +325,7 @@
       "name": "Control keyword",
       "scope": "keyword.control",
       "settings": {
-        "foreground": "#FFFFFF"
+        "foreground": "#F8F8F2"
       }
     },
     {
@@ -345,13 +349,6 @@
     {
       "name": "Unit",
       "scope": "keyword.other.unit",
-      "settings": {
-        "foreground": "#F8F8F2"
-      }
-    },
-    {
-      "name": "Support",
-      "scope": "support",
       "settings": {
         "foreground": "#F8F8F2"
       }
@@ -889,55 +886,6 @@
       ],
       "settings": {
         "foreground": "#72f1b8"
-      }
-    },
-    {
-      "name": "Neon Glow - Variables",
-      "scope": [
-        "variable",
-        "entity.name.variable"
-      ],
-      "settings": {
-        "textShadow": "#ff7edb 0 0 10px"
-      }
-    },
-    {
-      "name": "Neon Glow - Functions",
-      "scope": [
-        "entity.name.function",
-        "variable.function"
-      ],
-      "settings": {
-        "textShadow": "#36f9f6 0 0 10px"
-      }
-    },
-    {
-      "name": "Neon Glow - Support Functions",
-      "scope": "support.function",
-      "settings": {
-        "textShadow": "#72f1b8 0 0 8px"
-      }
-    },
-    {
-      "name": "Neon Glow - Constants",
-      "scope": [
-        "constant",
-        "constant.numeric",
-        "constant.language"
-      ],
-      "settings": {
-        "textShadow": "#f97e72 0 0 8px"
-      }
-    },
-    {
-      "name": "Neon Glow - Strings",
-      "scope": [
-        "string",
-        "string.quoted",
-        "string.template"
-      ],
-      "settings": {
-        "textShadow": "#ff8b39 0 0 8px"
       }
     }
   ]

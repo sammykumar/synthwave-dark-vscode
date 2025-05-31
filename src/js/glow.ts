@@ -7,7 +7,13 @@
     //====================================
     const tokenReplacements: Record<string, string> = {
         /* pink */
-        'f92672': "color: #F92672; text-shadow: 0 0 10px #F9267280, 0 0 20px #F9267260, 0 0 30px #F9267240, 0 0 40px #F9267220;",
+        'f92672': "color: #f92672; text-shadow: 0 0 10px #F9267280, 0 0 20px #F9267260, 0 0 30px #F9267240, 0 0 40px #F9267220;",
+        /* yellow */
+        'e6db74': "color: #e6db74; text-shadow: 0 0 10px #E6DB7480, 0 0 20px #E6DB7460, 0 0 30px #E6DB7440, 0 0 40px #E6DB7420;",
+        /* blue */
+        '66d9ef': "color: #66d9ef; text-shadow: 0 0 10px #66D9EF80, 0 0 20px #66D9EF60, 0 0 30px #66D9EF40, 0 0 40px #66D9EF20;",
+        /* purple */
+        'ae81ff': "color: #ae81ff; text-shadow: 0 0 10px #AE81FF80, 0 0 20px #AE81FF60, 0 0 30px #AE81FF40, 0 0 40px #AE81FF20;",
 
     };
 
