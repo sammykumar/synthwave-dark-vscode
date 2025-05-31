@@ -34,12 +34,11 @@ export function activate(context: vscode.ExtensionContext) {
 		// Retrieve and log file paths
 		const workbenchHtmlPath = getWorkbenchFilepath();
 
-		injectCSS(workbenchHtmlPath);
-		vscode.window.setStatusBarMessage('Reloading in 1 seconds…', 100);
+		injectCSSAndJS(workbenchHtmlPath);
+		vscode.window.setStatusBarMessage('Reloading in 1 seconds…', 1000);
 
-		setTimeout(() => {
-			vscode.commands.executeCommand('workbench.action.reloadWindow');
-		}, 5000);
+		vscode.commands.executeCommand('workbench.action.reloadWindow');
+
 
 	});
 
@@ -131,12 +130,12 @@ function isVSCodeBelowVersion(version: String) {
 	return false;
 }
 
-function injectCSS(htmlFilepath: string) {
+function injectCSSAndJS(htmlFilepath: string) {
 
 	// Clean up previous injections
 	cleanUpWorkbench(htmlFilepath);
 
-	console.group("injectCSS()");
+	console.group("injectCSSAndJS()");
 
 	// Read HTML file content
 	let html = fs.readFileSync(htmlFilepath, 'utf-8');
@@ -147,19 +146,27 @@ function injectCSS(htmlFilepath: string) {
 	const version = packageJson.version;
 
 	// Read global CSS content
-	const globalCssPath = path.join(__dirname, 'css/global.css');
-	const cssContent = fs.readFileSync(globalCssPath, 'utf-8');
+	const cssPath = path.join(__dirname, 'css/global.css');
+	const cssContent = fs.readFileSync(cssPath, 'utf-8');
 
-	console.log("globalCssPath", globalCssPath);
+	console.log("cssPath", cssPath);
+
+	// Read global JS Path
+	const jsPath = path.join(__dirname, 'js/glow.js');
+
+
+	console.log("jsPath", jsPath);
+
 
 	// Create injection block with comments and CSS
 	const injectionBlock = `
-<!-- START: Synthwave Dark ${version} -->
+<!-- START: Synthwave Dark ${version} (CSS + JS) -->
 <style>
 ${cssContent}
 </style>
-<script src="glow.js"></script>
-<!-- FINISH: Synthwave Dark ${version} -->
+<script src="${jsPath}">
+</script>
+<!-- FINISH: Synthwave Dark ${version} (CSS + JS) -->
 `;
 
 	// Inject CSS before closing </head> tag
