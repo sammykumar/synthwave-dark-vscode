@@ -31,9 +31,10 @@ The pipeline automatically determines the semantic version bump based on commit 
 
 Examples:
 ```bash
-git commit -m "feat: add new glow effects [minor]"     # Minor bump
-git commit -m "BREAKING: remove deprecated API"       # Major bump
-git commit -m "fix: resolve theme color issue"        # Patch bump
+git commit -m "feat: add new glow effects"              # Minor bump
+git commit -m "BREAKING: remove deprecated API"        # Major bump  
+git commit -m "fix: resolve theme color issue"         # Patch bump
+git commit -m "feature: new theme variants [minor]"    # Minor bump
 ```
 
 ## Setup Requirements

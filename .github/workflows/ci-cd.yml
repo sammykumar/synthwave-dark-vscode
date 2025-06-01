@@ -66,10 +66,10 @@ jobs:
         echo "Commit message: $COMMIT_MSG"
         
         # Determine version bump based on commit message
-        if [[ $COMMIT_MSG =~ \[major\]|\bBREAKING\b|\bbreaking\b ]]; then
+        if [[ $COMMIT_MSG =~ \[major\]|BREAKING|breaking ]]; then
           echo "bump=major" >> $GITHUB_OUTPUT
           echo "Version bump: major"
-        elif [[ $COMMIT_MSG =~ \[minor\]|\bfeat\b|\bfeature\b ]]; then
+        elif [[ $COMMIT_MSG =~ \[minor\]|feat|feature ]]; then
           echo "bump=minor" >> $GITHUB_OUTPUT
           echo "Version bump: minor"
         else
@@ -77,8 +77,19 @@ jobs:
           echo "Version bump: patch"
         fi
         
+    - name: Check if VSCE_PAT is set
+      run: |
+        if [ -z "${{ secrets.VSCE_PAT }}" ]; then
+          echo "❌ VSCE_PAT secret is not set. Please add it to repository secrets."
+          echo "See CI-CD.md for setup instructions."
+          exit 1
+        fi
+        echo "✅ VSCE_PAT secret is configured"
+        
     - name: Publish to VS Code Marketplace
       env:
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
       run: |
+        echo "🚀 Publishing extension with ${{ steps.version.outputs.bump }} version bump..."
         npx @vscode/vsce publish ${{ steps.version.outputs.bump }} --pat $VSCE_PAT
+        echo "✅ Extension published successfully!"
