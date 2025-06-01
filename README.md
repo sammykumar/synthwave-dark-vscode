@@ -5,8 +5,12 @@
 
 A Dark Synthwave/Monokai inspired colour theme to satisfy your neon dreams.
 
+<div align="center" style="max-width: 850px; margin: 0 auto;">
+
 ![SynthWave Dark Theme Banner](https://imgur.com/g9wkh6F.png)
 ![SynthWave Dark Theme Preview](https://imgur.com/cdEyJRz.png)
+
+</div>
 
 ## Features
 
