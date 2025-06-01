@@ -5,7 +5,7 @@
  * of the SynthWave Dark VS Code theme.
  *
  * Author: Sammy Kumar
- * Theme: SynthWave 84
+ * Theme: SynthWave Dark
  */
 
 // ===== COMMENTS =====
