@@ -13,12 +13,12 @@ This guide covers the development workflow, testing, and CI/CD pipeline for the 
 git checkout -b feat/new-glow-effects
 
 # Make your changes...
-# When ready to bump version:
-npm version patch  # or minor/major as appropriate
-# This updates package.json and creates a git commit + tag automatically
+# When ready to bump version (automated):
+npm run feature:version:patch  # or minor/major as appropriate
+# This updates package.json and creates a git commit automatically
 
 # Push your feature branch (without the tag)
-git push origin feat/new-glow-effects --no-tags
+git push origin feat/new-glow-effects
 ```
 
 #### 2. Pull Request Process
@@ -28,35 +28,51 @@ git push origin feat/new-glow-effects --no-tags
 - Get review and approval
 - Merge to master
 
-#### 3. Publishing Release
+#### 3. Publishing Release (Automated)
 
 ```bash
 # Switch to master and pull the merged changes
 git checkout master
 git pull origin master
 
-# Now push the version tag to trigger publishing
-git push origin v1.2.3  # whatever version was created by npm version
+# Option A: Complete release workflow (builds, tests, commits, tags, and pushes)
+npm run release:patch   # or minor/major
+# This will: build → test → commit → tag → push to master → push tag
+
+# Option B: Just push the existing tag if version was already bumped
+npm run release:tag-only
 ```
 
-### Alternative Workflow (Version Bump on Master)
+### Alternative Workflows
 
-If you prefer to keep version bumps separate from features:
+#### Automated Workflow (Recommended)
+
+For complete automation from master branch:
 
 ```bash
 # After merging feature to master:
 git checkout master
 git pull origin master
 
-# Bump version on master
-npm version patch --no-git-tag-version
-git add package.json
-git commit -m "chore: bump version to 1.2.3"
+# Complete automated release
+npm run release:patch  # or minor/major
+# This handles: package → version bump → commit → tag → push
+```
 
-# Create and push tag
-git tag v1.2.3
-git push origin master
-git push origin v1.2.3
+#### Manual Workflow (Version Bump on Master)
+
+If you prefer more control over the process:
+
+```bash
+# After merging feature to master:
+git checkout master
+git pull origin master
+
+# Manual version bump and release
+npm run version:patch     # Just bump version in package.json
+git add package.json
+git commit -m "chore: bump version to $(node -p 'require("./package.json").version')"
+npm run release:publish   # Tag and push
 ```
 
 ## Testing
@@ -172,27 +188,65 @@ To enable automatic publishing, you need to configure the `VSCE_PAT` secret in G
 
 ### Manual Publishing
 
-You can still publish manually using npm scripts if needed:
+You can still publish manually using the legacy vsce commands if needed:
 
 ```bash
-npm run publish:patch   # Patch version bump
-npm run publish:minor   # Minor version bump
-npm run publish:major   # Major version bump
+npm run vsce:publish    # Direct publish (bypasses automation)
 ```
 
 However, the recommended approach is to use the automated pipeline with git tags as described above.
 
+## Automated Release Scripts
+
+The following npm scripts automate the development workflow:
+
+### Feature Development Scripts
+
+```bash
+# Version bump for feature branches (no tags created)
+npm run feature:version:patch   # Bump patch version and commit
+npm run feature:version:minor   # Bump minor version and commit
+npm run feature:version:major   # Bump major version and commit
+```
+
+### Release Scripts (Master Branch)
+
+```bash
+# Complete automated release workflow
+npm run release:patch           # Build → version bump → commit → tag → push
+npm run release:minor           # Build → version bump → commit → tag → push
+npm run release:major           # Build → version bump → commit → tag → push
+
+# Individual release steps
+npm run version:patch           # Just bump version in package.json
+npm run version:minor           # Just bump version in package.json
+npm run version:major           # Just bump version in package.json
+npm run release:publish         # Tag current version and push
+npm run release:tag-only        # Just tag and push tag (no master push)
+```
+
+### Script Breakdown
+
+- **`feature:version:*`**: For feature branches - bumps version and commits but doesn't create tags
+- **`release:*`**: Complete workflow including build, test, version bump, commit, tag creation, and pushing
+- **`version:*`**: Version-only operations without git operations
+- **`release:publish`**: Git operations only (tag and push)
+- **`release:tag-only`**: Creates and pushes tag for current version without pushing to master
+
 ## Build Scripts
 
-### Available Scripts
+### Core Build Scripts
 
 - `npm run compile` - Compile TypeScript and run checks
 - `npm run package` - Build production package
 - `npm run vscode:prepublish` - Prepublish hook (runs package)
-- `npm run vsce:package` - Create VSIX package
-- `npm run vsce:publish` - Publish to marketplace
 - `npm run clean` - Clean build artifacts
 - `npm run clean-test` - Clean test artifacts
+
+### Legacy VSCE Scripts
+
+- `npm run vsce:package` - Create VSIX package
+- `npm run vsce:publish` - Direct publish to marketplace (bypasses automation)
 
 ### Development Scripts
 
