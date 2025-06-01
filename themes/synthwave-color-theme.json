@@ -143,7 +143,7 @@
   "tokenColors": [
     {
       "name": "Comment",
-      "scope": ["comment", "string.quoted"],
+      "scope": ["comment"],
       "settings": {
         "foreground": "#75715E",
         "fontStyle": "italic"
@@ -155,7 +155,6 @@
         "constant.numeric",
         "entity.other.attribute-name.pseudo-element",
         "entity.other.attribute-name.pseudo-class",
-        "punctuation.definition.tag",
         "support.type.property-name.json"
       ],
       "settings": {
@@ -202,7 +201,8 @@
         "variable.parameter.scala",
         "markup.italic.markdown",
         "markup.bold.markdown",
-        "meta.attribute.class.html"
+        "meta.attribute.class.html",
+        "punctuation.separator.key-value"
       ],
       "settings": {
         "foreground": "#66D9EF"
@@ -210,7 +210,7 @@
     },
     {
       "name": "Blue italics",
-      "scope": ["storage.type"],
+      "scope": ["storage.type", "meta.tag.metadata.doctype.html"],
       "settings": {
         "foreground": "#66D9EF",
         "fontStyle": "italic"
@@ -241,7 +241,6 @@
       "scope": [
         "support.function",
         "meta.function",
-        "entity.name.tag",
         "character.escape",
         "constant.character.escape",
         "keyword.control.export",
@@ -254,10 +253,12 @@
         "keyword.control.directive.include.c",
         "keyword.control.directive.define.c",
         "constant",
-        "string.quoted",
         "string.template",
         "punctuation.definition.string",
-        "constant.language.boolean.true"
+        "constant.language.boolean.true",
+        "punctuation.definition.tag.html",
+        "punctuation.definition.tag.begin.html",
+        "punctuation.definition.tag.end.html"
       ],
       "settings": {
         "foreground": "#4ade80"
@@ -275,14 +276,14 @@
         "foreground": "#F8F8F2"
       }
     },
-    {
-      "name": "White text with italic",
-      "scope": ["entity.other.attribute-name.html"],
-      "settings": {
-        "foreground": "#F8F8F2",
-        "fontStyle": "italic"
-      }
-    },
+    // {
+    //   "name": "White text with italic",
+    //   "scope": ["entity.other.attribute-name.html"],
+    //   "settings": {
+    //     "foreground": "#F8F8F2",
+    //     "fontStyle": "italic"
+    //   }
+    // },
     {
       "name": "Purple classes",
       "scope": ["entity.name.type", "meta.attribute.class.html"],
@@ -447,23 +448,19 @@
     },
     {
       "name": "Gray quote and separators",
-      "scope": [
-        "markup.quote",
-        "punctuation.separator.key-value",
-        "string.template meta.embedded.line"
-      ],
+      "scope": ["markup.quote", "string.template meta.embedded.line"],
       "settings": {
         "foreground": "#b6b1b1cc",
         "fontStyle": "italic"
       }
     },
-    {
-      "name": "Gray separators",
-      "scope": ["punctuation.separator.key-value"],
-      "settings": {
-        "foreground": "#b6b1b1"
-      }
-    },
+    // {
+    //   "name": "Gray separators",
+    //   "scope": ["punctuation.separator.key-value"],
+    //   "settings": {
+    //     "foreground": "#b6b1b1"
+    //   }
+    // },
     {
       "name": "White-ish markup text",
       "scope": ["text.html", "keyword.operator.assignment"],
@@ -472,33 +469,10 @@
       }
     },
     {
-      "name": "Orange link",
-      "scope": ["markup.underline.link"],
+      "name": "HTML content text (Red Placeholder)",
+      "scope": ["text.html"],
       "settings": {
-        "foreground": "#D50"
-      }
-    },
-    {
-      "name": "C++ placeholder with italic",
-      "scope": ["constant.other.placeholder.cpp"],
-      "settings": {
-        "foreground": "#72f1b8",
-        "fontStyle": "italic"
-      }
-    },
-    {
-      "name": "C placeholder with italic",
-      "scope": ["constant.other.placeholder.c"],
-      "settings": {
-        "foreground": "#4ade80",
-        "fontStyle": "italic"
-      }
-    },
-    {
-      "name": "Clojure macros with italic",
-      "scope": ["meta.quoted-expression.clojure"],
-      "settings": {
-        "fontStyle": "italic"
+        "foreground": "#fc0303"
       }
     },
     {
@@ -510,6 +484,59 @@
       "settings": {
         "foreground": "#72f1b8",
         "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "Green HTML tags",
+      "scope": [
+        "entity.name.tag.html",
+        "entity.name.tag",
+        "meta.tag.structure.any.html"
+      ],
+      "settings": {
+        "foreground": "#4ade80"
+      }
+    },
+    {
+      "name": "Blue italic HTML attributes",
+      "scope": [
+        "entity.other.attribute-name.html",
+        "entity.other.attribute-name"
+      ],
+      "settings": {
+        "foreground": "#66D9EF",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "Yellow HTML attribute values and quotes",
+      "scope": [
+        "string.quoted.single.html",
+        "string.quoted.double.html",
+        "punctuation.definition.string.begin.html",
+        "punctuation.definition.string.end.html",
+        "string.quoted.single",
+        "string.quoted.double",
+        "string.quoted"
+      ],
+      "settings": {
+        "foreground": "#E6DB74"
+      }
+    },
+    {
+      "name": "TypeScript Assigned Values (Strings, Booleans)",
+      "scope": [
+        "source.ts string.quoted.single.ts",
+        "source.ts string.quoted.double.ts",
+        "source.ts string.template.ts",
+        "source.ts punctuation.definition.string.begin.ts",
+        "source.ts punctuation.definition.string.end.ts",
+        "source.ts punctuation.definition.template-expression.begin.ts",
+        "source.ts punctuation.definition.template-expression.end.ts",
+        "source.ts constant.language.boolean.ts"
+      ],
+      "settings": {
+        "foreground": "#FD971F"
       }
     }
   ]
