@@ -4,6 +4,65 @@ All notable changes to the "SynthWave Dark" VS Code theme extension will be docu
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.1.2] - 2025-05-31
+
+### Fixed
+
+- Fixed glow effects initialization and theme detection
+- Improved workbench HTML injection reliability
+- Enhanced VS Code version compatibility checking
+
+### Changed
+
+- Improved Apple Intelligence gradient animation performance
+- Optimized CSS injection and cleanup processes
+- Enhanced glow effect token replacement logic
+
+## [1.1.1] - 2025-05-31
+
+### Added
+
+- Apple Intelligence inspired gradient animations
+- Active tab stripe with animated rainbow gradient
+- Enhanced activity bar badges with multi-color gradients
+- Support for Apple Intelligence placeholder text color (`#fc0303`)
+
+### Enhanced
+
+- Improved glow effect implementation with better browser compatibility
+- Enhanced theme detection and initialization logic
+- Added comprehensive CSS variable system for Apple Intelligence colors
+
+### Technical
+
+- Refactored glow.js for better performance and reliability
+- Added CSS custom properties for gradient management
+- Improved MutationObserver handling for theme changes
+
+## [1.1.0] - 2025-05-31
+
+### Added
+
+- JavaScript-based glow effect implementation (glow.ts)
+- Dynamic theme style injection and replacement
+- Comprehensive token replacement system for glow effects
+- Enhanced CSS styling with Apple Intelligence color palette
+- Improved VS Code version compatibility detection
+
+### Features
+
+- **Glow Effects**: Complete rewrite of glow implementation using TypeScript
+- **Apple Intelligence Integration**: Support for Apple Intelligence color scheme
+- **Dynamic Styling**: Real-time theme style injection and modification
+- **Version Compatibility**: Enhanced checking for VS Code version support
+
+### Technical
+
+- Migrated from CSS-only to JavaScript-based glow implementation
+- Added MutationObserver for dynamic theme loading
+- Implemented token replacement system for syntax highlighting glow
+- Enhanced workbench HTML modification with proper cleanup
+
 ## [1.0.1] - 2025-05-31
 
 ### Added
