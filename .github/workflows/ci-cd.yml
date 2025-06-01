@@ -5,6 +5,8 @@ on:
     branches:
       - master
       - "feat/*"
+    tags:
+      - "v*"
   pull_request:
     branches: [master]
 
@@ -40,7 +42,7 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    if: startsWith(github.ref, 'refs/tags/v')
 
     steps:
       - name: Checkout code
@@ -60,30 +62,19 @@ jobs:
       - name: Build extension
         run: npm run package
 
-      - name: Determine version bump
+      - name: Extract version from tag
         id: version
         run: |
-          # Get the latest commit message
-          COMMIT_MSG=$(git log -1 --pretty=%B)
-          echo "Commit message: $COMMIT_MSG"
-
-          # Determine version bump based on commit message
-          if [[ $COMMIT_MSG =~ \[major\]|BREAKING|breaking ]]; then
-            echo "bump=major" >> $GITHUB_OUTPUT
-            echo "Version bump: major"
-          elif [[ $COMMIT_MSG =~ \[minor\]|feat|feature ]]; then
-            echo "bump=minor" >> $GITHUB_OUTPUT
-            echo "Version bump: minor"
-          else
-            echo "bump=patch" >> $GITHUB_OUTPUT
-            echo "Version bump: patch"
-          fi
+          # Extract version from git tag (remove 'v' prefix)
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Publishing version: $VERSION"
 
       - name: Check if VSCE_PAT is set
         run: |
           if [ -z "${{ secrets.VSCE_PAT }}" ]; then
             echo "❌ VSCE_PAT secret is not set. Please add it to repository secrets."
-            echo "See CI-CD.md for setup instructions."
+            echo "See DEVELOPMENT.md for setup instructions."
             exit 1
           fi
           echo "✅ VSCE_PAT secret is configured"
@@ -92,6 +83,6 @@ jobs:
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
-          echo "🚀 Publishing extension with ${{ steps.version.outputs.bump }} version bump..."
-          npx @vscode/vsce publish ${{ steps.version.outputs.bump }} --pat $VSCE_PAT
+          echo "🚀 Publishing extension version ${{ steps.version.outputs.version }}..."
+          npx @vscode/vsce publish --pat $VSCE_PAT
           echo "✅ Extension published successfully!"
