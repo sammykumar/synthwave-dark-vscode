@@ -14,7 +14,7 @@
   },
   "keywords": [
     "retro",
-    "80s", 
+    "80s",
     "synthwave",
     "neon",
     "dark",
@@ -22,17 +22,12 @@
     "monokai",
     "cyberpunk"
   ],
-  "categories": [
-    "Themes",
-    "Other"
-  ],
+  "categories": ["Themes", "Other"],
   "engines": {
     "vscode": "^1.100.0",
     "node": ">=18.0.0"
   },
-  "activationEvents": [
-    "onStartupFinished"
-  ],
+  "activationEvents": ["onStartupFinished"],
   "main": "./dist/extension.js",
   "contributes": {
     "themes": [
@@ -49,7 +44,7 @@
         "category": "SynthWave Dark"
       },
       {
-        "command": "synthwave-dark.disableGlow", 
+        "command": "synthwave-dark.disableGlow",
         "title": "Disable Neon Glow",
         "category": "SynthWave Dark"
       },
@@ -90,13 +85,13 @@
               "default": "#f92672"
             },
             "neonCyan": {
-              "type": "string", 
+              "type": "string",
               "pattern": "^#[0-9A-Fa-f]{6}$",
               "default": "#66d9ef"
             },
             "neonYellow": {
               "type": "string",
-              "pattern": "^#[0-9A-Fa-f]{6}$", 
+              "pattern": "^#[0-9A-Fa-f]{6}$",
               "default": "#e6db74"
             },
             "neonPurple": {
@@ -175,7 +170,7 @@
     "colorPalette": {
       "primary": {
         "neonPink": "#f92672",
-        "neonCyan": "#66d9ef", 
+        "neonCyan": "#66d9ef",
         "neonYellow": "#e6db74",
         "neonPurple": "#ae81ff",
         "neonGreen": "#4ade80",
@@ -183,7 +178,7 @@
       },
       "background": {
         "dark": "#1a1a2e",
-        "darker": "#16213e", 
+        "darker": "#16213e",
         "darkest": "#0f0f0f",
         "accent": "#2a2a4a"
       },
@@ -233,3 +228,4 @@
   "extensionPack": [],
   "enableProposedApi": false,
   "preview": false
+}

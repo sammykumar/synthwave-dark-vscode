@@ -143,7 +143,7 @@
   "tokenColors": [
     {
       "name": "Comment",
-      "scope": ["comment"],
+      "scope": ["comment", "string.quoted"],
       "settings": {
         "foreground": "#75715E",
         "fontStyle": "italic"
@@ -154,7 +154,9 @@
       "scope": [
         "constant.numeric",
         "entity.other.attribute-name.pseudo-element",
-        "entity.other.attribute-name.pseudo-class"
+        "entity.other.attribute-name.pseudo-class",
+        "punctuation.definition.tag",
+        "support.type.property-name.json"
       ],
       "settings": {
         "foreground": "#FD971F"
@@ -199,7 +201,8 @@
         "source.go variable",
         "variable.parameter.scala",
         "markup.italic.markdown",
-        "markup.bold.markdown"
+        "markup.bold.markdown",
+        "meta.attribute.class.html"
       ],
       "settings": {
         "foreground": "#66D9EF"
@@ -266,7 +269,6 @@
         "constant.language",
         "keyword.other.unit",
         "support.function.misc.css",
-        "punctuation.definition.tag",
         "keyword.operator.assignment"
       ],
       "settings": {
