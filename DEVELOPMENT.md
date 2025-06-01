@@ -12,67 +12,70 @@ This guide covers the development workflow, testing, and CI/CD pipeline for the 
 # Create and checkout a new feature branch
 git checkout -b feat/new-glow-effects
 
-# Make your changes...
-# When ready to bump version (automated):
-npm run feature:version:patch  # or minor/major as appropriate
-# This updates package.json and creates a git commit automatically
+# Make your changes (code, tests, documentation)...
 
-# Push your feature branch (without the tag)
-git push origin feat/new-glow-effects
+# When ready to create a release candidate:
+npm run feature:patch  # or minor/major as appropriate
 ```
+
+**What the feature script does:**
+
+- Builds and packages the extension (`npm run package`)
+- Bumps the version in `package.json` and `package-lock.json`
+- Commits the version change with a standardized message
+- Pushes the feature branch to origin
+- Automatically creates a Pull Request to `master` using GitHub CLI
 
 #### 2. Pull Request Process
 
-- Open a PR from `feat/new-glow-effects` to `master`
-- The CI will run tests on the PR (as configured in the workflow)
+- The PR is automatically created with `--fill` (uses commit messages and branch name)
+- CI will run tests on the PR (as configured in the workflow)
 - Get review and approval
 - Merge to master
 
-#### 3. Publishing Release (Automated)
+#### 3. Publishing Release
+
+After your PR is merged to master:
 
 ```bash
 # Switch to master and pull the merged changes
 git checkout master
 git pull origin master
 
-# Option A: Complete release workflow (builds, tests, commits, tags, and pushes)
-npm run release:patch   # or minor/major
-# This will: build → test → commit → tag → push to master → push tag
-
-# Option B: Just push the existing tag if version was already bumped
-npm run release:tag-only
+# Create and push a git tag to trigger CI/CD publishing
+npm run release:current
 ```
 
-### Alternative Workflows
+### Feature Development Scripts
 
-#### Automated Workflow (Recommended)
+The project includes automated feature development scripts that handle the complete workflow:
 
-For complete automation from master branch:
+- **`npm run feature:patch`** - Complete workflow with patch version bump (1.0.0 → 1.0.1)
+- **`npm run feature:minor`** - Complete workflow with minor version bump (1.0.0 → 1.1.0)
+- **`npm run feature:major`** - Complete workflow with major version bump (1.0.0 → 2.0.0)
+
+Each script performs:
+
+1. `npm run package` - Build and package the extension
+2. Version bump (patch/minor/major)
+3. Git add both `package.json` and `package-lock.json`
+4. Git commit with standardized message
+5. Push feature branch to origin
+6. Create Pull Request using `gh pr create --base master --fill`
+
+### Manual Version Management
+
+If you need more granular control, you can use individual scripts:
 
 ```bash
-# After merging feature to master:
-git checkout master
-git pull origin master
+# Version-only operations (no git operations)
+npm run version:patch   # Just bump patch version in package.json
+npm run version:minor   # Just bump minor version in package.json
+npm run version:major   # Just bump major version in package.json
 
-# Complete automated release
-npm run release:patch  # or minor/major
-# This handles: package → version bump → commit → tag → push
-```
-
-#### Manual Workflow (Version Bump on Master)
-
-If you prefer more control over the process:
-
-```bash
-# After merging feature to master:
-git checkout master
-git pull origin master
-
-# Manual version bump and release
-npm run version:patch     # Just bump version in package.json
-git add package.json
-git commit -m "chore: bump version to $(node -p 'require("./package.json").version')"
-npm run release:publish   # Tag and push
+# Release operations (git tag and push)
+npm run release:tag     # Create and push git tag for current version
+npm run release:current # Alias for release:tag
 ```
 
 ## Testing
@@ -196,42 +199,56 @@ npm run vsce:publish    # Direct publish (bypasses automation)
 
 However, the recommended approach is to use the automated pipeline with git tags as described above.
 
-## Automated Release Scripts
+## Automated Scripts
 
-The following npm scripts automate the development workflow:
+The following npm scripts are available to streamline development:
 
 ### Feature Development Scripts
 
 ```bash
-# Version bump for feature branches (no tags created)
-npm run feature:version:patch   # Bump patch version and commit
-npm run feature:version:minor   # Bump minor version and commit
-npm run feature:version:major   # Bump major version and commit
+# Complete automated feature development workflow
+npm run feature:patch   # Build → patch version bump → commit → push → create PR
+npm run feature:minor   # Build → minor version bump → commit → push → create PR
+npm run feature:major   # Build → major version bump → commit → push → create PR
 ```
 
-### Release Scripts (Master Branch)
+### Version Management Scripts
 
 ```bash
-# Complete automated release workflow
-npm run release:patch           # Build → version bump → commit → tag → push
-npm run release:minor           # Build → version bump → commit → tag → push
-npm run release:major           # Build → version bump → commit → tag → push
-
-# Individual release steps
-npm run version:patch           # Just bump version in package.json
-npm run version:minor           # Just bump version in package.json
-npm run version:major           # Just bump version in package.json
-npm run release:publish         # Tag current version and push
-npm run release:tag-only        # Just tag and push tag (no master push)
+# Version-only operations (no git operations)
+npm run version:patch   # Bump patch version in package.json only
+npm run version:minor   # Bump minor version in package.json only
+npm run version:major   # Bump major version in package.json only
 ```
 
-### Script Breakdown
+### Release Scripts
 
-- **`feature:version:*`**: For feature branches - bumps version and commits but doesn't create tags
-- **`release:*`**: Complete workflow including build, test, version bump, commit, tag creation, and pushing
-- **`version:*`**: Version-only operations without git operations
-- **`release:publish`**: Git operations only (tag and push)
-- **`release:tag-only`**: Creates and pushes tag for current version without pushing to master
+```bash
+# Git tag operations for triggering CI/CD publishing
+npm run release:tag     # Create and push git tag for current version
+npm run release:current # Alias for release:tag
+```
+
+### How the Scripts Work
+
+**Feature Scripts (`feature:*`):**
+
+1. Run `npm run package` to build the extension
+2. Bump version using `npm version` (patch/minor/major)
+3. Stage both `package.json` and `package-lock.json`
+4. Commit with message: `"chore: bump version to {version}"`
+5. Push the current branch to origin
+6. Create Pull Request using `gh pr create --base master --fill`
+
+**Version Scripts (`version:*`):**
+
+- Only update the version in `package.json` using `npm version --no-git-tag-version`
+- No git operations performed
+
+**Release Scripts (`release:*`):**
+
+- Create git tag with format `v{version}` from current `package.json` version
+- Push the tag to origin to trigger CI/CD publishing pipeline
 
 ## Build Scripts
 
