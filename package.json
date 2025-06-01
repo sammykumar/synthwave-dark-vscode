@@ -97,8 +97,8 @@
     "version:patch": "npm version patch --no-git-tag-version",
     "version:minor": "npm version minor --no-git-tag-version",
     "version:major": "npm version major --no-git-tag-version",
-    "feature:patch": "npm run package && npm run version:patch && git add package.json && git commit -m \"chore: bump version to $(node -p 'require(\"./package.json\").version')\" && git push origin $(git branch --show-current)",
-    "feature:minor": "npm run package && npm run version:minor && git add package.json && git commit -m \"chore: bump version to $(node -p 'require(\"./package.json\").version')\" && git push origin $(git branch --show-current)",
-    "feature:major": "npm run package && npm run version:major && git add package.json && git commit -m \"chore: bump version to $(node -p 'require(\"./package.json\").version')\" && git push origin $(git branch --show-current)"
+    "feature:patch": "npm run package && npm run version:patch && git add package.json && git commit -m \"chore: bump version to $(node -p 'require(\"./package.json\").version')\" && git push origin $(git branch --show-current) && gh pr create --base master --fill",
+    "feature:minor": "npm run package && npm run version:minor && git add package.json && git commit -m \"chore: bump version to $(node -p 'require(\"./package.json\").version')\" && git push origin $(git branch --show-current) && gh pr create --base master --fill",
+    "feature:major": "npm run package && npm run version:major && git add package.json && git commit -m \"chore: bump version to $(node -p 'require(\"./package.json\").version')\" && git push origin $(git branch --show-current) && gh pr create --base master --fill"
   }
 }
