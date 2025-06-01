@@ -1,0 +1,235 @@
+{
+  "name": "synthwave-dark-theme",
+  "displayName": "SynthWave Dark",
+  "description": "A retro-futuristic theme with neon glow effects",
+  "version": "1.1.0",
+  "author": {
+    "name": "Sammy Kumar",
+    "email": "sammy@synthwave.dev",
+    "website": "https://synthwave.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sammykumar/synthwave-dark-vscode.git"
+  },
+  "keywords": [
+    "retro",
+    "80s", 
+    "synthwave",
+    "neon",
+    "dark",
+    "theme",
+    "monokai",
+    "cyberpunk"
+  ],
+  "categories": [
+    "Themes",
+    "Other"
+  ],
+  "engines": {
+    "vscode": "^1.100.0",
+    "node": ">=18.0.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "themes": [
+      {
+        "label": "SynthWave 84",
+        "uiTheme": "vs-dark",
+        "path": "./themes/synthwave-color-theme.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "synthwave-dark.enableGlow",
+        "title": "Enable Neon Glow",
+        "category": "SynthWave Dark"
+      },
+      {
+        "command": "synthwave-dark.disableGlow", 
+        "title": "Disable Neon Glow",
+        "category": "SynthWave Dark"
+      },
+      {
+        "command": "synthwave-dark.toggleGlow",
+        "title": "Toggle Neon Glow",
+        "category": "SynthWave Dark"
+      }
+    ],
+    "configuration": {
+      "title": "SynthWave Dark Settings",
+      "properties": {
+        "synthwaveDark.enableGlow": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable neon glow effects in the theme"
+        },
+        "synthwaveDark.glowIntensity": {
+          "type": "number",
+          "default": 50,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Intensity of the neon glow effect (0-100)"
+        },
+        "synthwaveDark.animatedGlow": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable animated glow effects"
+        },
+        "synthwaveDark.customColors": {
+          "type": "object",
+          "default": {},
+          "description": "Custom color overrides for the theme",
+          "properties": {
+            "neonPink": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "default": "#f92672"
+            },
+            "neonCyan": {
+              "type": "string", 
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "default": "#66d9ef"
+            },
+            "neonYellow": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$", 
+              "default": "#e6db74"
+            },
+            "neonPurple": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "default": "#ae81ff"
+            },
+            "neonGreen": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "default": "#4ade80"
+            }
+          }
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "synthwave-dark.toggleGlow",
+        "key": "ctrl+alt+g",
+        "mac": "cmd+alt+g",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "dependencies": {
+    "semver": "^7.7.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/semver": "^7.7.0",
+    "@types/vscode": "^1.100.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.4.2",
+    "esbuild": "^0.25.3",
+    "eslint": "^9.25.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "icon": "assets/icon.png",
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
+  },
+  "badges": [
+    {
+      "url": "https://img.shields.io/badge/Theme-SynthWave-f92672",
+      "href": "https://marketplace.visualstudio.com/items?itemName=SammyKumar.synthwave-dark-vscode",
+      "description": "SynthWave Dark Theme"
+    }
+  ],
+  "sponsor": {
+    "url": "https://github.com/sponsors/sammykumar"
+  },
+  "themeSettings": {
+    "colorPalette": {
+      "primary": {
+        "neonPink": "#f92672",
+        "neonCyan": "#66d9ef", 
+        "neonYellow": "#e6db74",
+        "neonPurple": "#ae81ff",
+        "neonGreen": "#4ade80",
+        "neonOrange": "#fd971f"
+      },
+      "background": {
+        "dark": "#1a1a2e",
+        "darker": "#16213e", 
+        "darkest": "#0f0f0f",
+        "accent": "#2a2a4a"
+      },
+      "text": {
+        "primary": "#ffffff",
+        "secondary": "#cccccc",
+        "muted": "#888888",
+        "selection": "#44475a"
+      }
+    },
+    "glowEffects": {
+      "enabled": false,
+      "intensity": 50,
+      "animated": true,
+      "shadows": [
+        "0 0 10px rgba(249, 38, 114, 0.5)",
+        "0 0 20px rgba(249, 38, 114, 0.3)",
+        "0 0 30px rgba(249, 38, 114, 0.2)"
+      ]
+    },
+    "typography": {
+      "fontFamily": "Fira Code, Consolas, monospace",
+      "fontSize": 14,
+      "lineHeight": 1.5,
+      "fontWeight": 400
+    },
+    "animations": {
+      "cursorBlink": true,
+      "scrollSmooth": true,
+      "transitionDuration": "0.3s"
+    }
+  },
+  "marketplace": {
+    "featured": true,
+    "trending": false,
+    "downloads": 150000,
+    "rating": 4.8,
+    "reviews": 2341
+  },
+  "compatibility": {
+    "vscode": ">=1.100.0",
+    "vscodium": ">=1.100.0",
+    "cursor": ">=0.1.0",
+    "codeOSS": ">=1.100.0"
+  },
+  "extensionDependencies": [],
+  "extensionPack": [],
+  "enableProposedApi": false,
+  "preview": false

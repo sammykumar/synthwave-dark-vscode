@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="synthwave-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SynthWave Dark Theme showcase page demonstrating HTML syntax highlighting">
+    <meta name="keywords" content="synthwave, dark theme, neon, retro, 80s, vscode">
+    <meta name="author" content="Sammy Kumar">
+    
+    <title>🌈 SynthWave Dark Theme - HTML Showcase</title>
+    
+    <!-- External stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+    
+    <!-- Inline styles for demonstration -->
+    <style>
+        /* CSS-in-HTML for syntax highlighting showcase */
+        :root {
+            --neon-pink: #f92672;
+            --neon-cyan: #66d9ef;
+            --neon-yellow: #e6db74;
+            --neon-purple: #ae81ff;
+            --neon-green: #4ade80;
+            --bg-dark: #1a1a2e;
+            --bg-darker: #16213e;
+        }
+        
+        .glow-text {
+            text-shadow: 
+                0 0 10px var(--neon-pink),
+                0 0 20px var(--neon-pink),
+                0 0 30px var(--neon-pink);
+        }
+    </style>
+</head>
+<body class="synthwave-body" id="main-content">
+    <!-- Header section with navigation -->
+    <header class="main-header" role="banner">
+        <nav class="navigation" aria-label="Main navigation">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1 class="site-title glow-text">
+                        <span class="icon">🌈</span>
+                        SynthWave Dark
+                    </h1>
+                </div>
+                
+                <ul class="nav-menu" role="menubar">
+                    <li role="none">
+                        <a href="#home" role="menuitem" class="nav-link active">
+                            Home
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#features" role="menuitem" class="nav-link">
+                            Features
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#gallery" role="menuitem" class="nav-link">
+                            Gallery
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#download" role="menuitem" class="nav-link">
+                            Download
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Mobile menu toggle -->
+                <button 
+                    class="mobile-menu-toggle" 
+                    aria-label="Toggle mobile menu"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                >
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content area -->
+    <main class="main-content" role="main">
+        <!-- Hero section -->
+        <section class="hero-section" id="home" aria-labelledby="hero-title">
+            <div class="container">
+                <h1 id="hero-title" class="hero-title">
+                    Welcome to the <em>Neon Future</em>
+                </h1>
+                <p class="hero-subtitle">
+                    A retro-futuristic <strong>VS Code theme</strong> that brings 
+                    <mark class="highlight-neon">neon dreams</mark> to your code
+                </p>
+                
+                <div class="hero-actions">
+                    <button 
+                        class="btn btn-primary glow-effect" 
+                        type="button"
+                        data-action="download"
+                    >
+                        ⚡ Install Theme
+                    </button>
+                    <button 
+                        class="btn btn-secondary" 
+                        type="button"
+                        data-action="preview"
+                    >
+                        👀 Live Preview
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features section -->
+        <section class="features-section" id="features" aria-labelledby="features-title">
+            <div class="container">
+                <h2 id="features-title" class="section-title">
+                    ⚡ Features
+                </h2>
+                
+                <div class="features-grid">
+                    <article class="feature-card" data-feature="glow">
+                        <div class="feature-icon">🌟</div>
+                        <h3 class="feature-title">Neon Glow Effects</h3>
+                        <p class="feature-description">
+                            Optional glow effects that make your code shine with 
+                            <abbr title="Light Emitting Diode">LED</abbr>-like brilliance
+                        </p>
+                        <footer class="feature-footer">
+                            <small>Customizable intensity</small>
+                        </footer>
+                    </article>
+                    
+                    <article class="feature-card" data-feature="colors">
+                        <div class="feature-icon">🎨</div>
+                        <h3 class="feature-title">Vibrant Color Palette</h3>
+                        <p class="feature-description">
+                            Carefully crafted colors inspired by 
+                            <time datetime="1980">80s</time> aesthetics
+                        </p>
+                        <details class="feature-details">
+                            <summary>Color samples</summary>
+                            <div class="color-samples">
+                                <div class="color-sample" style="background: #f92672;" title="Neon Pink"></div>
+                                <div class="color-sample" style="background: #66d9ef;" title="Neon Cyan"></div>
+                                <div class="color-sample" style="background: #e6db74;" title="Neon Yellow"></div>
+                                <div class="color-sample" style="background: #ae81ff;" title="Neon Purple"></div>
+                            </div>
+                        </details>
+                    </article>
+                    
+                    <article class="feature-card" data-feature="syntax">
+                        <div class="feature-icon">💻</div>
+                        <h3 class="feature-title">Multi-Language Support</h3>
+                        <p class="feature-description">
+                            Optimized syntax highlighting for popular languages
+                        </p>
+                        <ul class="language-list">
+                            <li>JavaScript & TypeScript</li>
+                            <li>Python & <acronym title="PHP: Hypertext Preprocessor">PHP</acronym></li>
+                            <li>React & Vue</li>
+                            <li>CSS & SCSS</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code gallery section -->
+        <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
+            <div class="container">
+                <h2 id="gallery-title" class="section-title">
+                    📸 Code Gallery
+                </h2>
+                
+                <div class="code-examples">
+                    <figure class="code-example">
+                        <figcaption>JavaScript Example</figcaption>
+                        <pre><code class="language-javascript">
+// SynthWave Dark Theme Demo
+const neonColors = {
+  pink: '#f92672',
+  cyan: '#66d9ef',
+  yellow: '#e6db74'
+};
+
+class ThemeManager {
+  constructor() {
+    this.glowEnabled = false;
+  }
+  
+  enableGlow() {
+    this.glowEnabled = true;
+    console.log('🌈 Neon activated!');
+  }
+}
+                        </code></pre>
+                    </figure>
+                    
+                    <figure class="code-example">
+                        <figcaption>CSS Example</figcaption>
+                        <pre><code class="language-css">
+/* Neon glow effect */
+.neon-text {
+  color: #f92672;
+  text-shadow: 
+    0 0 10px #f92672,
+    0 0 20px #f92672,
+    0 0 40px #f92672;
+  animation: neon-flicker 2s infinite alternate;
+}
+
+@keyframes neon-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+                        </code></pre>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download section -->
+        <section class="download-section" id="download" aria-labelledby="download-title">
+            <div class="container">
+                <h2 id="download-title" class="section-title">
+                    📦 Get Started
+                </h2>
+                
+                <div class="download-options">
+                    <div class="download-card">
+                        <h3>VS Code Marketplace</h3>
+                        <p>Install directly from VS Code</p>
+                        <code class="install-command">
+                            ext install SammyKumar.synthwave-dark-vscode
+                        </code>
+                    </div>
+                    
+                    <div class="download-card">
+                        <h3>Manual Installation</h3>
+                        <p>Download and install manually</p>
+                        <a href="#" class="download-link" download="synthwave-dark.vsix">
+                            📁 Download .vsix file
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Sidebar with additional info -->
+    <aside class="sidebar" role="complementary" aria-labelledby="sidebar-title">
+        <h2 id="sidebar-title" class="sidebar-title">Quick Info</h2>
+        
+        <div class="info-card">
+            <h3>Latest Version</h3>
+            <p>
+                <span class="version-number">v1.1.0</span>
+                <time datetime="2024-01-15">January 15, 2024</time>
+            </p>
+        </div>
+        
+        <div class="info-card">
+            <h3>Downloads</h3>
+            <p>
+                <data value="150000">150K+</data> downloads
+            </p>
+        </div>
+        
+        <div class="info-card">
+            <h3>Rating</h3>
+            <p>
+                <meter value="4.8" min="0" max="5">4.8 out of 5 stars</meter>
+                (4.8/5)
+            </p>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="main-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SynthWave Dark</h3>
+                    <p>
+                        Created with ❤️ by 
+                        <a href="https://github.com/sammykumar" 
+                           rel="author external noopener" 
+                           target="_blank">
+                            Sammy Kumar
+                        </a>
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Links</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="https://github.com/sammykumar/synthwave-dark-vscode" 
+                               rel="external noopener" 
+                               target="_blank">
+                                GitHub Repository
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://marketplace.visualstudio.com/items?itemName=SammyKumar.synthwave-dark-vscode" 
+                               rel="external noopener" 
+                               target="_blank">
+                                VS Code Marketplace
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <address>
+                        <a href="mailto:hello@synthwave.dev">hello@synthwave.dev</a><br>
+                        <a href="tel:+1234567890">+1 (234) 567-890</a>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>
+                    <small>
+                        &copy; <time datetime="2024">2024</time> SynthWave Dark Theme. 
+                        Licensed under <abbr title="Massachusetts Institute of Technology">MIT</abbr>.
+                    </small>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    
+    <!-- Inline JavaScript for demonstration -->
+    <script type="text/javascript">
+        // Theme interaction script
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🌈 SynthWave Dark theme page loaded');
+            
+            // Mobile menu toggle
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', function() {
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    navMenu.classList.toggle('open');
+                });
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <!-- Analytics (placeholder) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "SynthWave Dark",
+        "description": "A retro-futuristic VS Code theme with neon glow effects",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows, macOS, Linux",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Sammy Kumar"
+        }
+    }
+    </script>
+</body>
+</html>
