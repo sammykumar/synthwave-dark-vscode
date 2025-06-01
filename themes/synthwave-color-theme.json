@@ -152,6 +152,7 @@
     {
       "name": "Orange constants and strings",
       "scope": [
+        "constant.numeric",
         "entity.other.attribute-name.pseudo-element",
         "entity.other.attribute-name.pseudo-class"
       ],
@@ -189,16 +190,13 @@
       "scope": [
         "storage.modifier",
         "meta.var.expr",
-        "meta.var.expr.ts",
         "meta.class",
         "storage.type.class",
-        "constant.numeric.decimal.js",
         "variable.other.constant.property.js",
         "variable.other.property.js",
         "source.go constant.language.go",
         "source.go constant.other.placeholder.go",
         "source.go variable",
-        "constant.numeric.dart",
         "variable.parameter.scala",
         "markup.italic.markdown",
         "markup.bold.markdown"
@@ -255,7 +253,8 @@
         "constant",
         "string.quoted",
         "string.template",
-        "punctuation.definition.string"
+        "punctuation.definition.string",
+        "constant.language.boolean.true"
       ],
       "settings": {
         "foreground": "#4ade80"
@@ -264,15 +263,10 @@
     {
       "name": "White text and attributes",
       "scope": [
-        "constant.numeric",
         "constant.language",
-        "entity.other.attribute-name",
-        "entity.other.attribute-name.html",
-        "keyword.control",
         "keyword.other.unit",
         "support.function.misc.css",
         "punctuation.definition.tag",
-        "text.html",
         "keyword.operator.assignment"
       ],
       "settings": {
@@ -309,7 +303,7 @@
       "name": "Green with bold",
       "scope": ["variable.language"],
       "settings": {
-        "foreground": "#A6E22E",
+        "foreground": "#4ade80",
         "fontStyle": "bold"
       }
     },
@@ -318,7 +312,7 @@
       "scope": ["variable.parameter"],
       "settings": {
         "fontStyle": "italic",
-        "foreground": "#A6E22E"
+        "foreground": "#4ade80"
       }
     },
     {
@@ -329,13 +323,14 @@
       }
     },
     {
-      "name": "Red/coral regex and colors",
+      "name": "Coral regex and colors",
       "scope": [
         "string.regexp",
-        "constant.other.color",
+        "punctuation.terminator.statement",
         "support.constant.font-name",
         "string.other.link.description",
-        "string.interpolated.single.dart"
+        "string.interpolated.single.dart",
+        "constant.language.boolean.false"
       ],
       "settings": {
         "foreground": "#f97e72"
@@ -381,7 +376,6 @@
         "entity.name.variable.field.cs",
         "entity.name.variable.property.cs",
         "source.elixir .punctuation.binary.elixir",
-        "markup.heading.markdown",
         "entity.name.section.markdown"
       ],
       "settings": {
@@ -407,7 +401,6 @@
     {
       "name": "Light pink object properties",
       "scope": [
-        "variable.other.object.property.js",
         "source.dart",
         "source.python",
         "source.scala",
@@ -418,13 +411,7 @@
         "foreground": "#ff7edbff"
       }
     },
-    {
-      "name": "Pink property alternate",
-      "scope": ["variable.other.object.property.js"],
-      "settings": {
-        "foreground": "#fc98df"
-      }
-    },
+
     {
       "name": "Cyan Elixir and Clojure",
       "scope": [

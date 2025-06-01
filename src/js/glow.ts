@@ -17,6 +17,9 @@
     /* purple */
     ae81ff:
       "color: #ae81ff; text-shadow: 0 0 10px #AE81FF80, 0 0 20px #AE81FF60, 0 0 30px #AE81FF40, 0 0 40px #AE81FF20;",
+    /* green */
+    "4ade80":
+      "color: #4ade80; text-shadow: 0 0 10px #4ADE8080, 0 0 20px #4ADE8060, 0 0 30px #4ADE8040, 0 0 40px #4ADE8020;",
     /* apple intelligence */
     fc0303:
       "background: linear-gradient(108deg, #0894FF, #C959DD 34%, #FF2E54 68%, #FF9004); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; text-shadow: 0 0 20px rgba(255, 144, 4, 0.4), 0 0 16px rgba(255, 46, 84, 0.4), 0 0 12px rgba(201, 89, 221, 0.4), 0 0 8px rgba(8, 148, 255, 0.6);",
