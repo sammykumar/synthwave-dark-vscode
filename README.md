@@ -3,7 +3,7 @@
 [![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/SammyKumar.synthwave-dark-vscode)](https://marketplace.visualstudio.com/items?itemName=SammyKumar.synthwave-dark-vscode)
 [![Installs](https://img.shields.io/visual-studio-marketplace/i/SammyKumar.synthwave-dark-vscode)](https://marketplace.visualstudio.com/items?itemName=SammyKumar.synthwave-dark-vscode)
 
-A Dark Synthwave/Monokai inspired colour theme to satisfy your neon dreams.
+A Dark Synthwave/Monokai/Apple Intelligence inspired colour theme to satisfy your neon dreams.
 
 <div align="center" style="max-width: 850px; margin: 0 auto;">
 
