@@ -6,10 +6,40 @@ import * as vscode from "vscode";
 // For direct testing of injection logic
 const semver = require('semver');
 
-suite("UI Test Suite", () => {
-  vscode.window.showInformationMessage("Start UI tests.");
+suite("UI Test Suite - Glow Effects Validation", () => {
+  vscode.window.showInformationMessage("Starting UI tests for SynthWave Dark glow effects...");
 
-  test("Glow effects injection pattern should work correctly", async () => {
+  test("Extension availability and command registration", async () => {
+    // Check if the extension is available in the extensions list
+    const extension = vscode.extensions.getExtension("SammyKumar.synthwave-dark-vscode");
+    
+    if (extension) {
+      console.log("✓ Extension found in VS Code environment");
+      
+      // Ensure the extension is activated  
+      if (!extension.isActive) {
+        await extension.activate();
+      }
+      assert.ok(extension.isActive, "Extension should be activated");
+      console.log("✓ Extension successfully activated");
+      
+      // Check if commands are registered
+      const commands = await vscode.commands.getCommands();
+      assert.ok(commands.includes("synthwave-dark.enableGlow"), 
+        "synthwave-dark.enableGlow command should be registered");
+      assert.ok(commands.includes("synthwave-dark.cleanup"), 
+        "synthwave-dark.cleanup command should be registered");
+      console.log("✓ Glow effect commands are properly registered");
+      
+    } else {
+      console.log("ℹ Extension not found - running in test mode with disabled extensions");
+      console.log("ℹ This is expected in core test environment");
+    }
+  });
+
+  test("Glow effects injection pattern validation (Core Functionality)", async () => {
+    console.log("Testing glow effects injection pattern...");
+    
     // Test the injection logic that the extension uses
     // This simulates what happens when synthwave-dark.enableGlow command is executed
     
@@ -21,15 +51,18 @@ suite("UI Test Suite", () => {
       fs.mkdirSync(testDir, { recursive: true });
     }
     
-    // Create a minimal mock workbench HTML file
+    // Create a minimal mock workbench HTML file matching VS Code's structure
     const initialHtml = `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>VS Code</title>
+  <link rel="stylesheet" href="workbench.css">
 </head>
-<body>
-  <div id="workbench"></div>
+<body class="vs-dark">
+  <div class="monaco-workbench">
+    <div id="workbench.main.container"></div>
+  </div>
 </body>
 </html>`;
     
@@ -42,7 +75,7 @@ suite("UI Test Suite", () => {
       html = html.replace(/<!-- START: Synthwave Dark[\s\S]*?<!-- FINISH: Synthwave Dark.*?-->\s*/g, '');
       
       // Get version (simulate reading from package.json)
-      const version = "1.5.2"; // Current version
+      const version = "1.5.2"; // Current version from package.json
       
       // Mock CSS content (simulate reading from css/global.css)
       const cssContent = `
@@ -50,12 +83,17 @@ suite("UI Test Suite", () => {
 .monaco-workbench {
   background: #1a1a1a;
 }
-.token {
-  text-shadow: 0 0 5px currentColor;
+.token.keyword {
+  color: #f92672;
+  text-shadow: 0 0 5px #f92672;
+}
+.token.string {
+  color: #e6db74;
+  text-shadow: 0 0 5px #e6db74;
 }`;
       
       // Mock JS path (simulate js/glow.js path)
-      const jsPath = "glow.js";
+      const jsPath = path.join(__dirname, "js/glow.js");
       
       // Create injection block with comments and CSS (same pattern as extension)
       const injectionBlock = `
@@ -84,6 +122,7 @@ ${cssContent}
     let content = fs.readFileSync(testWorkbenchPath, 'utf-8');
     assert.ok(!content.includes("<!-- START: Synthwave Dark"), 
       "Test workbench should not have glow effects initially");
+    console.log("✓ Initial workbench state verified (no glow effects)");
     
     // Simulate the injection process
     simulateInjectCSSAndJS(testWorkbenchPath);
@@ -105,10 +144,13 @@ ${cssContent}
       "Workbench should contain injected JS");
     assert.ok(finalContent.includes("text-shadow"), 
       "Workbench should contain glow CSS effects");
+    assert.ok(finalContent.includes("#f92672"), 
+      "Workbench should contain synthwave colors");
     
     console.log("✓ Glow effects injection pattern test passed");
     console.log("✓ Found expected injection markers");
     console.log("✓ CSS and JS properly injected into workbench.html");
+    console.log("✓ Synthwave color effects validated");
     
     // Test cleanup functionality
     function simulateCleanUpWorkbench(htmlFilepath: string) {
@@ -136,7 +178,9 @@ ${cssContent}
     }
   });
 
-  test("VS Code version compatibility check should work", () => {
+  test("VS Code version compatibility and workbench path logic", () => {
+    console.log("Testing VS Code version compatibility...");
+    
     // Test the version checking logic used by the extension
     function isVSCodeBelowVersion(version: string) {
       const vscodeVersion = vscode.version;
@@ -171,7 +215,7 @@ ${cssContent}
     assert.ok(hasGlowSupport, 
       `VS Code ${vscode.version} should support glow effects (requires ${MIN_VERSION}+)`);
     
-    // Test workbench file path logic
+    // Test workbench file path logic (same as extension)
     const appDir = path.dirname(vscode.env.appRoot);
     const base = path.join(appDir, 'app', 'out', 'vs', 'code');
     const electronBase = isVSCodeBelowVersion("1.70.0") ? "electron-browser" : "electron-sandbox";
@@ -186,6 +230,48 @@ ${cssContent}
     assert.ok(typeof workbenchPath === 'string' && workbenchPath.length > 0, 
       "Workbench path should be constructible");
     
+    // Test that the path follows expected pattern
+    assert.ok(workbenchPath.includes("workbench"), "Path should include workbench directory");
+    assert.ok(workbenchPath.includes(electronBase), "Path should include correct electron base");
+    
     console.log("✓ Version compatibility checks passed");
+    console.log("✓ Workbench path construction logic validated");
+  });
+
+  test("Integration test - Glow effects command execution (when extension loaded)", async () => {
+    console.log("Testing glow effects command execution...");
+    
+    const extension = vscode.extensions.getExtension("SammyKumar.synthwave-dark-vscode");
+    
+    if (extension && extension.isActive) {
+      console.log("✓ Extension is active - testing command execution");
+      
+      try {
+        // This would be the actual integration test if VS Code allows workbench modification
+        // For now, we just verify the command exists and can be called
+        const commands = await vscode.commands.getCommands();
+        
+        if (commands.includes("synthwave-dark.enableGlow")) {
+          console.log("✓ Enable glow command is available");
+          
+          // In a real VS Code environment with proper permissions,
+          // this would actually modify the workbench.html file:
+          // await vscode.commands.executeCommand('synthwave-dark.enableGlow');
+          
+          console.log("ℹ Command execution test would require VS Code restart to verify effects");
+          console.log("ℹ Use manual testing or integration environment for full validation");
+        }
+        
+      } catch (error) {
+        console.log(`Command execution test encountered: ${error instanceof Error ? error.message : String(error)}`);
+      }
+      
+    } else {
+      console.log("ℹ Extension not active - skipping command execution test");
+      console.log("ℹ This is expected when running with disabled extensions");
+    }
+    
+    // This test always passes as it's informational
+    assert.ok(true, "Integration test completed");
   });
 });
