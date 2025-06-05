@@ -43,13 +43,7 @@
     ],
     "configuration": {
       "title": "SynthWave Dark",
-      "properties": {
-        "synthwaveDark.enableGlow": {
-          "type": "boolean",
-          "default": false,
-          "description": "Enable neon glow effects in the theme"
-        }
-      }
+      "properties": {}
     },
     "themes": [
       {
