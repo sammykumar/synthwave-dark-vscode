@@ -4,6 +4,18 @@ All notable changes to the "SynthWave Dark" VS Code theme extension will be docu
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [Unreleased]
+
+### Fixed
+
+- Restored glow support for current VS Code workbench layouts by discovering a writable workbench HTML file instead of selecting one from the VS Code version.
+- Show an actionable error when the VS Code workbench file cannot be accessed.
+
+### Added
+
+- Added the `Synthwave Dark: Disable Glow` command.
+- Added the `synthwaveDark.enableGlow` setting used by the glow commands.
+
 ## [1.1.2] - 2025-05-31
 
 ### Fixed

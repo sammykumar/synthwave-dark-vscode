@@ -41,12 +41,19 @@ The theme includes configurable neon glow effects for a more vibrant retro exper
 3. Select the command to enable glow effects
 4. Reload VS Code when prompted
 
+### 🛠️ How to Disable Glow Effects
+
+1. Open Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
+2. Type "Synthwave Dark: Disable Glow"
+3. Select the command and reload VS Code when prompted
+
 ### 🔧 Available Commands
 
 - `Synthwave Dark: Enable Glow` - Enables neon glow effects
+- `Synthwave Dark: Disable Glow` - Removes neon glow effects
 - `Synthwave Dark: Clean Up Workbench HTML` - Removes glow effect modifications
 
-> **⚠️ Compatibility Note**: Glow effects require VS Code version 1.12 or newer. If you enable glow effects on an older version, they will be automatically disabled and you'll see a warning message.
+> **⚠️ Compatibility Note**: Glow modifies VS Code's installed workbench HTML and requires write access to the VS Code application files. A VS Code update can remove the modification; run Enable Glow again after updating if needed.
 
 ## 📦 Installation
 
