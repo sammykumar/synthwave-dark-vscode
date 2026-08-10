@@ -39,6 +39,9 @@ importers:
       '@vscode/vsce':
         specifier: ^3.4.2
         version: 3.4.2
+      chokidar:
+        specifier: ^3.6.0
+        version: 3.6.0
       esbuild:
         specifier: ^0.25.3
         version: 0.25.5

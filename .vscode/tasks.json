@@ -13,6 +13,15 @@
                 "reveal": "never"
             },
             "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build Extension",
+            "type": "shell",
+            "command": "pnpm run compile",
+            "problemMatcher": "$tsc",
+            "group": {
                 "kind": "build",
                 "isDefault": true
             }
