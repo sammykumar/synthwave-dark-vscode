@@ -18,26 +18,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Type check
-        run: npm run check-types
+        run: pnpm run check-types
 
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Build extension
-        run: npm run package
+        run: pnpm run package
 
       - name: Run tests
-        run: xvfb-run -a npm test
+        run: xvfb-run -a pnpm test
 
   publish:
     needs: test
@@ -50,17 +55,22 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build extension
-        run: npm run package
+        run: pnpm run package
 
       - name: Extract version from tag
         id: version
