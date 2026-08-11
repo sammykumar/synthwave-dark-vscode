@@ -13,6 +13,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Added
 
+- Added optional Apple Liquid Glass styling for the primary side bar, secondary side bar, editor, and bottom panel.
+- Added independent enable and transparency settings for every Liquid Glass surface.
+- Added frosted and translucency-only Liquid Glass rendering modes.
+
+### Added
+
 - Added the `Synthwave Dark: Disable Glow` command.
 - Added the `synthwaveDark.enableGlow` setting used by the glow commands.
 

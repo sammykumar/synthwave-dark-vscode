@@ -53,6 +53,67 @@
           "type": "boolean",
           "default": false,
           "description": "Enable the optional neon glow effects."
+        },
+        "synthwaveDark.liquidGlass.effect": {
+          "type": "string",
+          "enum": [
+            "frosted",
+            "translucent"
+          ],
+          "enumDescriptions": [
+            "Use translucent backgrounds with backdrop blur.",
+            "Use translucent backgrounds without blur for lower GPU use."
+          ],
+          "default": "frosted",
+          "description": "Choose how Liquid Glass surfaces are rendered."
+        },
+        "synthwaveDark.liquidGlass.primarySidebar.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Apply Liquid Glass to the primary side bar."
+        },
+        "synthwaveDark.liquidGlass.primarySidebar.transparency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.18,
+          "description": "Set primary side bar transparency from 0 (opaque) to 1 (fully transparent)."
+        },
+        "synthwaveDark.liquidGlass.secondarySidebar.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Apply Liquid Glass to the secondary side bar."
+        },
+        "synthwaveDark.liquidGlass.secondarySidebar.transparency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.18,
+          "description": "Set secondary side bar transparency from 0 (opaque) to 1 (fully transparent)."
+        },
+        "synthwaveDark.liquidGlass.editor.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Apply Liquid Glass to the editor area."
+        },
+        "synthwaveDark.liquidGlass.editor.transparency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.1,
+          "description": "Set editor transparency from 0 (opaque) to 1 (fully transparent)."
+        },
+        "synthwaveDark.liquidGlass.bottomPanel.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Apply Liquid Glass to the bottom panel."
+        },
+        "synthwaveDark.liquidGlass.bottomPanel.transparency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.16,
+          "description": "Set bottom panel transparency from 0 (opaque) to 1 (fully transparent)."
         }
       }
     },

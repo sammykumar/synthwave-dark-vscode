@@ -7,7 +7,12 @@ import * as path from "path";
 // as well as import your extension to test it
 import * as vscode from "vscode";
 // Fix: Change from ../../extension to ../extension
-import { cleanUpWorkbench, findWorkbenchFilepath } from "../../extension";
+import {
+  clampTransparency,
+  cleanUpWorkbench,
+  findWorkbenchFilepath,
+  generateLiquidGlassCss,
+} from "../../extension";
 
 suite("Core Functionality Test Suite", () => {
   vscode.window.showInformationMessage("Start all tests.");
@@ -117,5 +122,60 @@ suite("Core Functionality Test Suite", () => {
       recursive: true,
       force: true,
     });
+  });
+
+  test("Does not generate Liquid Glass CSS when all surfaces are disabled", () => {
+    const css = generateLiquidGlassCss({
+      effect: "frosted",
+      surfaces: {
+        primarySidebar: { enabled: false, transparency: 0.18 },
+        secondarySidebar: { enabled: false, transparency: 0.18 },
+        editor: { enabled: false, transparency: 0.1 },
+        bottomPanel: { enabled: false, transparency: 0.16 },
+      },
+    });
+
+    assert.strictEqual(css, "");
+  });
+
+  test("Generates frosted Liquid Glass CSS only for enabled surfaces", () => {
+    const css = generateLiquidGlassCss({
+      effect: "frosted",
+      surfaces: {
+        primarySidebar: { enabled: true, transparency: 0.2 },
+        secondarySidebar: { enabled: false, transparency: 0.18 },
+        editor: { enabled: false, transparency: 0.1 },
+        bottomPanel: { enabled: false, transparency: 0.16 },
+      },
+    });
+
+    assert.ok(css.includes("Liquid Glass: primarySidebar"));
+    assert.ok(css.includes(".part.sidebar"));
+    assert.ok(css.includes("rgba(10, 10, 10, 0.800)"));
+    assert.ok(css.includes("backdrop-filter: blur(18px)"));
+    assert.ok(!css.includes("Liquid Glass: editor"));
+  });
+
+  test("Omits blur in translucent Liquid Glass mode", () => {
+    const css = generateLiquidGlassCss({
+      effect: "translucent",
+      surfaces: {
+        primarySidebar: { enabled: false, transparency: 0.18 },
+        secondarySidebar: { enabled: false, transparency: 0.18 },
+        editor: { enabled: true, transparency: 0.4 },
+        bottomPanel: { enabled: false, transparency: 0.16 },
+      },
+    });
+
+    assert.ok(css.includes("Liquid Glass: editor"));
+    assert.ok(css.includes("rgba(10, 10, 10, 0.600)"));
+    assert.ok(!css.includes("backdrop-filter"));
+  });
+
+  test("Clamps Liquid Glass transparency to its supported range", () => {
+    assert.strictEqual(clampTransparency(-0.5), 0);
+    assert.strictEqual(clampTransparency(0.35), 0.35);
+    assert.strictEqual(clampTransparency(1.5), 1);
+    assert.strictEqual(clampTransparency(Number.NaN), 0);
   });
 });

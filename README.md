@@ -55,6 +55,35 @@ The theme includes configurable neon glow effects for a more vibrant retro exper
 
 > **⚠️ Compatibility Note**: Glow modifies VS Code's installed workbench HTML and requires write access to the VS Code application files. A VS Code update can remove the modification; run Enable Glow again after updating if needed.
 
+## Apple Liquid Glass
+
+Apple Liquid Glass is an optional frosted workbench treatment. Every surface is disabled by default, so you can enable only the panels you want in Settings.
+
+### Liquid Glass Settings
+
+- `synthwaveDark.liquidGlass.effect` selects `frosted` for translucency with blur or `translucent` for translucency without blur.
+- `synthwaveDark.liquidGlass.primarySidebar.enabled` and `synthwaveDark.liquidGlass.primarySidebar.transparency` control the Explorer/Search side bar.
+- `synthwaveDark.liquidGlass.secondarySidebar.enabled` and `synthwaveDark.liquidGlass.secondarySidebar.transparency` control the secondary side bar.
+- `synthwaveDark.liquidGlass.editor.enabled` and `synthwaveDark.liquidGlass.editor.transparency` control the editor area.
+- `synthwaveDark.liquidGlass.bottomPanel.enabled` and `synthwaveDark.liquidGlass.bottomPanel.transparency` control the bottom panel.
+
+Transparency accepts values from `0` (opaque) to `1` (fully transparent). Reload VS Code after changing a Liquid Glass setting. Use `translucent` mode if blur affects rendering performance.
+
+```json
+{
+  "synthwaveDark.liquidGlass.effect": "frosted",
+  "synthwaveDark.liquidGlass.primarySidebar.enabled": true,
+  "synthwaveDark.liquidGlass.primarySidebar.transparency": 0.18,
+  "synthwaveDark.liquidGlass.secondarySidebar.enabled": false,
+  "synthwaveDark.liquidGlass.editor.enabled": true,
+  "synthwaveDark.liquidGlass.editor.transparency": 0.1,
+  "synthwaveDark.liquidGlass.bottomPanel.enabled": true,
+  "synthwaveDark.liquidGlass.bottomPanel.transparency": 0.16
+}
+```
+
+> **⚠️ Compatibility Note**: Like Glow, Liquid Glass modifies the installed VS Code workbench HTML. A VS Code update can remove the generated styles, and an upstream workbench layout change can affect an individual surface selector.
+
 ## 📦 Installation
 
 1. Open **Extensions** in Visual Studio Code (`Ctrl+Shift+X` or `Cmd+Shift+X`)
