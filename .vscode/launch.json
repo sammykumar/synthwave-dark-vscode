@@ -9,7 +9,6 @@
 			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",
-			"runtimeExecutable": "/Applications/Visual Studio Code - Insiders.app/Contents/MacOS/Code - Insiders",
 			"args": [
 				"--new-window",
 				"--user-data-dir=${workspaceFolder}/.vscode-insiders-test",
