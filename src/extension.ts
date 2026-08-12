@@ -108,6 +108,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Initial theme setup
   updateTheme();
+  applyWorkbenchFeatures();
 }
 
 function applyWorkbenchFeatures(
@@ -272,7 +273,7 @@ function updateTheme() {
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
 
 async function updateGlowConfiguration(enableGlow: boolean): Promise<void> {
   await vscode.workspace

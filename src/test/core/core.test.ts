@@ -26,21 +26,12 @@ suite("Core Functionality Test Suite", () => {
   });
 
   test("Extension should activate without errors", async () => {
-    const context = {
-      subscriptions: [],
-      workspaceState: {
-        get: () => undefined,
-        update: () => Promise.resolve(),
-      },
-      globalState: {
-        get: () => undefined,
-        update: () => Promise.resolve(),
-      },
-    } as any;
+    const extension = vscode.extensions.getExtension(
+      "SammyKumar.synthwave-dark-vscode",
+    );
 
-    assert.doesNotThrow(() => {
-      require("../../extension").activate(context);
-    });
+    assert.ok(extension !== undefined, "Extension should be installed");
+    await assert.doesNotReject(async () => extension.activate());
   });
 
   test("Commands should be registered", async () => {
@@ -122,6 +113,36 @@ suite("Core Functionality Test Suite", () => {
       recursive: true,
       force: true,
     });
+  });
+
+  test("Applies Liquid Glass when its setting is enabled", async () => {
+    const workbenchFilepath = findWorkbenchFilepath(vscode.env.appRoot);
+    assert.ok(workbenchFilepath, "VS Code workbench file should be writable");
+
+    const setting = "synthwaveDark.liquidGlass.primarySidebar.enabled";
+    const configuration = vscode.workspace.getConfiguration();
+    const configurationChanged = new Promise<void>((resolve) => {
+      const disposable = vscode.workspace.onDidChangeConfiguration((event) => {
+        if (event.affectsConfiguration(setting)) {
+          disposable.dispose();
+          resolve();
+        }
+      });
+    });
+
+    await configuration.update(setting, true, vscode.ConfigurationTarget.Global);
+    await configurationChanged;
+
+    try {
+      const workbenchHtml = fs.readFileSync(workbenchFilepath, "utf-8");
+      assert.ok(workbenchHtml.includes("Liquid Glass: primarySidebar"));
+    } finally {
+      await configuration.update(
+        setting,
+        false,
+        vscode.ConfigurationTarget.Global,
+      );
+    }
   });
 
   test("Does not generate Liquid Glass CSS when all surfaces are disabled", () => {
