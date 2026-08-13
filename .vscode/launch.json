@@ -12,7 +12,9 @@
 			"runtimeExecutable": "/Applications/Visual Studio Code - Insiders.app/Contents/MacOS/Code - Insiders",
 			"args": [
 				"--new-window",
-				"--user-data-dir=${workspaceFolder}/.vscode-insiders-test",
+				"--user-data-dir=/tmp/synthwave-dark-vscode-insiders-test",
+				"--remote-debugging-address=127.0.0.1",
+				"--remote-debugging-port=9222",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"${workspaceFolder}/../examples"
 			],

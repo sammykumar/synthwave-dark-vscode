@@ -33,6 +33,39 @@ const LIQUID_GLASS_SURFACES: LiquidGlassSurface[] = [
   "editor",
   "bottomPanel",
 ];
+const NATIVE_VIBRANCY_START = "/* SYNTHWAVE-DARK-LIQUID-GLASS-START */";
+const NATIVE_VIBRANCY_END = "/* SYNTHWAVE-DARK-LIQUID-GLASS-END */";
+const NATIVE_WINDOW_OPTIONS =
+  'frame:false,transparent:true,visualEffectState:"active",experimentalDarkMode';
+
+const NATIVE_VIBRANCY_RUNTIME = `
+${NATIVE_VIBRANCY_START}
+;(() => {
+  if (process.platform !== "darwin") {
+    return;
+  }
+
+  void import("electron").then(({ app, BrowserWindow }) => {
+    const applyVibrancy = (window) => {
+      const applyToWorkbench = () => {
+        const url = window.webContents.getURL();
+        if (!/workbench(?:\\.esm)?\\.html/.test(url)) {
+          return;
+        }
+
+        window.setBackgroundColor("#00000000");
+        window.setVibrancy("under-window");
+      };
+
+      window.webContents.once("dom-ready", applyToWorkbench);
+    };
+
+    app.on("browser-window-created", (_event, window) => applyVibrancy(window));
+    BrowserWindow.getAllWindows().forEach(applyVibrancy);
+  });
+})();
+${NATIVE_VIBRANCY_END}
+`;
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -76,7 +109,9 @@ export function activate(context: vscode.ExtensionContext) {
         await updateGlowConfiguration(false);
         await updateLiquidGlassConfiguration(false);
         isUpdatingGlowConfiguration = false;
-        await promptForReload("Glow modifications removed. Reload to apply?");
+        await promptForRestart(
+          "Glow and Liquid Glass modifications removed. Restart VS Code to apply.",
+        );
       }
     },
   );
@@ -88,19 +123,25 @@ export function activate(context: vscode.ExtensionContext) {
   // Update theme when configuration changes
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (
-        e.affectsConfiguration("synthwaveDark.enableGlow") ||
-        e.affectsConfiguration("synthwaveDark.liquidGlass")
-      ) {
+      const liquidGlassChanged = e.affectsConfiguration(
+        "synthwaveDark.liquidGlass",
+      );
+      if (e.affectsConfiguration("synthwaveDark.enableGlow") || liquidGlassChanged) {
         if (isUpdatingGlowConfiguration) {
           return;
         }
 
         const features = getWorkbenchFeatures();
         if (applyWorkbenchFeatures(features)) {
-          void promptForReload(
-            "Synthwave Dark workbench effects changed. Reload to apply?",
-          );
+          if (liquidGlassChanged && process.platform === "darwin") {
+            void promptForRestart(
+              "Liquid Glass changed. Restart VS Code to apply the native macOS material.",
+            );
+          } else {
+            void promptForReload(
+              "Synthwave Dark workbench effects changed. Reload to apply?",
+            );
+          }
         }
       }
     }),
@@ -131,6 +172,10 @@ function applyWorkbenchFeatures(
         ? disableLiquidGlass(currentFeatures.liquidGlass)
         : (overrides.liquidGlass ?? currentFeatures.liquidGlass),
   };
+
+  if (!applyNativeVibrancy(features)) {
+    return false;
+  }
 
   return hasWorkbenchEffects(features)
     ? injectCSSAndJS(workbenchHtmlPath, features)
@@ -205,6 +250,83 @@ function hasWorkbenchEffects(features: WorkbenchFeatures): boolean {
       (surface) => features.liquidGlass.surfaces[surface].enabled,
     )
   );
+}
+
+function hasLiquidGlass(features: WorkbenchFeatures): boolean {
+  return LIQUID_GLASS_SURFACES.some(
+    (surface) => features.liquidGlass.surfaces[surface].enabled,
+  );
+}
+
+function applyNativeVibrancy(features: WorkbenchFeatures): boolean {
+  if (process.platform !== "darwin") {
+    return true;
+  }
+
+  const electronMainFilepath = path.join(vscode.env.appRoot, "out", "main.js");
+  const updateNativeVibrancy = hasLiquidGlass(features)
+    ? enableNativeVibrancy
+    : disableNativeVibrancy;
+
+  if (updateNativeVibrancy(electronMainFilepath)) {
+    return true;
+  }
+
+  void vscode.window.showErrorMessage(
+    "Synthwave Dark could not update the VS Code native vibrancy settings.",
+  );
+  return false;
+}
+
+export function enableNativeVibrancy(electronMainFilepath: string): boolean {
+  try {
+    const source = fs.readFileSync(electronMainFilepath, "utf-8");
+    const cleanedSource = removeNativeVibrancy(source);
+
+    if (!cleanedSource.includes("experimentalDarkMode")) {
+      return false;
+    }
+
+    const patchedSource = cleanedSource.replace(
+      "experimentalDarkMode",
+      NATIVE_WINDOW_OPTIONS,
+    );
+    fs.writeFileSync(
+      electronMainFilepath,
+      `${patchedSource}${NATIVE_VIBRANCY_RUNTIME}`,
+      "utf-8",
+    );
+    return true;
+  } catch (error) {
+    console.error("Synthwave Dark failed to enable native vibrancy.", error);
+    return false;
+  }
+}
+
+export function disableNativeVibrancy(electronMainFilepath: string): boolean {
+  try {
+    const source = fs.readFileSync(electronMainFilepath, "utf-8");
+    fs.writeFileSync(electronMainFilepath, removeNativeVibrancy(source), "utf-8");
+    return true;
+  } catch (error) {
+    console.error("Synthwave Dark failed to disable native vibrancy.", error);
+    return false;
+  }
+}
+
+function removeNativeVibrancy(source: string): string {
+  const runtimePattern = new RegExp(
+    `\\n?${escapeRegExp(NATIVE_VIBRANCY_START)}[\\s\\S]*?${escapeRegExp(NATIVE_VIBRANCY_END)}\\n?`,
+    "g",
+  );
+
+  return source
+    .replace(runtimePattern, "")
+    .replace(NATIVE_WINDOW_OPTIONS, "experimentalDarkMode");
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 export function findWorkbenchFilepath(appRoot: string): string | undefined {
@@ -308,6 +430,10 @@ async function promptForReload(message: string): Promise<void> {
   }
 }
 
+async function promptForRestart(message: string): Promise<void> {
+  await vscode.window.showInformationMessage(message);
+}
+
 export function injectCSSAndJS(
   htmlFilepath: string,
   features: WorkbenchFeatures,
@@ -325,9 +451,19 @@ export function injectCSSAndJS(
       ? fs.readFileSync(path.join(__dirname, "css/global.css"), "utf-8")
       : "";
     const liquidGlassContent = generateLiquidGlassCss(features.liquidGlass);
-    const jsContent = features.enableGlow
-      ? `<script src="${path.join(__dirname, "js/glow.js")}"></script>`
-      : "";
+    const liquidGlassRuntimeScript = generateLiquidGlassRuntimeScript(
+      features.liquidGlass,
+    );
+    const jsContent = [
+      features.enableGlow
+        ? `<script src="${path.join(__dirname, "js/glow.js")}"></script>`
+        : "",
+      liquidGlassRuntimeScript
+        ? `<script>${liquidGlassRuntimeScript}</script>`
+        : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
     const injectionBlock = `
 <!-- START: Synthwave Dark ${version} (CSS + JS) -->
 <style>
@@ -361,11 +497,59 @@ export function generateLiquidGlassCss(config: LiquidGlassConfig): string {
       ? "backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%);"
       : "";
 
-  const selectors: Record<LiquidGlassSurface, string> = {
-    primarySidebar: ".monaco-workbench .part.sidebar",
-    secondarySidebar: ".monaco-workbench .part.auxiliarybar",
-    editor: ".monaco-workbench .part.editor",
-    bottomPanel: ".monaco-workbench .part.panel",
+  const surfaces: Record<
+    LiquidGlassSurface,
+    { container: string; transparentLayers: string[] }
+  > = {
+    primarySidebar: {
+      container: ".monaco-workbench .part.sidebar",
+      transparentLayers: [
+        ".monaco-workbench .part.sidebar > .content",
+        ".monaco-workbench .part.sidebar .composite",
+        ".monaco-workbench .part.sidebar .pane",
+        ".monaco-workbench .part.sidebar .pane-header",
+        ".monaco-workbench .part.sidebar .monaco-list",
+        ".monaco-workbench .part.sidebar .monaco-list-rows",
+        ".monaco-workbench .part.sidebar .monaco-tree-sticky-container",
+      ],
+    },
+    secondarySidebar: {
+      container: ".monaco-workbench .part.auxiliarybar",
+      transparentLayers: [
+        ".monaco-workbench .part.auxiliarybar > .content",
+        ".monaco-workbench .part.auxiliarybar .composite",
+        ".monaco-workbench .part.auxiliarybar .pane",
+        ".monaco-workbench .part.auxiliarybar .pane-header",
+        ".monaco-workbench .part.auxiliarybar .monaco-list",
+        ".monaco-workbench .part.auxiliarybar .monaco-list-rows",
+        ".monaco-workbench .part.auxiliarybar .monaco-tree-sticky-container",
+      ],
+    },
+    editor: {
+      container: ".monaco-workbench .part.editor",
+      transparentLayers: [
+        ".monaco-workbench .part.editor > .content",
+        ".monaco-workbench .part.editor .editor-group-container",
+        ".monaco-workbench .part.editor .editor-container",
+        ".monaco-workbench .part.editor .monaco-editor",
+        ".monaco-workbench .part.editor .monaco-editor-background",
+        ".monaco-workbench .part.editor .editor-group-container > .title",
+        ".monaco-workbench .part.editor .tabs-container",
+        ".monaco-workbench .part.editor .tabs-container .tab",
+      ],
+    },
+    bottomPanel: {
+      container: ".monaco-workbench .part.panel",
+      transparentLayers: [
+        ".monaco-workbench .part.panel > .content",
+        ".monaco-workbench .part.panel .composite",
+        ".monaco-workbench .part.panel .pane",
+        ".monaco-workbench .part.panel .pane-header",
+        ".monaco-workbench .part.panel .monaco-list",
+        ".monaco-workbench .part.panel .monaco-list-rows",
+        ".monaco-workbench .part.panel .xterm-viewport",
+      ],
+    },
   };
 
   return LIQUID_GLASS_SURFACES.flatMap((surface) => {
@@ -376,16 +560,75 @@ export function generateLiquidGlassCss(config: LiquidGlassConfig): string {
 
     const transparency = clampTransparency(surfaceConfig.transparency);
     const opacity = (1 - transparency).toFixed(3);
+    const { container, transparentLayers } = surfaces[surface];
     return `
 /* Liquid Glass: ${surface} */
-${selectors[surface]},
-${selectors[surface]} > .content {
-  background-color: rgba(10, 10, 10, ${opacity}) !important;
+html,
+body,
+.monaco-workbench {
+  background-color: transparent !important;
+}
+${container} {
+  background-color: rgba(18, 19, 20, ${opacity}) !important;
   border-color: rgba(255, 255, 255, 0.16) !important;
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.08);
   ${blur}
+}
+${transparentLayers.join(",\n")} {
+  background-color: transparent !important;
 }`;
   }).join("\n");
+}
+
+export function generateLiquidGlassRuntimeScript(
+  config: LiquidGlassConfig,
+): string {
+  const containers: Record<LiquidGlassSurface, string> = {
+    primarySidebar: ".monaco-workbench .part.sidebar",
+    secondarySidebar: ".monaco-workbench .part.auxiliarybar",
+    editor: ".monaco-workbench .part.editor",
+    bottomPanel: ".monaco-workbench .part.panel",
+  };
+
+  const surfaces = LIQUID_GLASS_SURFACES.flatMap((surface) => {
+    const surfaceConfig = config.surfaces[surface];
+    if (!surfaceConfig.enabled) {
+      return [];
+    }
+
+    return {
+      container: containers[surface],
+      backgroundColor: `rgba(18, 19, 20, ${(1 - clampTransparency(surfaceConfig.transparency)).toFixed(3)})`,
+    };
+  });
+
+  if (surfaces.length === 0) {
+    return "";
+  }
+
+  return `
+(() => {
+  const surfaces = ${JSON.stringify(surfaces)};
+  let observer;
+  const applySurfaceBackgrounds = () => {
+    const allSurfacesFound = surfaces.every(({ container, backgroundColor }) => {
+      const elements = document.querySelectorAll(container);
+      elements.forEach((element) => {
+        element.style.setProperty("background-color", backgroundColor, "important");
+      });
+      return elements.length > 0;
+    });
+
+    if (allSurfacesFound) {
+      observer?.disconnect();
+    }
+  };
+
+  observer = new MutationObserver(applySurfaceBackgrounds);
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+  applySurfaceBackgrounds();
+})();
+`;
 }
 
 export function cleanUpWorkbench(workbenchHtmlFilepath: string): boolean {

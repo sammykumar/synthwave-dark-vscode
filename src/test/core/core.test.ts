@@ -10,8 +10,11 @@ import * as vscode from "vscode";
 import {
   clampTransparency,
   cleanUpWorkbench,
+  disableNativeVibrancy,
+  enableNativeVibrancy,
   findWorkbenchFilepath,
   generateLiquidGlassCss,
+  generateLiquidGlassRuntimeScript,
 } from "../../extension";
 
 suite("Core Functionality Test Suite", () => {
@@ -115,6 +118,34 @@ suite("Core Functionality Test Suite", () => {
     });
   });
 
+  test("Enables and removes native macOS vibrancy from the Electron main bundle", () => {
+    const mainFilepath = path.join(
+      fs.mkdtempSync(path.join(os.tmpdir(), "synthwave-electron-")),
+      "main.js",
+    );
+    const originalSource =
+      "const windowOptions = {experimentalDarkMode:!0};";
+    fs.writeFileSync(mainFilepath, originalSource);
+
+    assert.strictEqual(enableNativeVibrancy(mainFilepath), true);
+
+    const patchedSource = fs.readFileSync(mainFilepath, "utf-8");
+    assert.ok(patchedSource.includes("SYNTHWAVE-DARK-LIQUID-GLASS-START"));
+    assert.ok(
+      patchedSource.includes(
+        "frame:false,transparent:true,visualEffectState:\"active\",experimentalDarkMode",
+      ),
+    );
+    assert.ok(patchedSource.includes("window.setVibrancy(\"under-window\")"));
+    assert.ok(patchedSource.includes('import("electron")'));
+    assert.ok(!patchedSource.includes('require("electron")'));
+
+    assert.strictEqual(disableNativeVibrancy(mainFilepath), true);
+    assert.strictEqual(fs.readFileSync(mainFilepath, "utf-8"), originalSource);
+
+    fs.rmSync(path.dirname(mainFilepath), { recursive: true, force: true });
+  });
+
   test("Applies Liquid Glass when its setting is enabled", async () => {
     const workbenchFilepath = findWorkbenchFilepath(vscode.env.appRoot);
     assert.ok(workbenchFilepath, "VS Code workbench file should be writable");
@@ -172,9 +203,28 @@ suite("Core Functionality Test Suite", () => {
 
     assert.ok(css.includes("Liquid Glass: primarySidebar"));
     assert.ok(css.includes(".part.sidebar"));
-    assert.ok(css.includes("rgba(10, 10, 10, 0.800)"));
+    assert.ok(css.includes("rgba(18, 19, 20, 0.800)"));
+    assert.ok(css.includes(".part.sidebar .monaco-list-rows"));
+    assert.ok(css.includes("background-color: transparent !important"));
     assert.ok(css.includes("backdrop-filter: blur(18px)"));
     assert.ok(!css.includes("Liquid Glass: editor"));
+  });
+
+  test("Generates a Liquid Glass runtime override for enabled surfaces", () => {
+    const script = generateLiquidGlassRuntimeScript({
+      effect: "frosted",
+      surfaces: {
+        primarySidebar: { enabled: true, transparency: 0.35 },
+        secondarySidebar: { enabled: false, transparency: 0.18 },
+        editor: { enabled: false, transparency: 0.1 },
+        bottomPanel: { enabled: false, transparency: 0.16 },
+      },
+    });
+
+    assert.ok(script.includes(".monaco-workbench .part.sidebar"));
+    assert.ok(script.includes("rgba(18, 19, 20, 0.650)"));
+    assert.ok(script.includes('setProperty("background-color"'));
+    assert.ok(!script.includes(".monaco-workbench .part.editor"));
   });
 
   test("Omits blur in translucent Liquid Glass mode", () => {
@@ -189,7 +239,8 @@ suite("Core Functionality Test Suite", () => {
     });
 
     assert.ok(css.includes("Liquid Glass: editor"));
-    assert.ok(css.includes("rgba(10, 10, 10, 0.600)"));
+    assert.ok(css.includes("rgba(18, 19, 20, 0.600)"));
+    assert.ok(css.includes(".part.editor .monaco-editor-background"));
     assert.ok(!css.includes("backdrop-filter"));
   });
 
